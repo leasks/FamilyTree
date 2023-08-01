@@ -11,7 +11,7 @@ import SceneKit
 class GameViewController: UIViewController {
     
     var gameView: SCNView {
-        return self.view as! SCNView
+        return self.view as! SCNView // swiftlint:disable:this force_cast
     }
     
     var gameController: GameController!
@@ -40,8 +40,8 @@ class GameViewController: UIViewController {
     @objc
     func handleTap(_ gestureRecognizer: UIGestureRecognizer) {
         // Highlight the tapped nodes
-        let p = gestureRecognizer.location(in: gameView)
-        gameController.highlightNodes(atPoint: p)
+        let point = gestureRecognizer.location(in: gameView)
+        gameController.highlightNodes(atPoint: point)
     }
     
 }

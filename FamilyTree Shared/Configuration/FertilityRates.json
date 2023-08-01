@@ -1,0 +1,40 @@
+[{
+    "type": "Fertility",
+    "startDate": "01/01/0001",
+    "endDate": "31/12/2999",
+    "rates": [{
+        "startAge": 19,
+        "endAge": 24,
+        "rate": 0.47
+    },
+    {
+        "startAge": 25,
+        "endAge": 29,
+        "rate": 0.45
+    },
+    {
+        "startAge": 30,
+        "endAge": 34,
+        "rate": 0.41
+    },
+    {
+        "startAge": 35,
+        "endAge": 39,
+        "rate": 0.34
+    },
+    {
+        "startAge": 40,
+        "endAge": 44,
+        "rate": 0.2
+    },
+    {
+        "startAge": 45,
+        "endAge": 90,
+        "rate": 0.04
+    },
+    {
+        "startAge": 10,
+        "endAge": 18,
+        "rate": 0.47
+    }]
+}]

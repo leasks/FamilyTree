@@ -27,7 +27,56 @@
 		CDF566C52A76A10F0019ABB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDF5668F2A76A10F0019ABB1 /* Assets.xcassets */; };
 		CDF566C62A76A10F0019ABB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDF5668F2A76A10F0019ABB1 /* Assets.xcassets */; };
 		CDF566C72A76A10F0019ABB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDF5668F2A76A10F0019ABB1 /* Assets.xcassets */; };
+		CDF566D42A76A16C0019ABB1 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D32A76A16C0019ABB1 /* Person.swift */; };
+		CDF566D52A76A16C0019ABB1 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D32A76A16C0019ABB1 /* Person.swift */; };
+		CDF566D62A76A16C0019ABB1 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D32A76A16C0019ABB1 /* Person.swift */; };
+		CDF566D82A76A3DC0019ABB1 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D72A76A3DC0019ABB1 /* Money.swift */; };
+		CDF566D92A76A3DC0019ABB1 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D72A76A3DC0019ABB1 /* Money.swift */; };
+		CDF566DA2A76A3DC0019ABB1 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D72A76A3DC0019ABB1 /* Money.swift */; };
+		CDF566DC2A76A3EE0019ABB1 /* Affiliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DB2A76A3EE0019ABB1 /* Affiliation.swift */; };
+		CDF566DD2A76A3EE0019ABB1 /* Affiliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DB2A76A3EE0019ABB1 /* Affiliation.swift */; };
+		CDF566DE2A76A3EE0019ABB1 /* Affiliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DB2A76A3EE0019ABB1 /* Affiliation.swift */; };
+		CDF566E02A76A3FA0019ABB1 /* Injury.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DF2A76A3FA0019ABB1 /* Injury.swift */; };
+		CDF566E12A76A3FA0019ABB1 /* Injury.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DF2A76A3FA0019ABB1 /* Injury.swift */; };
+		CDF566E22A76A3FA0019ABB1 /* Injury.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DF2A76A3FA0019ABB1 /* Injury.swift */; };
+		CDF566E42A76A4060019ABB1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E32A76A4060019ABB1 /* Location.swift */; };
+		CDF566E52A76A4060019ABB1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E32A76A4060019ABB1 /* Location.swift */; };
+		CDF566E62A76A4060019ABB1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E32A76A4060019ABB1 /* Location.swift */; };
+		CDF566E82A76A4100019ABB1 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E72A76A4100019ABB1 /* Job.swift */; };
+		CDF566E92A76A4100019ABB1 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E72A76A4100019ABB1 /* Job.swift */; };
+		CDF566EA2A76A4100019ABB1 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E72A76A4100019ABB1 /* Job.swift */; };
+		CDF566EC2A76A4B70019ABB1 /* Cure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EB2A76A4B70019ABB1 /* Cure.swift */; };
+		CDF566ED2A76A4B70019ABB1 /* Cure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EB2A76A4B70019ABB1 /* Cure.swift */; };
+		CDF566EE2A76A4B70019ABB1 /* Cure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EB2A76A4B70019ABB1 /* Cure.swift */; };
+		CDF566F02A76A7170019ABB1 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EF2A76A7170019ABB1 /* GameEngine.swift */; };
+		CDF566F12A76A7170019ABB1 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EF2A76A7170019ABB1 /* GameEngine.swift */; };
+		CDF566F22A76A7170019ABB1 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EF2A76A7170019ABB1 /* GameEngine.swift */; };
+		CDF566F42A76A73F0019ABB1 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566F32A76A73F0019ABB1 /* Events.swift */; };
+		CDF566F52A76A73F0019ABB1 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566F32A76A73F0019ABB1 /* Events.swift */; };
+		CDF566F62A76A73F0019ABB1 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566F32A76A73F0019ABB1 /* Events.swift */; };
+		CDF567082A76ABD10019ABB1 /* CharacterDies.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566F72A76AB110019ABB1 /* CharacterDies.swift */; };
+		CDF5670B2A76C9F70019ABB1 /* TreeBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5670A2A76C9F70019ABB1 /* TreeBuilding.swift */; };
+		CDF5670D2A7809BC0019ABB1 /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5670C2A7809BC0019ABB1 /* Rates.swift */; };
+		CDF5670E2A7809BC0019ABB1 /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5670C2A7809BC0019ABB1 /* Rates.swift */; };
+		CDF5670F2A7809BC0019ABB1 /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5670C2A7809BC0019ABB1 /* Rates.swift */; };
+		CDF567112A780CCB0019ABB1 /* RatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF567102A780CCB0019ABB1 /* RatesTests.swift */; };
+		CDF567142A7834A50019ABB1 /* FertilityRates.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567132A7834A50019ABB1 /* FertilityRates.json */; };
+		CDF567152A7834A50019ABB1 /* FertilityRates.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567132A7834A50019ABB1 /* FertilityRates.json */; };
+		CDF567162A7834A50019ABB1 /* FertilityRates.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567132A7834A50019ABB1 /* FertilityRates.json */; };
+		CDF567182A78E4CD0019ABB1 /* Names.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567172A78E4CC0019ABB1 /* Names.json */; };
+		CDF567192A78E4CD0019ABB1 /* Names.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567172A78E4CC0019ABB1 /* Names.json */; };
+		CDF5671A2A78E4CD0019ABB1 /* Names.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567172A78E4CC0019ABB1 /* Names.json */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CDF567032A76ABCB0019ABB1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CDF566882A76A10A0019ABB1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CDF566932A76A10F0019ABB1;
+			remoteInfo = "FamilyTree iOS";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		CDF5668D2A76A10B0019ABB1 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
@@ -48,6 +97,22 @@
 		CDF566B92A76A10F0019ABB1 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		CDF566BC2A76A10F0019ABB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CDF566BE2A76A10F0019ABB1 /* FamilyTree_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyTree_macOS.entitlements; sourceTree = "<group>"; };
+		CDF566D32A76A16C0019ABB1 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		CDF566D72A76A3DC0019ABB1 /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
+		CDF566DB2A76A3EE0019ABB1 /* Affiliation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Affiliation.swift; sourceTree = "<group>"; };
+		CDF566DF2A76A3FA0019ABB1 /* Injury.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injury.swift; sourceTree = "<group>"; };
+		CDF566E32A76A4060019ABB1 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		CDF566E72A76A4100019ABB1 /* Job.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
+		CDF566EB2A76A4B70019ABB1 /* Cure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cure.swift; sourceTree = "<group>"; };
+		CDF566EF2A76A7170019ABB1 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
+		CDF566F32A76A73F0019ABB1 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
+		CDF566F72A76AB110019ABB1 /* CharacterDies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDies.swift; sourceTree = "<group>"; };
+		CDF566FF2A76ABCB0019ABB1 /* FamilyTreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FamilyTreeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDF5670A2A76C9F70019ABB1 /* TreeBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeBuilding.swift; sourceTree = "<group>"; };
+		CDF5670C2A7809BC0019ABB1 /* Rates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rates.swift; sourceTree = "<group>"; };
+		CDF567102A780CCB0019ABB1 /* RatesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesTests.swift; sourceTree = "<group>"; };
+		CDF567132A7834A50019ABB1 /* FertilityRates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FertilityRates.json; sourceTree = "<group>"; };
+		CDF567172A78E4CC0019ABB1 /* Names.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Names.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +137,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CDF566FC2A76ABCB0019ABB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -82,6 +154,7 @@
 				CDF566962A76A10F0019ABB1 /* FamilyTree iOS */,
 				CDF566A62A76A10F0019ABB1 /* FamilyTree tvOS */,
 				CDF566B62A76A10F0019ABB1 /* FamilyTree macOS */,
+				CDF567002A76ABCB0019ABB1 /* FamilyTreeTests */,
 				CDF566952A76A10F0019ABB1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,9 +162,20 @@
 		CDF5668C2A76A10B0019ABB1 /* FamilyTree Shared */ = {
 			isa = PBXGroup;
 			children = (
+				CDF567122A7833EA0019ABB1 /* Configuration */,
 				CDF5668D2A76A10B0019ABB1 /* GameController.swift */,
+				CDF566D32A76A16C0019ABB1 /* Person.swift */,
+				CDF566F32A76A73F0019ABB1 /* Events.swift */,
+				CDF566DF2A76A3FA0019ABB1 /* Injury.swift */,
+				CDF566EB2A76A4B70019ABB1 /* Cure.swift */,
+				CDF566E32A76A4060019ABB1 /* Location.swift */,
+				CDF566E72A76A4100019ABB1 /* Job.swift */,
+				CDF566EF2A76A7170019ABB1 /* GameEngine.swift */,
+				CDF566DB2A76A3EE0019ABB1 /* Affiliation.swift */,
 				CDF5668E2A76A10B0019ABB1 /* Art.scnassets */,
 				CDF5668F2A76A10F0019ABB1 /* Assets.xcassets */,
+				CDF566D72A76A3DC0019ABB1 /* Money.swift */,
+				CDF5670C2A7809BC0019ABB1 /* Rates.swift */,
 			);
 			path = "FamilyTree Shared";
 			sourceTree = "<group>";
@@ -102,6 +186,7 @@
 				CDF566942A76A10F0019ABB1 /* FamilyTree.app */,
 				CDF566A52A76A10F0019ABB1 /* FamilyTree.app */,
 				CDF566B52A76A10F0019ABB1 /* FamilyTree.app */,
+				CDF566FF2A76ABCB0019ABB1 /* FamilyTreeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,6 +222,25 @@
 				CDF566BE2A76A10F0019ABB1 /* FamilyTree_macOS.entitlements */,
 			);
 			path = "FamilyTree macOS";
+			sourceTree = "<group>";
+		};
+		CDF567002A76ABCB0019ABB1 /* FamilyTreeTests */ = {
+			isa = PBXGroup;
+			children = (
+				CDF566F72A76AB110019ABB1 /* CharacterDies.swift */,
+				CDF5670A2A76C9F70019ABB1 /* TreeBuilding.swift */,
+				CDF567102A780CCB0019ABB1 /* RatesTests.swift */,
+			);
+			path = FamilyTreeTests;
+			sourceTree = "<group>";
+		};
+		CDF567122A7833EA0019ABB1 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				CDF567132A7834A50019ABB1 /* FertilityRates.json */,
+				CDF567172A78E4CC0019ABB1 /* Names.json */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +297,25 @@
 			productReference = CDF566B52A76A10F0019ABB1 /* FamilyTree.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CDF566FE2A76ABCB0019ABB1 /* FamilyTreeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CDF567052A76ABCB0019ABB1 /* Build configuration list for PBXNativeTarget "FamilyTreeTests" */;
+			buildPhases = (
+				CDF567092A76B3BA0019ABB1 /* ShellScript */,
+				CDF566FB2A76ABCB0019ABB1 /* Sources */,
+				CDF566FC2A76ABCB0019ABB1 /* Frameworks */,
+				CDF566FD2A76ABCB0019ABB1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CDF567042A76ABCB0019ABB1 /* PBXTargetDependency */,
+			);
+			name = FamilyTreeTests;
+			productName = FamilyTreeTests;
+			productReference = CDF566FF2A76ABCB0019ABB1 /* FamilyTreeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -212,6 +335,10 @@
 					CDF566B42A76A10F0019ABB1 = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
+					CDF566FE2A76ABCB0019ABB1 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = CDF566932A76A10F0019ABB1;
+					};
 				};
 			};
 			buildConfigurationList = CDF5668B2A76A10A0019ABB1 /* Build configuration list for PBXProject "FamilyTree" */;
@@ -230,6 +357,7 @@
 				CDF566932A76A10F0019ABB1 /* FamilyTree iOS */,
 				CDF566A42A76A10F0019ABB1 /* FamilyTree tvOS */,
 				CDF566B42A76A10F0019ABB1 /* FamilyTree macOS */,
+				CDF566FE2A76ABCB0019ABB1 /* FamilyTreeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -243,6 +371,8 @@
 				CDF566A02A76A10F0019ABB1 /* LaunchScreen.storyboard in Resources */,
 				CDF566C52A76A10F0019ABB1 /* Assets.xcassets in Resources */,
 				CDF566C22A76A10F0019ABB1 /* Art.scnassets in Resources */,
+				CDF567182A78E4CD0019ABB1 /* Names.json in Resources */,
+				CDF567142A7834A50019ABB1 /* FertilityRates.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +384,8 @@
 				CDF566B02A76A10F0019ABB1 /* LaunchScreen.storyboard in Resources */,
 				CDF566C62A76A10F0019ABB1 /* Assets.xcassets in Resources */,
 				CDF566C32A76A10F0019ABB1 /* Art.scnassets in Resources */,
+				CDF567192A78E4CD0019ABB1 /* Names.json in Resources */,
+				CDF567152A7834A50019ABB1 /* FertilityRates.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,19 +395,58 @@
 			files = (
 				CDF566BD2A76A10F0019ABB1 /* Main.storyboard in Resources */,
 				CDF566C72A76A10F0019ABB1 /* Assets.xcassets in Resources */,
+				CDF567162A7834A50019ABB1 /* FertilityRates.json in Resources */,
 				CDF566C42A76A10F0019ABB1 /* Art.scnassets in Resources */,
+				CDF5671A2A78E4CD0019ABB1 /* Names.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDF566FD2A76ABCB0019ABB1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CDF567092A76B3BA0019ABB1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CDF566902A76A10F0019ABB1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDF566F42A76A73F0019ABB1 /* Events.swift in Sources */,
 				CDF5669A2A76A10F0019ABB1 /* GameViewController.swift in Sources */,
+				CDF566D82A76A3DC0019ABB1 /* Money.swift in Sources */,
+				CDF566E42A76A4060019ABB1 /* Location.swift in Sources */,
+				CDF566D42A76A16C0019ABB1 /* Person.swift in Sources */,
+				CDF566EC2A76A4B70019ABB1 /* Cure.swift in Sources */,
+				CDF5670D2A7809BC0019ABB1 /* Rates.swift in Sources */,
+				CDF566E82A76A4100019ABB1 /* Job.swift in Sources */,
+				CDF566F02A76A7170019ABB1 /* GameEngine.swift in Sources */,
 				CDF566BF2A76A10F0019ABB1 /* GameController.swift in Sources */,
+				CDF566DC2A76A3EE0019ABB1 /* Affiliation.swift in Sources */,
+				CDF566E02A76A3FA0019ABB1 /* Injury.swift in Sources */,
 				CDF566982A76A10F0019ABB1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,8 +455,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDF566F52A76A73F0019ABB1 /* Events.swift in Sources */,
 				CDF566AA2A76A10F0019ABB1 /* GameViewController.swift in Sources */,
+				CDF566D92A76A3DC0019ABB1 /* Money.swift in Sources */,
+				CDF566E52A76A4060019ABB1 /* Location.swift in Sources */,
+				CDF566D52A76A16C0019ABB1 /* Person.swift in Sources */,
+				CDF566ED2A76A4B70019ABB1 /* Cure.swift in Sources */,
+				CDF5670E2A7809BC0019ABB1 /* Rates.swift in Sources */,
+				CDF566E92A76A4100019ABB1 /* Job.swift in Sources */,
+				CDF566F12A76A7170019ABB1 /* GameEngine.swift in Sources */,
 				CDF566C02A76A10F0019ABB1 /* GameController.swift in Sources */,
+				CDF566DD2A76A3EE0019ABB1 /* Affiliation.swift in Sources */,
+				CDF566E12A76A3FA0019ABB1 /* Injury.swift in Sources */,
 				CDF566A82A76A10F0019ABB1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,13 +475,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDF566F62A76A73F0019ABB1 /* Events.swift in Sources */,
 				CDF566BA2A76A10F0019ABB1 /* GameViewController.swift in Sources */,
+				CDF566DA2A76A3DC0019ABB1 /* Money.swift in Sources */,
+				CDF566E62A76A4060019ABB1 /* Location.swift in Sources */,
+				CDF566D62A76A16C0019ABB1 /* Person.swift in Sources */,
+				CDF566EE2A76A4B70019ABB1 /* Cure.swift in Sources */,
+				CDF5670F2A7809BC0019ABB1 /* Rates.swift in Sources */,
+				CDF566EA2A76A4100019ABB1 /* Job.swift in Sources */,
+				CDF566F22A76A7170019ABB1 /* GameEngine.swift in Sources */,
 				CDF566C12A76A10F0019ABB1 /* GameController.swift in Sources */,
+				CDF566DE2A76A3EE0019ABB1 /* Affiliation.swift in Sources */,
+				CDF566E22A76A3FA0019ABB1 /* Injury.swift in Sources */,
 				CDF566B82A76A10F0019ABB1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CDF566FB2A76ABCB0019ABB1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDF567112A780CCB0019ABB1 /* RatesTests.swift in Sources */,
+				CDF567082A76ABD10019ABB1 /* CharacterDies.swift in Sources */,
+				CDF5670B2A76C9F70019ABB1 /* TreeBuilding.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CDF567042A76ABCB0019ABB1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CDF566932A76A10F0019ABB1 /* FamilyTree iOS */;
+			targetProxy = CDF567032A76ABCB0019ABB1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CDF5669B2A76A10F0019ABB1 /* Main.storyboard */ = {
@@ -380,6 +589,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -438,6 +648,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -629,6 +840,54 @@
 			};
 			name = Release;
 		};
+		CDF567062A76ABCB0019ABB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTreeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FamilyTree.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FamilyTree";
+			};
+			name = Debug;
+		};
+		CDF567072A76ABCB0019ABB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTreeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FamilyTree.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FamilyTree";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -664,6 +923,15 @@
 			buildConfigurations = (
 				CDF566D12A76A10F0019ABB1 /* Debug */,
 				CDF566D22A76A10F0019ABB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CDF567052A76ABCB0019ABB1 /* Build configuration list for PBXNativeTarget "FamilyTreeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDF567062A76ABCB0019ABB1 /* Debug */,
+				CDF567072A76ABCB0019ABB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
