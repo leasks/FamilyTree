@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Sword",
+        "inheritable": true,
+        "forSale": false
+    },
+    {
+        "name": "Land",
+        "inheritable": true,
+        "forSale": false
+    },
+    {
+        "name": "Coin",
+        "inheritable": true,
+        "forSale": false
+    }
+]

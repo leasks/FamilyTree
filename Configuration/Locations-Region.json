@@ -1,0 +1,38 @@
+[
+    {
+        "name": "South East",
+        "type": "region"
+    },
+    {
+        "name": "South West",
+        "type": "region"
+    },
+    {
+        "name": "North East",
+        "type": "region"
+    },
+    {
+        "name": "North West",
+        "type": "region"
+    },
+    {
+        "name": "Midlands",
+        "type": "region"
+    },
+    {
+        "name": "East Anglia",
+        "type": "region"
+    },
+    {
+        "name": "Kent",
+        "region": "South East",
+        "type": "county"
+    },
+    {
+        "name": "Canterbury",
+        "founded": -10,
+        "county": "Kent",
+        "type": "town"
+    },
+
+]
