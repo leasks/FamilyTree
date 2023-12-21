@@ -7,96 +7,133 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CDF566982A76A10F0019ABB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566972A76A10F0019ABB1 /* AppDelegate.swift */; };
-		CDF5669A2A76A10F0019ABB1 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566992A76A10F0019ABB1 /* GameViewController.swift */; };
-		CDF5669D2A76A10F0019ABB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDF5669B2A76A10F0019ABB1 /* Main.storyboard */; };
-		CDF566A02A76A10F0019ABB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDF5669E2A76A10F0019ABB1 /* LaunchScreen.storyboard */; };
-		CDF566A82A76A10F0019ABB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566A72A76A10F0019ABB1 /* AppDelegate.swift */; };
-		CDF566AA2A76A10F0019ABB1 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566A92A76A10F0019ABB1 /* GameViewController.swift */; };
-		CDF566AD2A76A10F0019ABB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDF566AB2A76A10F0019ABB1 /* Main.storyboard */; };
-		CDF566B02A76A10F0019ABB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDF566AE2A76A10F0019ABB1 /* LaunchScreen.storyboard */; };
-		CDF566B82A76A10F0019ABB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566B72A76A10F0019ABB1 /* AppDelegate.swift */; };
-		CDF566BA2A76A10F0019ABB1 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566B92A76A10F0019ABB1 /* GameViewController.swift */; };
-		CDF566BD2A76A10F0019ABB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDF566BB2A76A10F0019ABB1 /* Main.storyboard */; };
-		CDF566BF2A76A10F0019ABB1 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5668D2A76A10B0019ABB1 /* GameController.swift */; };
-		CDF566C02A76A10F0019ABB1 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5668D2A76A10B0019ABB1 /* GameController.swift */; };
-		CDF566C12A76A10F0019ABB1 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5668D2A76A10B0019ABB1 /* GameController.swift */; };
-		CDF566C22A76A10F0019ABB1 /* Art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CDF5668E2A76A10B0019ABB1 /* Art.scnassets */; };
-		CDF566C32A76A10F0019ABB1 /* Art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CDF5668E2A76A10B0019ABB1 /* Art.scnassets */; };
-		CDF566C42A76A10F0019ABB1 /* Art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CDF5668E2A76A10B0019ABB1 /* Art.scnassets */; };
-		CDF566C52A76A10F0019ABB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDF5668F2A76A10F0019ABB1 /* Assets.xcassets */; };
-		CDF566C62A76A10F0019ABB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDF5668F2A76A10F0019ABB1 /* Assets.xcassets */; };
-		CDF566C72A76A10F0019ABB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDF5668F2A76A10F0019ABB1 /* Assets.xcassets */; };
-		CDF566D42A76A16C0019ABB1 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D32A76A16C0019ABB1 /* Person.swift */; };
-		CDF566D52A76A16C0019ABB1 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D32A76A16C0019ABB1 /* Person.swift */; };
-		CDF566D62A76A16C0019ABB1 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D32A76A16C0019ABB1 /* Person.swift */; };
-		CDF566D82A76A3DC0019ABB1 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D72A76A3DC0019ABB1 /* Money.swift */; };
-		CDF566D92A76A3DC0019ABB1 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D72A76A3DC0019ABB1 /* Money.swift */; };
-		CDF566DA2A76A3DC0019ABB1 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D72A76A3DC0019ABB1 /* Money.swift */; };
-		CDF566DC2A76A3EE0019ABB1 /* Affiliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DB2A76A3EE0019ABB1 /* Affiliation.swift */; };
-		CDF566DD2A76A3EE0019ABB1 /* Affiliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DB2A76A3EE0019ABB1 /* Affiliation.swift */; };
-		CDF566DE2A76A3EE0019ABB1 /* Affiliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DB2A76A3EE0019ABB1 /* Affiliation.swift */; };
-		CDF566E02A76A3FA0019ABB1 /* Injury.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DF2A76A3FA0019ABB1 /* Injury.swift */; };
-		CDF566E12A76A3FA0019ABB1 /* Injury.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DF2A76A3FA0019ABB1 /* Injury.swift */; };
-		CDF566E22A76A3FA0019ABB1 /* Injury.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DF2A76A3FA0019ABB1 /* Injury.swift */; };
-		CDF566E42A76A4060019ABB1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E32A76A4060019ABB1 /* Location.swift */; };
-		CDF566E52A76A4060019ABB1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E32A76A4060019ABB1 /* Location.swift */; };
-		CDF566E62A76A4060019ABB1 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E32A76A4060019ABB1 /* Location.swift */; };
-		CDF566E82A76A4100019ABB1 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E72A76A4100019ABB1 /* Job.swift */; };
-		CDF566E92A76A4100019ABB1 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E72A76A4100019ABB1 /* Job.swift */; };
-		CDF566EA2A76A4100019ABB1 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E72A76A4100019ABB1 /* Job.swift */; };
-		CDF566EC2A76A4B70019ABB1 /* Cure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EB2A76A4B70019ABB1 /* Cure.swift */; };
-		CDF566ED2A76A4B70019ABB1 /* Cure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EB2A76A4B70019ABB1 /* Cure.swift */; };
-		CDF566EE2A76A4B70019ABB1 /* Cure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EB2A76A4B70019ABB1 /* Cure.swift */; };
-		CDF566F02A76A7170019ABB1 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EF2A76A7170019ABB1 /* GameEngine.swift */; };
-		CDF566F12A76A7170019ABB1 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EF2A76A7170019ABB1 /* GameEngine.swift */; };
-		CDF566F22A76A7170019ABB1 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EF2A76A7170019ABB1 /* GameEngine.swift */; };
-		CDF566F42A76A73F0019ABB1 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566F32A76A73F0019ABB1 /* Events.swift */; };
-		CDF566F52A76A73F0019ABB1 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566F32A76A73F0019ABB1 /* Events.swift */; };
-		CDF566F62A76A73F0019ABB1 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566F32A76A73F0019ABB1 /* Events.swift */; };
-		CDF567082A76ABD10019ABB1 /* CharacterDies.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566F72A76AB110019ABB1 /* CharacterDies.swift */; };
-		CDF5670B2A76C9F70019ABB1 /* TreeBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5670A2A76C9F70019ABB1 /* TreeBuilding.swift */; };
-		CDF5670D2A7809BC0019ABB1 /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5670C2A7809BC0019ABB1 /* Rates.swift */; };
-		CDF5670E2A7809BC0019ABB1 /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5670C2A7809BC0019ABB1 /* Rates.swift */; };
-		CDF5670F2A7809BC0019ABB1 /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5670C2A7809BC0019ABB1 /* Rates.swift */; };
-		CDF567112A780CCB0019ABB1 /* RatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF567102A780CCB0019ABB1 /* RatesTests.swift */; };
-		CDF567142A7834A50019ABB1 /* FertilityRates.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567132A7834A50019ABB1 /* FertilityRates.json */; };
-		CDF567152A7834A50019ABB1 /* FertilityRates.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567132A7834A50019ABB1 /* FertilityRates.json */; };
-		CDF567162A7834A50019ABB1 /* FertilityRates.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567132A7834A50019ABB1 /* FertilityRates.json */; };
-		CDF567182A78E4CD0019ABB1 /* Names.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567172A78E4CC0019ABB1 /* Names.json */; };
-		CDF567192A78E4CD0019ABB1 /* Names.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567172A78E4CC0019ABB1 /* Names.json */; };
-		CDF5671A2A78E4CD0019ABB1 /* Names.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF567172A78E4CC0019ABB1 /* Names.json */; };
+		CD10337F2A7F7BCB004E0E5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10337E2A7F7BCB004E0E5F /* AppDelegate.swift */; };
+		CD1033812A7F7BCB004E0E5F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1033802A7F7BCB004E0E5F /* SceneDelegate.swift */; };
+		CD1033832A7F7BCB004E0E5F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1033822A7F7BCB004E0E5F /* GameViewController.swift */; };
+		CD1033882A7F7BCD004E0E5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD1033872A7F7BCD004E0E5F /* Assets.xcassets */; };
+		CD10338B2A7F7BCD004E0E5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD1033892A7F7BCD004E0E5F /* LaunchScreen.storyboard */; };
+		CD1033A42A7F7C6B004E0E5F /* GameTurns.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10339F2A7F7C6A004E0E5F /* GameTurns.swift */; };
+		CD1033A52A7F7C6B004E0E5F /* TreeBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1033A02A7F7C6A004E0E5F /* TreeBuilding.swift */; };
+		CD1033A62A7F7C6B004E0E5F /* EventsTriggers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1033A12A7F7C6A004E0E5F /* EventsTriggers.swift */; };
+		CD1033A72A7F7C6B004E0E5F /* RatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1033A22A7F7C6B004E0E5F /* RatesTests.swift */; };
+		CD1033A82A7F7C6B004E0E5F /* CharacterDies.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1033A32A7F7C6B004E0E5F /* CharacterDies.swift */; };
+		CD1033A92A7F81E3004E0E5F /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E72A76A4100019ABB1 /* Job.swift */; };
+		CD1033AA2A7F81E3004E0E5F /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D32A76A16C0019ABB1 /* Person.swift */; };
+		CD1033AB2A7F81E3004E0E5F /* Injury.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DF2A76A3FA0019ABB1 /* Injury.swift */; };
+		CD1033AC2A7F81E3004E0E5F /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EF2A76A7170019ABB1 /* GameEngine.swift */; };
+		CD1033AD2A7F81E3004E0E5F /* Affiliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566DB2A76A3EE0019ABB1 /* Affiliation.swift */; };
+		CD1033AE2A7F81E3004E0E5F /* Cure.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566EB2A76A4B70019ABB1 /* Cure.swift */; };
+		CD1033AF2A7F81E3004E0E5F /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566E32A76A4060019ABB1 /* Location.swift */; };
+		CD1033B02A7F81E3004E0E5F /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566F32A76A73F0019ABB1 /* Events.swift */; };
+		CD1033B12A7F81E8004E0E5F /* Rates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5670C2A7809BC0019ABB1 /* Rates.swift */; };
+		CD1033B22A7F81E8004E0E5F /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF566D72A76A3DC0019ABB1 /* Money.swift */; };
+		CD1033BB2A7F8405004E0E5F /* Names.json in Resources */ = {isa = PBXBuildFile; fileRef = CD1033B72A7F8405004E0E5F /* Names.json */; };
+		CD1033BC2A7F8405004E0E5F /* FlatRates.json in Resources */ = {isa = PBXBuildFile; fileRef = CD1033B82A7F8405004E0E5F /* FlatRates.json */; };
+		CD1033BD2A7F8405004E0E5F /* Romans.json in Resources */ = {isa = PBXBuildFile; fileRef = CD1033B92A7F8405004E0E5F /* Romans.json */; };
+		CD1033BE2A7F8405004E0E5F /* AgeBasedRates.json in Resources */ = {isa = PBXBuildFile; fileRef = CD1033BA2A7F8405004E0E5F /* AgeBasedRates.json */; };
+		CD1033C22A80CDAC004E0E5F /* JobsTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1033C12A80CDAC004E0E5F /* JobsTesting.swift */; };
+		CD2D1CA32AC4A5F600C31A77 /* Events.json in Resources */ = {isa = PBXBuildFile; fileRef = CD2D1CA22AC4A5F600C31A77 /* Events.json */; };
+		CD2D1CA52AC4A81F00C31A77 /* GameStart.json in Resources */ = {isa = PBXBuildFile; fileRef = CD2D1CA42AC4A81F00C31A77 /* GameStart.json */; };
+		CD2D1CA72AC4AAB100C31A77 /* AngloSaxons.json in Resources */ = {isa = PBXBuildFile; fileRef = CD2D1CA62AC4AAB100C31A77 /* AngloSaxons.json */; };
+		CD2D1CA92AC4ABD200C31A77 /* Normans.json in Resources */ = {isa = PBXBuildFile; fileRef = CD2D1CA82AC4ABD200C31A77 /* Normans.json */; };
+		CD44EE492AC2EA7700CA1C19 /* UIWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44EE482AC2EA7700CA1C19 /* UIWidgets.swift */; };
+		CD4CADC92AA90E7E00B86B31 /* Locations-County.json in Resources */ = {isa = PBXBuildFile; fileRef = CD4CADC82AA90E7E00B86B31 /* Locations-County.json */; };
+		CD4CADCB2AA90E8F00B86B31 /* Locations-Town.json in Resources */ = {isa = PBXBuildFile; fileRef = CD4CADCA2AA90E8F00B86B31 /* Locations-Town.json */; };
+		CD4CADCD2AB08D2F00B86B31 /* Injuries.json in Resources */ = {isa = PBXBuildFile; fileRef = CD4CADCC2AB08D2F00B86B31 /* Injuries.json */; };
+		CD79D9CF2A84B767006BCF07 /* PlayerDecisions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79D9CE2A84B767006BCF07 /* PlayerDecisions.swift */; };
+		CD79D9D32A8A24FA006BCF07 /* TreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79D9D22A8A24FA006BCF07 /* TreeViewController.swift */; };
+		CD7C35C42AC9AC65007902DB /* WorldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C35C32AC9AC65007902DB /* WorldViewController.swift */; };
+		CD7C35C62ACD429B007902DB /* HealthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C35C52ACD429A007902DB /* HealthViewController.swift */; };
+		CD7C35C82ACD44A2007902DB /* InjuryTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7C35C72ACD44A2007902DB /* InjuryTesting.swift */; };
+		CD9643EC2AF039D00092A14C /* ExchRates.json in Resources */ = {isa = PBXBuildFile; fileRef = CD9643EB2AF039D00092A14C /* ExchRates.json */; };
+		CD9643EE2AF03AED0092A14C /* SocialClass.json in Resources */ = {isa = PBXBuildFile; fileRef = CD9643ED2AF03AED0092A14C /* SocialClass.json */; };
+		CD9643F02AF238F20092A14C /* Resources.json in Resources */ = {isa = PBXBuildFile; fileRef = CD9643EF2AF238F20092A14C /* Resources.json */; };
+		CD9643F22AF2DE490092A14C /* ResourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9643F12AF2DE490092A14C /* ResourceViewController.swift */; };
+		CD9643F42AF2DE5C0092A14C /* PersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9643F32AF2DE5C0092A14C /* PersonalViewController.swift */; };
+		CD9846152AD678390009B1A4 /* SocialClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9846142AD678390009B1A4 /* SocialClass.swift */; };
+		CD9CCE0E2AD3D159001C7451 /* SocialClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9CCE0D2AD3D159001C7451 /* SocialClassTests.swift */; };
+		CDA88DAF2A8CA9EC009B9AC4 /* LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA88DAE2A8CA9EC009B9AC4 /* LocationTests.swift */; };
+		CDA88DB12A937313009B9AC4 /* AffiliationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA88DB02A937313009B9AC4 /* AffiliationsTests.swift */; };
+		CDA88DBB2A94B16A009B9AC4 /* FamilyTreeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA88DBA2A94B16A009B9AC4 /* FamilyTreeUITestsLaunchTests.swift */; };
+		CDA88DC12A94B176009B9AC4 /* PlayerDecisionsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79D9D02A84B781006BCF07 /* PlayerDecisionsUI.swift */; };
+		CDA88DC52A96070A009B9AC4 /* GameViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA88DC42A96070A009B9AC4 /* GameViewTests.swift */; };
+		CDA88E0B2A9BDEDC009B9AC4 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA88E0A2A9BDEDC009B9AC4 /* Resource.swift */; };
+		CDA88E0D2A9BDF01009B9AC4 /* ResourceTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA88E0C2A9BDF01009B9AC4 /* ResourceTesting.swift */; };
+		CDA88E0F2A9C78BE009B9AC4 /* GameViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA88E0E2A9C78BE009B9AC4 /* GameViewPresenter.swift */; };
+		CDA88E112A9C78D1009B9AC4 /* MergeSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA88E102A9C78D1009B9AC4 /* MergeSet.swift */; };
+		CDF5EFF72AA640F0002F4E53 /* ConfigLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF5EFF62AA640F0002F4E53 /* ConfigLoader.swift */; };
+		CDF5EFF92AA64777002F4E53 /* Affiliations.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF5EFF82AA64777002F4E53 /* Affiliations.json */; };
+		CDF5EFFB2AA647C3002F4E53 /* Locations-Region.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF5EFFA2AA647C3002F4E53 /* Locations-Region.json */; };
+		CDF5EFFD2AA647E7002F4E53 /* Jobs.json in Resources */ = {isa = PBXBuildFile; fileRef = CDF5EFFC2AA647E7002F4E53 /* Jobs.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CDF567032A76ABCB0019ABB1 /* PBXContainerItemProxy */ = {
+		CD10339A2A7F7C5B004E0E5F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CDF566882A76A10A0019ABB1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = CDF566932A76A10F0019ABB1;
+			remoteGlobalIDString = CD10337B2A7F7BCB004E0E5F;
+			remoteInfo = "FamilyTree iOS";
+		};
+		CDA88DBC2A94B16A009B9AC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CDF566882A76A10A0019ABB1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD10337B2A7F7BCB004E0E5F;
 			remoteInfo = "FamilyTree iOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CDF5668D2A76A10B0019ABB1 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
-		CDF5668E2A76A10B0019ABB1 /* Art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Art.scnassets; sourceTree = "<group>"; };
-		CDF5668F2A76A10F0019ABB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CDF566942A76A10F0019ABB1 /* FamilyTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CDF566972A76A10F0019ABB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CDF566992A76A10F0019ABB1 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		CDF5669C2A76A10F0019ABB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CDF5669F2A76A10F0019ABB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		CDF566A52A76A10F0019ABB1 /* FamilyTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CDF566A72A76A10F0019ABB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CDF566A92A76A10F0019ABB1 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		CDF566AC2A76A10F0019ABB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CDF566AF2A76A10F0019ABB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		CDF566B52A76A10F0019ABB1 /* FamilyTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CDF566B72A76A10F0019ABB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CDF566B92A76A10F0019ABB1 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		CDF566BC2A76A10F0019ABB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CDF566BE2A76A10F0019ABB1 /* FamilyTree_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FamilyTree_macOS.entitlements; sourceTree = "<group>"; };
+		CD1033752A7F7A78004E0E5F /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = TestPlan.xctestplan; path = FamilyTreeTests/TestPlan.xctestplan; sourceTree = "<group>"; };
+		CD10337C2A7F7BCB004E0E5F /* FamilyTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamilyTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD10337E2A7F7BCB004E0E5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CD1033802A7F7BCB004E0E5F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		CD1033822A7F7BCB004E0E5F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		CD1033872A7F7BCD004E0E5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD10338A2A7F7BCD004E0E5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CD10338C2A7F7BCD004E0E5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD1033962A7F7C5B004E0E5F /* FamilyTreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FamilyTreeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD10339F2A7F7C6A004E0E5F /* GameTurns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTurns.swift; sourceTree = "<group>"; };
+		CD1033A02A7F7C6A004E0E5F /* TreeBuilding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeBuilding.swift; sourceTree = "<group>"; };
+		CD1033A12A7F7C6A004E0E5F /* EventsTriggers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsTriggers.swift; sourceTree = "<group>"; };
+		CD1033A22A7F7C6B004E0E5F /* RatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatesTests.swift; sourceTree = "<group>"; };
+		CD1033A32A7F7C6B004E0E5F /* CharacterDies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterDies.swift; sourceTree = "<group>"; };
+		CD1033B72A7F8405004E0E5F /* Names.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Names.json; sourceTree = "<group>"; };
+		CD1033B82A7F8405004E0E5F /* FlatRates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FlatRates.json; sourceTree = "<group>"; };
+		CD1033B92A7F8405004E0E5F /* Romans.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Romans.json; sourceTree = "<group>"; };
+		CD1033BA2A7F8405004E0E5F /* AgeBasedRates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AgeBasedRates.json; sourceTree = "<group>"; };
+		CD1033C12A80CDAC004E0E5F /* JobsTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsTesting.swift; sourceTree = "<group>"; };
+		CD2D1CA22AC4A5F600C31A77 /* Events.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Events.json; sourceTree = "<group>"; };
+		CD2D1CA42AC4A81F00C31A77 /* GameStart.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GameStart.json; sourceTree = "<group>"; };
+		CD2D1CA62AC4AAB100C31A77 /* AngloSaxons.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = AngloSaxons.json; sourceTree = "<group>"; };
+		CD2D1CA82AC4ABD200C31A77 /* Normans.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Normans.json; sourceTree = "<group>"; };
+		CD44EE482AC2EA7700CA1C19 /* UIWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWidgets.swift; sourceTree = "<group>"; };
+		CD4CADC82AA90E7E00B86B31 /* Locations-County.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "Locations-County.json"; sourceTree = "<group>"; };
+		CD4CADCA2AA90E8F00B86B31 /* Locations-Town.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "Locations-Town.json"; sourceTree = "<group>"; };
+		CD4CADCC2AB08D2F00B86B31 /* Injuries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Injuries.json; sourceTree = "<group>"; };
+		CD79D9CE2A84B767006BCF07 /* PlayerDecisions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDecisions.swift; sourceTree = "<group>"; };
+		CD79D9D02A84B781006BCF07 /* PlayerDecisionsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDecisionsUI.swift; sourceTree = "<group>"; };
+		CD79D9D22A8A24FA006BCF07 /* TreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeViewController.swift; sourceTree = "<group>"; };
+		CD7C35C32AC9AC65007902DB /* WorldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldViewController.swift; sourceTree = "<group>"; };
+		CD7C35C52ACD429A007902DB /* HealthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthViewController.swift; sourceTree = "<group>"; };
+		CD7C35C72ACD44A2007902DB /* InjuryTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjuryTesting.swift; sourceTree = "<group>"; };
+		CD9643EB2AF039D00092A14C /* ExchRates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ExchRates.json; sourceTree = "<group>"; };
+		CD9643ED2AF03AED0092A14C /* SocialClass.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SocialClass.json; sourceTree = "<group>"; };
+		CD9643EF2AF238F20092A14C /* Resources.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Resources.json; sourceTree = "<group>"; };
+		CD9643F12AF2DE490092A14C /* ResourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceViewController.swift; sourceTree = "<group>"; };
+		CD9643F32AF2DE5C0092A14C /* PersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewController.swift; sourceTree = "<group>"; };
+		CD9846142AD678390009B1A4 /* SocialClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialClass.swift; sourceTree = "<group>"; };
+		CD9CCE0D2AD3D159001C7451 /* SocialClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialClassTests.swift; sourceTree = "<group>"; };
+		CDA88DAE2A8CA9EC009B9AC4 /* LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTests.swift; sourceTree = "<group>"; };
+		CDA88DB02A937313009B9AC4 /* AffiliationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffiliationsTests.swift; sourceTree = "<group>"; };
+		CDA88DB62A94B16A009B9AC4 /* FamilyTreeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FamilyTreeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDA88DBA2A94B16A009B9AC4 /* FamilyTreeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTreeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CDA88DC42A96070A009B9AC4 /* GameViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewTests.swift; sourceTree = "<group>"; };
+		CDA88E0A2A9BDEDC009B9AC4 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		CDA88E0C2A9BDF01009B9AC4 /* ResourceTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceTesting.swift; sourceTree = "<group>"; };
+		CDA88E0E2A9C78BE009B9AC4 /* GameViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewPresenter.swift; sourceTree = "<group>"; };
+		CDA88E102A9C78D1009B9AC4 /* MergeSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeSet.swift; sourceTree = "<group>"; };
 		CDF566D32A76A16C0019ABB1 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		CDF566D72A76A3DC0019ABB1 /* Money.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
 		CDF566DB2A76A3EE0019ABB1 /* Affiliation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Affiliation.swift; sourceTree = "<group>"; };
@@ -106,38 +143,29 @@
 		CDF566EB2A76A4B70019ABB1 /* Cure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cure.swift; sourceTree = "<group>"; };
 		CDF566EF2A76A7170019ABB1 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		CDF566F32A76A73F0019ABB1 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
-		CDF566F72A76AB110019ABB1 /* CharacterDies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDies.swift; sourceTree = "<group>"; };
-		CDF566FF2A76ABCB0019ABB1 /* FamilyTreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FamilyTreeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CDF5670A2A76C9F70019ABB1 /* TreeBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeBuilding.swift; sourceTree = "<group>"; };
 		CDF5670C2A7809BC0019ABB1 /* Rates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rates.swift; sourceTree = "<group>"; };
-		CDF567102A780CCB0019ABB1 /* RatesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatesTests.swift; sourceTree = "<group>"; };
-		CDF567132A7834A50019ABB1 /* FertilityRates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FertilityRates.json; sourceTree = "<group>"; };
-		CDF567172A78E4CC0019ABB1 /* Names.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Names.json; sourceTree = "<group>"; };
+		CDF5EFF62AA640F0002F4E53 /* ConfigLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigLoader.swift; sourceTree = "<group>"; };
+		CDF5EFF82AA64777002F4E53 /* Affiliations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Affiliations.json; sourceTree = "<group>"; };
+		CDF5EFFA2AA647C3002F4E53 /* Locations-Region.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "Locations-Region.json"; sourceTree = "<group>"; };
+		CDF5EFFC2AA647E7002F4E53 /* Jobs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Jobs.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CDF566912A76A10F0019ABB1 /* Frameworks */ = {
+		CD1033792A7F7BCB004E0E5F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CDF566A22A76A10F0019ABB1 /* Frameworks */ = {
+		CD1033932A7F7C5B004E0E5F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CDF566B22A76A10F0019ABB1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CDF566FC2A76ABCB0019ABB1 /* Frameworks */ = {
+		CDA88DB32A94B16A009B9AC4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -147,112 +175,134 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CDF566872A76A10A0019ABB1 = {
+		CD10337D2A7F7BCB004E0E5F /* FamilyTree iOS */ = {
 			isa = PBXGroup;
 			children = (
-				CDF5668C2A76A10B0019ABB1 /* FamilyTree Shared */,
-				CDF566962A76A10F0019ABB1 /* FamilyTree iOS */,
-				CDF566A62A76A10F0019ABB1 /* FamilyTree tvOS */,
-				CDF566B62A76A10F0019ABB1 /* FamilyTree macOS */,
-				CDF567002A76ABCB0019ABB1 /* FamilyTreeTests */,
-				CDF566952A76A10F0019ABB1 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		CDF5668C2A76A10B0019ABB1 /* FamilyTree Shared */ = {
-			isa = PBXGroup;
-			children = (
-				CDF567122A7833EA0019ABB1 /* Configuration */,
-				CDF5668D2A76A10B0019ABB1 /* GameController.swift */,
+				CDF566D72A76A3DC0019ABB1 /* Money.swift */,
+				CD9846142AD678390009B1A4 /* SocialClass.swift */,
+				CD9643F12AF2DE490092A14C /* ResourceViewController.swift */,
+				CD9643F32AF2DE5C0092A14C /* PersonalViewController.swift */,
+				CDF5670C2A7809BC0019ABB1 /* Rates.swift */,
 				CDF566D32A76A16C0019ABB1 /* Person.swift */,
 				CDF566F32A76A73F0019ABB1 /* Events.swift */,
 				CDF566DF2A76A3FA0019ABB1 /* Injury.swift */,
 				CDF566EB2A76A4B70019ABB1 /* Cure.swift */,
 				CDF566E32A76A4060019ABB1 /* Location.swift */,
 				CDF566E72A76A4100019ABB1 /* Job.swift */,
+				CD7C35C32AC9AC65007902DB /* WorldViewController.swift */,
+				CD7C35C52ACD429A007902DB /* HealthViewController.swift */,
 				CDF566EF2A76A7170019ABB1 /* GameEngine.swift */,
 				CDF566DB2A76A3EE0019ABB1 /* Affiliation.swift */,
-				CDF5668E2A76A10B0019ABB1 /* Art.scnassets */,
-				CDF5668F2A76A10F0019ABB1 /* Assets.xcassets */,
-				CDF566D72A76A3DC0019ABB1 /* Money.swift */,
-				CDF5670C2A7809BC0019ABB1 /* Rates.swift */,
+				CD10337E2A7F7BCB004E0E5F /* AppDelegate.swift */,
+				CD1033802A7F7BCB004E0E5F /* SceneDelegate.swift */,
+				CD1033822A7F7BCB004E0E5F /* GameViewController.swift */,
+				CD1033872A7F7BCD004E0E5F /* Assets.xcassets */,
+				CD1033892A7F7BCD004E0E5F /* LaunchScreen.storyboard */,
+				CD10338C2A7F7BCD004E0E5F /* Info.plist */,
+				CD79D9D22A8A24FA006BCF07 /* TreeViewController.swift */,
+				CDA88E0A2A9BDEDC009B9AC4 /* Resource.swift */,
+				CDA88E0E2A9C78BE009B9AC4 /* GameViewPresenter.swift */,
+				CDA88E102A9C78D1009B9AC4 /* MergeSet.swift */,
+				CDF5EFF62AA640F0002F4E53 /* ConfigLoader.swift */,
+				CD44EE482AC2EA7700CA1C19 /* UIWidgets.swift */,
 			);
-			path = "FamilyTree Shared";
+			path = "FamilyTree iOS";
+			sourceTree = "<group>";
+		};
+		CD1033972A7F7C5B004E0E5F /* FamilyTreeTests */ = {
+			isa = PBXGroup;
+			children = (
+				CD1033A32A7F7C6B004E0E5F /* CharacterDies.swift */,
+				CD9CCE0D2AD3D159001C7451 /* SocialClassTests.swift */,
+				CD7C35C72ACD44A2007902DB /* InjuryTesting.swift */,
+				CD1033A12A7F7C6A004E0E5F /* EventsTriggers.swift */,
+				CD10339F2A7F7C6A004E0E5F /* GameTurns.swift */,
+				CD1033A22A7F7C6B004E0E5F /* RatesTests.swift */,
+				CD1033A02A7F7C6A004E0E5F /* TreeBuilding.swift */,
+				CD1033C12A80CDAC004E0E5F /* JobsTesting.swift */,
+				CD79D9CE2A84B767006BCF07 /* PlayerDecisions.swift */,
+				CDA88DAE2A8CA9EC009B9AC4 /* LocationTests.swift */,
+				CDA88DB02A937313009B9AC4 /* AffiliationsTests.swift */,
+				CDA88DC42A96070A009B9AC4 /* GameViewTests.swift */,
+				CDA88E0C2A9BDF01009B9AC4 /* ResourceTesting.swift */,
+			);
+			path = FamilyTreeTests;
+			sourceTree = "<group>";
+		};
+		CD1033BF2A7F84C5004E0E5F /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				CD1033BA2A7F8405004E0E5F /* AgeBasedRates.json */,
+				CD1033B92A7F8405004E0E5F /* Romans.json */,
+				CD2D1CA62AC4AAB100C31A77 /* AngloSaxons.json */,
+				CD9643EF2AF238F20092A14C /* Resources.json */,
+				CD2D1CA82AC4ABD200C31A77 /* Normans.json */,
+				CD1033B82A7F8405004E0E5F /* FlatRates.json */,
+				CD2D1CA22AC4A5F600C31A77 /* Events.json */,
+				CD1033B72A7F8405004E0E5F /* Names.json */,
+				CD2D1CA42AC4A81F00C31A77 /* GameStart.json */,
+				CDF5EFF82AA64777002F4E53 /* Affiliations.json */,
+				CDF5EFFA2AA647C3002F4E53 /* Locations-Region.json */,
+				CD4CADC82AA90E7E00B86B31 /* Locations-County.json */,
+				CD4CADCA2AA90E8F00B86B31 /* Locations-Town.json */,
+				CDF5EFFC2AA647E7002F4E53 /* Jobs.json */,
+				CD4CADCC2AB08D2F00B86B31 /* Injuries.json */,
+				CD9643EB2AF039D00092A14C /* ExchRates.json */,
+				CD9643ED2AF03AED0092A14C /* SocialClass.json */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		CD4EF70E2A7F78470052BB3A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CDA88DB72A94B16A009B9AC4 /* FamilyTreeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CD79D9D02A84B781006BCF07 /* PlayerDecisionsUI.swift */,
+				CDA88DBA2A94B16A009B9AC4 /* FamilyTreeUITestsLaunchTests.swift */,
+			);
+			path = FamilyTreeUITests;
+			sourceTree = "<group>";
+		};
+		CDF566872A76A10A0019ABB1 = {
+			isa = PBXGroup;
+			children = (
+				CD1033BF2A7F84C5004E0E5F /* Configuration */,
+				CD1033752A7F7A78004E0E5F /* TestPlan.xctestplan */,
+				CD10337D2A7F7BCB004E0E5F /* FamilyTree iOS */,
+				CD1033972A7F7C5B004E0E5F /* FamilyTreeTests */,
+				CDA88DB72A94B16A009B9AC4 /* FamilyTreeUITests */,
+				CDF566952A76A10F0019ABB1 /* Products */,
+				CD4EF70E2A7F78470052BB3A /* Frameworks */,
+			);
 			sourceTree = "<group>";
 		};
 		CDF566952A76A10F0019ABB1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CDF566942A76A10F0019ABB1 /* FamilyTree.app */,
-				CDF566A52A76A10F0019ABB1 /* FamilyTree.app */,
-				CDF566B52A76A10F0019ABB1 /* FamilyTree.app */,
-				CDF566FF2A76ABCB0019ABB1 /* FamilyTreeTests.xctest */,
+				CD10337C2A7F7BCB004E0E5F /* FamilyTree.app */,
+				CD1033962A7F7C5B004E0E5F /* FamilyTreeTests.xctest */,
+				CDA88DB62A94B16A009B9AC4 /* FamilyTreeUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		CDF566962A76A10F0019ABB1 /* FamilyTree iOS */ = {
-			isa = PBXGroup;
-			children = (
-				CDF566972A76A10F0019ABB1 /* AppDelegate.swift */,
-				CDF566992A76A10F0019ABB1 /* GameViewController.swift */,
-				CDF5669B2A76A10F0019ABB1 /* Main.storyboard */,
-				CDF5669E2A76A10F0019ABB1 /* LaunchScreen.storyboard */,
-			);
-			path = "FamilyTree iOS";
-			sourceTree = "<group>";
-		};
-		CDF566A62A76A10F0019ABB1 /* FamilyTree tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				CDF566A72A76A10F0019ABB1 /* AppDelegate.swift */,
-				CDF566A92A76A10F0019ABB1 /* GameViewController.swift */,
-				CDF566AB2A76A10F0019ABB1 /* Main.storyboard */,
-				CDF566AE2A76A10F0019ABB1 /* LaunchScreen.storyboard */,
-			);
-			path = "FamilyTree tvOS";
-			sourceTree = "<group>";
-		};
-		CDF566B62A76A10F0019ABB1 /* FamilyTree macOS */ = {
-			isa = PBXGroup;
-			children = (
-				CDF566B72A76A10F0019ABB1 /* AppDelegate.swift */,
-				CDF566B92A76A10F0019ABB1 /* GameViewController.swift */,
-				CDF566BB2A76A10F0019ABB1 /* Main.storyboard */,
-				CDF566BE2A76A10F0019ABB1 /* FamilyTree_macOS.entitlements */,
-			);
-			path = "FamilyTree macOS";
-			sourceTree = "<group>";
-		};
-		CDF567002A76ABCB0019ABB1 /* FamilyTreeTests */ = {
-			isa = PBXGroup;
-			children = (
-				CDF566F72A76AB110019ABB1 /* CharacterDies.swift */,
-				CDF5670A2A76C9F70019ABB1 /* TreeBuilding.swift */,
-				CDF567102A780CCB0019ABB1 /* RatesTests.swift */,
-			);
-			path = FamilyTreeTests;
-			sourceTree = "<group>";
-		};
-		CDF567122A7833EA0019ABB1 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				CDF567132A7834A50019ABB1 /* FertilityRates.json */,
-				CDF567172A78E4CC0019ABB1 /* Names.json */,
-			);
-			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CDF566932A76A10F0019ABB1 /* FamilyTree iOS */ = {
+		CD10337B2A7F7BCB004E0E5F /* FamilyTree iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CDF566CA2A76A10F0019ABB1 /* Build configuration list for PBXNativeTarget "FamilyTree iOS" */;
+			buildConfigurationList = CD10338D2A7F7BCD004E0E5F /* Build configuration list for PBXNativeTarget "FamilyTree iOS" */;
 			buildPhases = (
-				CDF566902A76A10F0019ABB1 /* Sources */,
-				CDF566912A76A10F0019ABB1 /* Frameworks */,
-				CDF566922A76A10F0019ABB1 /* Resources */,
+				CD1033C02A7F86C1004E0E5F /* ShellScript */,
+				CD1033782A7F7BCB004E0E5F /* Sources */,
+				CD1033792A7F7BCB004E0E5F /* Frameworks */,
+				CD10337A2A7F7BCB004E0E5F /* Resources */,
 			);
 			buildRules = (
 			);
@@ -260,61 +310,44 @@
 			);
 			name = "FamilyTree iOS";
 			productName = "FamilyTree iOS";
-			productReference = CDF566942A76A10F0019ABB1 /* FamilyTree.app */;
+			productReference = CD10337C2A7F7BCB004E0E5F /* FamilyTree.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CDF566A42A76A10F0019ABB1 /* FamilyTree tvOS */ = {
+		CD1033952A7F7C5B004E0E5F /* FamilyTreeTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CDF566CD2A76A10F0019ABB1 /* Build configuration list for PBXNativeTarget "FamilyTree tvOS" */;
+			buildConfigurationList = CD10339C2A7F7C5B004E0E5F /* Build configuration list for PBXNativeTarget "FamilyTreeTests" */;
 			buildPhases = (
-				CDF566A12A76A10F0019ABB1 /* Sources */,
-				CDF566A22A76A10F0019ABB1 /* Frameworks */,
-				CDF566A32A76A10F0019ABB1 /* Resources */,
+				CD1033922A7F7C5B004E0E5F /* Sources */,
+				CD1033932A7F7C5B004E0E5F /* Frameworks */,
+				CD1033942A7F7C5B004E0E5F /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-			);
-			name = "FamilyTree tvOS";
-			productName = "FamilyTree tvOS";
-			productReference = CDF566A52A76A10F0019ABB1 /* FamilyTree.app */;
-			productType = "com.apple.product-type.application";
-		};
-		CDF566B42A76A10F0019ABB1 /* FamilyTree macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CDF566D02A76A10F0019ABB1 /* Build configuration list for PBXNativeTarget "FamilyTree macOS" */;
-			buildPhases = (
-				CDF566B12A76A10F0019ABB1 /* Sources */,
-				CDF566B22A76A10F0019ABB1 /* Frameworks */,
-				CDF566B32A76A10F0019ABB1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "FamilyTree macOS";
-			productName = "FamilyTree macOS";
-			productReference = CDF566B52A76A10F0019ABB1 /* FamilyTree.app */;
-			productType = "com.apple.product-type.application";
-		};
-		CDF566FE2A76ABCB0019ABB1 /* FamilyTreeTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CDF567052A76ABCB0019ABB1 /* Build configuration list for PBXNativeTarget "FamilyTreeTests" */;
-			buildPhases = (
-				CDF567092A76B3BA0019ABB1 /* ShellScript */,
-				CDF566FB2A76ABCB0019ABB1 /* Sources */,
-				CDF566FC2A76ABCB0019ABB1 /* Frameworks */,
-				CDF566FD2A76ABCB0019ABB1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CDF567042A76ABCB0019ABB1 /* PBXTargetDependency */,
+				CD10339B2A7F7C5B004E0E5F /* PBXTargetDependency */,
 			);
 			name = FamilyTreeTests;
 			productName = FamilyTreeTests;
-			productReference = CDF566FF2A76ABCB0019ABB1 /* FamilyTreeTests.xctest */;
+			productReference = CD1033962A7F7C5B004E0E5F /* FamilyTreeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CDA88DB52A94B16A009B9AC4 /* FamilyTreeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CDA88DBE2A94B16A009B9AC4 /* Build configuration list for PBXNativeTarget "FamilyTreeUITests" */;
+			buildPhases = (
+				CDA88DB22A94B16A009B9AC4 /* Sources */,
+				CDA88DB32A94B16A009B9AC4 /* Frameworks */,
+				CDA88DB42A94B16A009B9AC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CDA88DBD2A94B16A009B9AC4 /* PBXTargetDependency */,
+			);
+			name = FamilyTreeUITests;
+			productName = FamilyTreeUITests;
+			productReference = CDA88DB62A94B16A009B9AC4 /* FamilyTreeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -326,18 +359,16 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					CDF566932A76A10F0019ABB1 = {
+					CD10337B2A7F7BCB004E0E5F = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
-					CDF566A42A76A10F0019ABB1 = {
+					CD1033952A7F7C5B004E0E5F = {
 						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = CD10337B2A7F7BCB004E0E5F;
 					};
-					CDF566B42A76A10F0019ABB1 = {
+					CDA88DB52A94B16A009B9AC4 = {
 						CreatedOnToolsVersion = 14.3.1;
-					};
-					CDF566FE2A76ABCB0019ABB1 = {
-						CreatedOnToolsVersion = 14.3.1;
-						TestTargetID = CDF566932A76A10F0019ABB1;
+						TestTargetID = CD10337B2A7F7BCB004E0E5F;
 					};
 				};
 			};
@@ -354,54 +385,48 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CDF566932A76A10F0019ABB1 /* FamilyTree iOS */,
-				CDF566A42A76A10F0019ABB1 /* FamilyTree tvOS */,
-				CDF566B42A76A10F0019ABB1 /* FamilyTree macOS */,
-				CDF566FE2A76ABCB0019ABB1 /* FamilyTreeTests */,
+				CD10337B2A7F7BCB004E0E5F /* FamilyTree iOS */,
+				CD1033952A7F7C5B004E0E5F /* FamilyTreeTests */,
+				CDA88DB52A94B16A009B9AC4 /* FamilyTreeUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CDF566922A76A10F0019ABB1 /* Resources */ = {
+		CD10337A2A7F7BCB004E0E5F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDF5669D2A76A10F0019ABB1 /* Main.storyboard in Resources */,
-				CDF566A02A76A10F0019ABB1 /* LaunchScreen.storyboard in Resources */,
-				CDF566C52A76A10F0019ABB1 /* Assets.xcassets in Resources */,
-				CDF566C22A76A10F0019ABB1 /* Art.scnassets in Resources */,
-				CDF567182A78E4CD0019ABB1 /* Names.json in Resources */,
-				CDF567142A7834A50019ABB1 /* FertilityRates.json in Resources */,
+				CD4CADCB2AA90E8F00B86B31 /* Locations-Town.json in Resources */,
+				CD9643F02AF238F20092A14C /* Resources.json in Resources */,
+				CD1033BB2A7F8405004E0E5F /* Names.json in Resources */,
+				CD2D1CA92AC4ABD200C31A77 /* Normans.json in Resources */,
+				CDF5EFFD2AA647E7002F4E53 /* Jobs.json in Resources */,
+				CD1033BC2A7F8405004E0E5F /* FlatRates.json in Resources */,
+				CDF5EFF92AA64777002F4E53 /* Affiliations.json in Resources */,
+				CD1033BD2A7F8405004E0E5F /* Romans.json in Resources */,
+				CD9643EC2AF039D00092A14C /* ExchRates.json in Resources */,
+				CD2D1CA52AC4A81F00C31A77 /* GameStart.json in Resources */,
+				CD2D1CA32AC4A5F600C31A77 /* Events.json in Resources */,
+				CD1033BE2A7F8405004E0E5F /* AgeBasedRates.json in Resources */,
+				CD4CADC92AA90E7E00B86B31 /* Locations-County.json in Resources */,
+				CD2D1CA72AC4AAB100C31A77 /* AngloSaxons.json in Resources */,
+				CD9643EE2AF03AED0092A14C /* SocialClass.json in Resources */,
+				CDF5EFFB2AA647C3002F4E53 /* Locations-Region.json in Resources */,
+				CD4CADCD2AB08D2F00B86B31 /* Injuries.json in Resources */,
+				CD10338B2A7F7BCD004E0E5F /* LaunchScreen.storyboard in Resources */,
+				CD1033882A7F7BCD004E0E5F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CDF566A32A76A10F0019ABB1 /* Resources */ = {
+		CD1033942A7F7C5B004E0E5F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDF566AD2A76A10F0019ABB1 /* Main.storyboard in Resources */,
-				CDF566B02A76A10F0019ABB1 /* LaunchScreen.storyboard in Resources */,
-				CDF566C62A76A10F0019ABB1 /* Assets.xcassets in Resources */,
-				CDF566C32A76A10F0019ABB1 /* Art.scnassets in Resources */,
-				CDF567192A78E4CD0019ABB1 /* Names.json in Resources */,
-				CDF567152A7834A50019ABB1 /* FertilityRates.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CDF566B32A76A10F0019ABB1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CDF566BD2A76A10F0019ABB1 /* Main.storyboard in Resources */,
-				CDF566C72A76A10F0019ABB1 /* Assets.xcassets in Resources */,
-				CDF567162A7834A50019ABB1 /* FertilityRates.json in Resources */,
-				CDF566C42A76A10F0019ABB1 /* Art.scnassets in Resources */,
-				CDF5671A2A78E4CD0019ABB1 /* Names.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CDF566FD2A76ABCB0019ABB1 /* Resources */ = {
+		CDA88DB42A94B16A009B9AC4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -411,7 +436,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		CDF567092A76B3BA0019ABB1 /* ShellScript */ = {
+		CD1033C02A7F86C1004E0E5F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -426,135 +451,235 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: Swiftlint not installed\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CDF566902A76A10F0019ABB1 /* Sources */ = {
+		CD1033782A7F7BCB004E0E5F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDF566F42A76A73F0019ABB1 /* Events.swift in Sources */,
-				CDF5669A2A76A10F0019ABB1 /* GameViewController.swift in Sources */,
-				CDF566D82A76A3DC0019ABB1 /* Money.swift in Sources */,
-				CDF566E42A76A4060019ABB1 /* Location.swift in Sources */,
-				CDF566D42A76A16C0019ABB1 /* Person.swift in Sources */,
-				CDF566EC2A76A4B70019ABB1 /* Cure.swift in Sources */,
-				CDF5670D2A7809BC0019ABB1 /* Rates.swift in Sources */,
-				CDF566E82A76A4100019ABB1 /* Job.swift in Sources */,
-				CDF566F02A76A7170019ABB1 /* GameEngine.swift in Sources */,
-				CDF566BF2A76A10F0019ABB1 /* GameController.swift in Sources */,
-				CDF566DC2A76A3EE0019ABB1 /* Affiliation.swift in Sources */,
-				CDF566E02A76A3FA0019ABB1 /* Injury.swift in Sources */,
-				CDF566982A76A10F0019ABB1 /* AppDelegate.swift in Sources */,
+				CD44EE492AC2EA7700CA1C19 /* UIWidgets.swift in Sources */,
+				CD1033AE2A7F81E3004E0E5F /* Cure.swift in Sources */,
+				CD1033B12A7F81E8004E0E5F /* Rates.swift in Sources */,
+				CD7C35C42AC9AC65007902DB /* WorldViewController.swift in Sources */,
+				CD1033B02A7F81E3004E0E5F /* Events.swift in Sources */,
+				CDA88E0B2A9BDEDC009B9AC4 /* Resource.swift in Sources */,
+				CDF5EFF72AA640F0002F4E53 /* ConfigLoader.swift in Sources */,
+				CD1033B22A7F81E8004E0E5F /* Money.swift in Sources */,
+				CD1033AB2A7F81E3004E0E5F /* Injury.swift in Sources */,
+				CD1033AF2A7F81E3004E0E5F /* Location.swift in Sources */,
+				CD9643F42AF2DE5C0092A14C /* PersonalViewController.swift in Sources */,
+				CD7C35C62ACD429B007902DB /* HealthViewController.swift in Sources */,
+				CD1033AA2A7F81E3004E0E5F /* Person.swift in Sources */,
+				CD1033AD2A7F81E3004E0E5F /* Affiliation.swift in Sources */,
+				CD79D9D32A8A24FA006BCF07 /* TreeViewController.swift in Sources */,
+				CD1033AC2A7F81E3004E0E5F /* GameEngine.swift in Sources */,
+				CD1033832A7F7BCB004E0E5F /* GameViewController.swift in Sources */,
+				CD10337F2A7F7BCB004E0E5F /* AppDelegate.swift in Sources */,
+				CD1033812A7F7BCB004E0E5F /* SceneDelegate.swift in Sources */,
+				CDA88E112A9C78D1009B9AC4 /* MergeSet.swift in Sources */,
+				CD9643F22AF2DE490092A14C /* ResourceViewController.swift in Sources */,
+				CD1033A92A7F81E3004E0E5F /* Job.swift in Sources */,
+				CDA88E0F2A9C78BE009B9AC4 /* GameViewPresenter.swift in Sources */,
+				CD9846152AD678390009B1A4 /* SocialClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CDF566A12A76A10F0019ABB1 /* Sources */ = {
+		CD1033922A7F7C5B004E0E5F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDF566F52A76A73F0019ABB1 /* Events.swift in Sources */,
-				CDF566AA2A76A10F0019ABB1 /* GameViewController.swift in Sources */,
-				CDF566D92A76A3DC0019ABB1 /* Money.swift in Sources */,
-				CDF566E52A76A4060019ABB1 /* Location.swift in Sources */,
-				CDF566D52A76A16C0019ABB1 /* Person.swift in Sources */,
-				CDF566ED2A76A4B70019ABB1 /* Cure.swift in Sources */,
-				CDF5670E2A7809BC0019ABB1 /* Rates.swift in Sources */,
-				CDF566E92A76A4100019ABB1 /* Job.swift in Sources */,
-				CDF566F12A76A7170019ABB1 /* GameEngine.swift in Sources */,
-				CDF566C02A76A10F0019ABB1 /* GameController.swift in Sources */,
-				CDF566DD2A76A3EE0019ABB1 /* Affiliation.swift in Sources */,
-				CDF566E12A76A3FA0019ABB1 /* Injury.swift in Sources */,
-				CDF566A82A76A10F0019ABB1 /* AppDelegate.swift in Sources */,
+				CDA88DC52A96070A009B9AC4 /* GameViewTests.swift in Sources */,
+				CD9CCE0E2AD3D159001C7451 /* SocialClassTests.swift in Sources */,
+				CD7C35C82ACD44A2007902DB /* InjuryTesting.swift in Sources */,
+				CD79D9CF2A84B767006BCF07 /* PlayerDecisions.swift in Sources */,
+				CD1033C22A80CDAC004E0E5F /* JobsTesting.swift in Sources */,
+				CD1033A52A7F7C6B004E0E5F /* TreeBuilding.swift in Sources */,
+				CDA88E0D2A9BDF01009B9AC4 /* ResourceTesting.swift in Sources */,
+				CD1033A42A7F7C6B004E0E5F /* GameTurns.swift in Sources */,
+				CD1033A62A7F7C6B004E0E5F /* EventsTriggers.swift in Sources */,
+				CD1033A82A7F7C6B004E0E5F /* CharacterDies.swift in Sources */,
+				CDA88DAF2A8CA9EC009B9AC4 /* LocationTests.swift in Sources */,
+				CDA88DB12A937313009B9AC4 /* AffiliationsTests.swift in Sources */,
+				CD1033A72A7F7C6B004E0E5F /* RatesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CDF566B12A76A10F0019ABB1 /* Sources */ = {
+		CDA88DB22A94B16A009B9AC4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDF566F62A76A73F0019ABB1 /* Events.swift in Sources */,
-				CDF566BA2A76A10F0019ABB1 /* GameViewController.swift in Sources */,
-				CDF566DA2A76A3DC0019ABB1 /* Money.swift in Sources */,
-				CDF566E62A76A4060019ABB1 /* Location.swift in Sources */,
-				CDF566D62A76A16C0019ABB1 /* Person.swift in Sources */,
-				CDF566EE2A76A4B70019ABB1 /* Cure.swift in Sources */,
-				CDF5670F2A7809BC0019ABB1 /* Rates.swift in Sources */,
-				CDF566EA2A76A4100019ABB1 /* Job.swift in Sources */,
-				CDF566F22A76A7170019ABB1 /* GameEngine.swift in Sources */,
-				CDF566C12A76A10F0019ABB1 /* GameController.swift in Sources */,
-				CDF566DE2A76A3EE0019ABB1 /* Affiliation.swift in Sources */,
-				CDF566E22A76A3FA0019ABB1 /* Injury.swift in Sources */,
-				CDF566B82A76A10F0019ABB1 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CDF566FB2A76ABCB0019ABB1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CDF567112A780CCB0019ABB1 /* RatesTests.swift in Sources */,
-				CDF567082A76ABD10019ABB1 /* CharacterDies.swift in Sources */,
-				CDF5670B2A76C9F70019ABB1 /* TreeBuilding.swift in Sources */,
+				CDA88DBB2A94B16A009B9AC4 /* FamilyTreeUITestsLaunchTests.swift in Sources */,
+				CDA88DC12A94B176009B9AC4 /* PlayerDecisionsUI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CDF567042A76ABCB0019ABB1 /* PBXTargetDependency */ = {
+		CD10339B2A7F7C5B004E0E5F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = CDF566932A76A10F0019ABB1 /* FamilyTree iOS */;
-			targetProxy = CDF567032A76ABCB0019ABB1 /* PBXContainerItemProxy */;
+			target = CD10337B2A7F7BCB004E0E5F /* FamilyTree iOS */;
+			targetProxy = CD10339A2A7F7C5B004E0E5F /* PBXContainerItemProxy */;
+		};
+		CDA88DBD2A94B16A009B9AC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD10337B2A7F7BCB004E0E5F /* FamilyTree iOS */;
+			targetProxy = CDA88DBC2A94B16A009B9AC4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CDF5669B2A76A10F0019ABB1 /* Main.storyboard */ = {
+		CD1033892A7F7BCD004E0E5F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CDF5669C2A76A10F0019ABB1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		CDF5669E2A76A10F0019ABB1 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CDF5669F2A76A10F0019ABB1 /* Base */,
+				CD10338A2A7F7BCD004E0E5F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		CDF566AB2A76A10F0019ABB1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CDF566AC2A76A10F0019ABB1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		CDF566AE2A76A10F0019ABB1 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CDF566AF2A76A10F0019ABB1 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		CDF566BB2A76A10F0019ABB1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CDF566BC2A76A10F0019ABB1 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CD10338E2A7F7BCD004E0E5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "FamilyTree iOS/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.panoramic.FamilyTree-iOS";
+				PRODUCT_NAME = FamilyTree;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CD10338F2A7F7BCD004E0E5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "FamilyTree iOS/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.panoramic.FamilyTree-iOS";
+				PRODUCT_NAME = FamilyTree;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CD10339D2A7F7C5B004E0E5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTreeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FamilyTree.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FamilyTree";
+			};
+			name = Debug;
+		};
+		CD10339E2A7F7C5B004E0E5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTreeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FamilyTree.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FamilyTree";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CDA88DBF2A94B16A009B9AC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTreeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "FamilyTree iOS";
+			};
+			name = Debug;
+		};
+		CDA88DC02A94B16A009B9AC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTreeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "FamilyTree iOS";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		CDF566C82A76A10F0019ABB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -592,6 +717,7 @@
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -609,6 +735,9 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = FamilyTree;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -651,6 +780,7 @@
 				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -661,277 +791,50 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = FamilyTree;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-			};
-			name = Release;
-		};
-		CDF566CB2A76A10F0019ABB1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTree;
-				PRODUCT_NAME = FamilyTree;
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		CDF566CC2A76A10F0019ABB1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTree;
-				PRODUCT_NAME = FamilyTree;
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		CDF566CE2A76A10F0019ABB1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTree;
-				PRODUCT_NAME = FamilyTree;
-				SDKROOT = appletvos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 16.4;
-			};
-			name = Debug;
-		};
-		CDF566CF2A76A10F0019ABB1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTree;
-				PRODUCT_NAME = FamilyTree;
-				SDKROOT = appletvos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 16.4;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		CDF566D12A76A10F0019ABB1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "FamilyTree macOS/FamilyTree_macOS.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTree;
-				PRODUCT_NAME = FamilyTree;
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		CDF566D22A76A10F0019ABB1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "FamilyTree macOS/FamilyTree_macOS.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
-				ENABLE_HARDENED_RUNTIME = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTree;
-				PRODUCT_NAME = FamilyTree;
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		CDF567062A76ABCB0019ABB1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTreeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FamilyTree.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FamilyTree";
-			};
-			name = Debug;
-		};
-		CDF567072A76ABCB0019ABB1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2JH5XQ5H2T;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.panoramic.FamilyTreeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FamilyTree.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FamilyTree";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CD10338D2A7F7BCD004E0E5F /* Build configuration list for PBXNativeTarget "FamilyTree iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD10338E2A7F7BCD004E0E5F /* Debug */,
+				CD10338F2A7F7BCD004E0E5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD10339C2A7F7C5B004E0E5F /* Build configuration list for PBXNativeTarget "FamilyTreeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD10339D2A7F7C5B004E0E5F /* Debug */,
+				CD10339E2A7F7C5B004E0E5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CDA88DBE2A94B16A009B9AC4 /* Build configuration list for PBXNativeTarget "FamilyTreeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CDA88DBF2A94B16A009B9AC4 /* Debug */,
+				CDA88DC02A94B16A009B9AC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CDF5668B2A76A10A0019ABB1 /* Build configuration list for PBXProject "FamilyTree" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CDF566C82A76A10F0019ABB1 /* Debug */,
 				CDF566C92A76A10F0019ABB1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CDF566CA2A76A10F0019ABB1 /* Build configuration list for PBXNativeTarget "FamilyTree iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CDF566CB2A76A10F0019ABB1 /* Debug */,
-				CDF566CC2A76A10F0019ABB1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CDF566CD2A76A10F0019ABB1 /* Build configuration list for PBXNativeTarget "FamilyTree tvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CDF566CE2A76A10F0019ABB1 /* Debug */,
-				CDF566CF2A76A10F0019ABB1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CDF566D02A76A10F0019ABB1 /* Build configuration list for PBXNativeTarget "FamilyTree macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CDF566D12A76A10F0019ABB1 /* Debug */,
-				CDF566D22A76A10F0019ABB1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CDF567052A76ABCB0019ABB1 /* Build configuration list for PBXNativeTarget "FamilyTreeTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CDF567062A76ABCB0019ABB1 /* Debug */,
-				CDF567072A76ABCB0019ABB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

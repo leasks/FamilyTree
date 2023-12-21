@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "Job.createResource(person:):Job.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Resource.createResource(person:):Resource.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Job.createResource(person:game:):Job.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ResourceViewController.viewDidLoad():ResourceViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Job.learnSkills(person:game:):Job.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Set.mergeInsert(_:):MergeSet.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GameEngine.npcEndTurnUpdates():GameEngine.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "resource.hashValue">
+            </PersistentString>
+            <PersistentString
+               value = "character.resources.keys.reversed().first.hashValue">
+            </PersistentString>
+            <PersistentString
+               value = "character.resources.keys.first.hashValue">
+            </PersistentString>
+            <PersistentString
+               value = "key.hashValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Person.addResource(resource:):Person.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

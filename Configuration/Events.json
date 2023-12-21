@@ -1,0 +1,18 @@
+[
+    {
+        "configFile": "GameStart",
+        "order": 0
+    },
+    {
+        "configFile": "Romans",
+        "order": 1
+    },
+    {
+        "configFile": "AngloSaxons",
+        "order": 2
+    },
+    {
+        "configFile": "Normans",
+        "order": 3
+    }
+]

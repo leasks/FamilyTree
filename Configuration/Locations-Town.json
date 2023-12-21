@@ -1,0 +1,333 @@
+[
+    {
+        "name": "Silchester",
+        "founded": -10,
+        "county": "Berkshire",
+        "type": "town",
+        "ruler": "Atrebates",
+        "rulers": {"45": "Roman"},
+        "longitude": 51.354,
+        "latitude": -1.109
+    },
+    {
+        "name": "Winchester",
+        "founded": -10,
+        "county": "Hampshire",
+        "type": "town",
+        "rulers": {"0": "Belgae"},
+        "longitude": 51.064,
+        "latitude": -1.362
+    },
+    {
+        "name": "Canterbury",
+        "founded": -10,
+        "county": "Kent",
+        "type": "town",
+        "ruler": "Cantiaci",
+        "rulers": {"43": "Roman"},
+        "longitude": 51.279,
+        "latitude": 0.936
+    },
+    {
+        "name": "St Albans",
+        "founded": -10,
+        "county": "Hertfordshire",
+        "type": "town",
+        "ruler": "Catuvellauni",
+        "rulers": {"45": "Roman"},
+        "longitude": 51.747,
+        "latitude": -0.3555
+    },
+    {
+        "name": "Cirencester",
+        "founded": -10,
+        "county": "Gloucestershire",
+        "type": "town",
+        "rulers": {"0": "Dobunni"},
+        "longitude": 51.715,
+        "latitude": -1.987
+    },
+    {
+        "name": "Exeter",
+        "founded": -10,
+        "county": "Devon",
+        "type": "town",
+        "rulers": {"0": "Dumnonii"},
+        "longitude": 50.724,
+        "latitude": -3.555
+    },
+    {
+        "name": "Dorchester",
+        "founded": -10,
+        "county": "Dorset",
+        "type": "town",
+        "rulers": {"0": "Durotriges"},
+        "longitude": 50.709,
+        "latitude": -2.458
+    },
+    {
+        "name": "Chichester",
+        "founded": -10,
+        "county": "West Sussex",
+        "type": "town",
+        "ruler": "Regni",
+        "rulers": {"44": "Roman"},
+        "longitude": 50.836,
+        "latitude": -0.82
+    },
+    {
+        "name": "Colchester",
+        "founded": -10,
+        "county": "Essex",
+        "type": "town",
+        "ruler": "Trinovantes",
+        "rulers": {"43": "Roman"},
+        "longitude": 51.886,
+        "latitude": 0.8212
+    },
+    {
+        "name": "Norwich",
+        "founded": -10,
+        "county": "Norfolk",
+        "type": "town",
+        "rulers": {"0": "Iceni"},
+        "longitude": 52.641,
+        "latitude": 1.204
+    },
+    {
+        "name": "Carlisle",
+        "founded": -10,
+        "county": "Cumbria",
+        "type": "town",
+        "rulers": {"0": "Carvetti"},
+        "longitude": 54.9,
+        "latitude": -2.978
+
+    },    {
+        "name": "Wroxeter",
+        "founded": -10,
+        "county": "Shropshire",
+        "type": "town",
+        "ruler": "Cornovii",
+        "rulers": {"55": "Roman"},
+        "longitude": 52.67,
+        "latitude": -2.719
+
+    },    {
+        "name": "Leicester",
+        "founded": -10,
+        "county": "Leicestershire",
+        "type": "town",
+        "ruler": "Corieltauvi",
+        "rulers": {"47": "Roman"},
+        "longitude": 52.636,
+        "latitude": -1.214
+
+    },    {
+        "name": "Brough",
+        "founded": -10,
+        "county": "East Riding of Yorkshire",
+        "type": "town",
+        "rulers": {"0": "Parisi"},
+        "longitude": 53.732,
+        "latitude": -0.589
+
+    },    {
+        "name": "Chester",
+        "founded": -10,
+        "county": "Cheshire",
+        "type": "town",
+        "rulers": {"0": "Deceangli"},
+        "longitude": 53.193,
+        "latitude": -2.929
+
+    },    {
+        "name": "Carmarthen",
+        "founded": -10,
+        "county": "Carmarthenshire",
+        "type": "town",
+        "rulers": {"0": "Demetae"},
+        "longitude": 51.864,
+        "latitude": -4.351
+
+    },    {
+        "name": "Meifod",
+        "founded": -10,
+        "county": "Powys",
+        "type": "town",
+        "rulers": {"0": "Ordovices"},
+        "longitude": 52.711,
+        "latitude": -3.264
+
+    },    {
+        "name": "Aldborough",
+        "founded": -10,
+        "county": "North Yorkshire",
+        "type": "town",
+        "rulers": {"0": "Brigantes"},
+        "longitude": 54.092,
+        "latitude": -1.397
+
+    },    {
+        "name": "Inverness",
+        "founded": -10,
+        "county": "Inverness-shire",
+        "type": "town",
+        "rulers": {"0": "Caledonii"},
+        "longitude": 57.468,
+        "latitude": -4.263
+
+    },    {
+        "name": "Corbridge",
+        "founded": -10,
+        "county": "Northumberland",
+        "type": "town",
+        "rulers": {"0": "Corionototae"},
+        "longitude": 54.979,
+        "latitude": -2.169
+
+    },    {
+        "name": "Strathclyde",
+        "founded": -10,
+        "county": "Strathclyde",
+        "type": "town"
+
+    },
+    {
+        "name": "Argyll",
+        "founded": -10,
+        "county": "Argyll",
+        "type": "town"
+
+    },    {
+        "name": "Galloway",
+        "founded": -10,
+        "county": "Galloway",
+        "type": "town"
+
+    },    {
+        "name": "Kirkcudbright",
+        "founded": -10,
+        "county": "Kirkcudbrightshire",
+        "type": "town",
+        "longitude": 54.841,
+        "latitude": -4.067
+
+    },
+    {
+        "name": "Sutherland",
+        "founded": -10,
+        "county": "Sutherland",
+        "type": "town"
+    },    {
+        "name": "Lancaster",
+        "founded": -10,
+        "county": "Lancashire",
+        "type": "town",
+        "rulers": {"0": "Setantii"},
+        "longitude": 54.044,
+        "latitude": -2.8423
+
+    },    {
+        "name": "Beltingham",
+        "founded": -10,
+        "county": "Northumberland",
+        "type": "town",
+        "rulers": {"0": "Textoverdi"},
+        "longitude": 54.968,
+        "latitude": -2.351
+
+    },    {
+        "name": "Stirling",
+        "founded": -10,
+        "county": "Stirlingshire",
+        "type": "town",
+        "rulers": {"0": "Votadini"},
+        "longitude": 56.119,
+        "latitude": -4.087
+
+    },    {
+        "name": "Rome",
+        "founded": -10,
+        "county": "Rest Of World",
+        "type": "town"
+    },
+    {
+        "name": "London",
+        "founded": 47,
+        "foundedBy": "Roman",
+        "county": "London",
+        "type": "town",
+        "longitude": 51.529,
+        "latitude": -0.266
+
+    },
+    {
+        "name": "Richborough",
+        "founded": 43,
+        "foundedBy": "Roman",
+        "county": "Kent",
+        "type": "town",
+        "longitude": 51.296,
+        "latitude": 1.304
+
+    },
+    {
+        "name": "Lincoln",
+        "founded": 48,
+        "foundedBy": "Roman",
+        "county": "Lincolnshire",
+        "type": "town",
+        "longitude": 53.218,
+        "latitude": -0.851
+
+    },
+    {
+        "name": "York",
+        "founded": 71,
+        "foundedBy": "Roman",
+        "county": "North Yorkshire",
+        "type": "town",
+        "longitude": 53.9587,
+        "latitude": -1.163
+
+    },
+    {
+        "name": "Edinburgh",
+        "founded": -10,
+        "county": "East Lothian",
+        "type": "town",
+        "rulers": {"0": "Votadini"},
+        "longitude": 55.941,
+        "latitude": -3.288
+    },
+    {
+        "name": "Wakefield",
+        "founded": -10,
+        "county": "North Yorkshire",
+        "type": "town",
+        "rulers": {"0": "Brigantes"},
+        "longitude": 53.676,
+        "latitude": -1.666
+    },
+    {
+        "name": "Sunderland",
+        "founded": -10,
+        "county": "Tyne and Wear",
+        "type": "town",
+        "rulers": {"0": "Brigantes"},
+        "longitude": 54.896,
+        "latitude": -1.488
+    },
+    {
+        "name": "Plymouth",
+        "founded": -10,
+        "county": "Devon",
+        "type": "town",
+        "rulers": {"0": "Dumnonii"},
+        "longitude": 50.389,
+        "latitude": -4.195
+    },
+
+]
+

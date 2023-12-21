@@ -1,0 +1,164 @@
+[
+    {
+        "name": "Kent",
+        "region": "South East",
+        "type": "county"
+    },
+    {
+        "name": "Berkshire",
+        "region": "South East",
+        "type": "county"
+    },
+    {
+        "name": "Hampshire",
+        "region": "South East",
+        "type": "county"
+    },
+    {
+        "name": "Hertfordshire",
+        "region": "East of England",
+        "type": "county"
+    },
+    {
+        "name": "Gloucestershire",
+        "region": "South West",
+        "type": "county"
+    },
+    {
+        "name": "Devon",
+        "region": "South West",
+        "type": "county"
+    },
+    {
+        "name": "Dorset",
+        "region": "South West",
+        "type": "county"
+    },
+    {
+        "name": "West Sussex",
+        "region": "South East",
+        "type": "county"
+    },
+    {
+        "name": "Essex",
+        "region": "East of England",
+        "type": "county"
+    },
+    {
+        "name": "Norfolk",
+        "region": "East of England",
+        "type": "county"
+    },
+    {
+        "name": "Cumbria",
+        "region": "North West",
+        "type": "county"
+    },
+    {
+        "name": "Shropshire",
+        "region": "West Midlands",
+        "type": "county"
+    },
+    {
+        "name": "Leicestershire",
+        "region": "East Midlands",
+        "type": "county"
+    },
+    {
+        "name": "Cheshire",
+        "region": "North West",
+        "type": "county"
+    },
+    {
+        "name": "Carmarthenshire",
+        "region": "Wales",
+        "type": "county"
+    },
+    {
+        "name": "Northumberland",
+        "region": "North East",
+        "type": "county"
+    },
+    {
+        "name": "Lancashire",
+        "region": "North West",
+        "type": "county"
+    },
+    {
+        "name": "Rest Of World",
+        "region": "Rest Of World",
+        "type": "county"
+    },
+    {
+        "name": "Stirlingshire",
+        "region": "Scotland",
+        "type": "county"
+    },
+    {
+        "name": "Sutherland",
+        "region": "Scotland",
+        "type": "county"
+    },
+    {
+        "name": "Kirkcudbrightshire",
+        "region": "Scotland",
+        "type": "county"
+    },
+    {
+        "name": "Galloway",
+        "region": "Scotland",
+        "type": "county"
+    },
+    {
+        "name": "Argyll",
+        "region": "Scotland",
+        "type": "county"
+    },
+    {
+        "name": "Strathclyde",
+        "region": "Scotland",
+        "type": "county"
+    },
+    {
+        "name": "Inverness-shire",
+        "region": "Scotland",
+        "type": "county"
+    },
+    {
+        "name": "Powys",
+        "region": "Wales",
+        "type": "county"
+    },
+    {
+        "name": "North Yorkshire",
+        "region": "Yorkshire and the Humber",
+        "type": "county"
+    },
+    {
+        "name": "East Riding of Yorkshire",
+        "region": "Yorkshire and the Humber",
+        "type": "county"
+    },
+    {
+        "name": "London",
+        "region": "London",
+        "type": "county"
+    },
+    {
+        "name": "Lincolnshire",
+        "region": "East Midlands",
+        "type": "county"
+    },
+    {
+        "name": "East Lothian",
+        "region": "Scotland",
+        "type": "county"
+    },
+    {
+        "name": "Tyne and Wear",
+        "region": "North East",
+        "type": "county"
+    }
+
+]
+

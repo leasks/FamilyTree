@@ -1,0 +1,39 @@
+[
+    {
+        "name": "The arrival of Angles, Saxons and Jutes",
+        "description": "",
+        "triggerYear": 449
+    },
+    {
+        "name": "The Heptarchy",
+        "description": "",
+        "triggerYear": 500
+    },
+    {
+        "name": "Viking Raiders",
+        "description": "",
+        "triggerYear": 793,
+        "endYear": 878
+    },
+    {
+        "name": "The Kingdom of Scotland",
+        "description": "",
+        "triggerYear": 843
+    },
+    {
+        "name": "Alfred the Great",
+        "description": "Alfred becomes the new King of Wessex",
+        "triggerYear": 871
+    },
+    {
+        "name": "Alfred the Great",
+        "description": "Alfred the Great restyles himself as the King of England",
+        "triggerYear": 886
+    },
+    {
+        "name": "Alfred the Great",
+        "description": "The death of Alfred the Great",
+        "triggerYear": 899
+    },
+
+]

@@ -16,23 +16,36 @@
         "type": "region"
     },
     {
-        "name": "Midlands",
+        "name": "East Midlands",
         "type": "region"
     },
     {
-        "name": "East Anglia",
+        "name": "West Midlands",
         "type": "region"
     },
     {
-        "name": "Kent",
-        "region": "South East",
-        "type": "county"
+        "name": "Yorkshire and the Humber",
+        "type": "region"
     },
     {
-        "name": "Canterbury",
-        "founded": -10,
-        "county": "Kent",
-        "type": "town"
+        "name": "London",
+        "type": "region"
     },
+    {
+        "name": "East of England",
+        "type": "region"
+    },
+    {
+        "name": "Wales",
+        "type": "region"
+    },
+    {
+        "name": "Scotland",
+        "type": "region"
+    },
+    {
+        "name": "Rest Of World",
+        "type": "region"
+    }
 
 ]

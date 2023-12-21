@@ -12,7 +12,20 @@
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
-
+    {
+      "target" : {
+        "containerPath" : "container:FamilyTree.xcodeproj",
+        "identifier" : "CD1033952A7F7C5B004E0E5F",
+        "name" : "FamilyTreeTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:FamilyTree.xcodeproj",
+        "identifier" : "CDA88DB52A94B16A009B9AC4",
+        "name" : "FamilyTreeUITests"
+      }
+    }
   ],
   "version" : 1
 }

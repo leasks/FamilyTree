@@ -1,0 +1,119 @@
+[
+    {
+        "name": "Poor Health",
+        "description": "With poor sanitiation and no access to medicine catching diseases is very easy",
+        "likelihood": 0.25,
+        "untreatedMortality": {
+            "type": "Mortality",
+            "startDate": "01/01/0001",
+            "endDate": "31/12/2999",
+            "rates": [
+                {
+                    "endAge": 20,
+                    "rate": 0.005
+                },
+                {
+                    "startAge": 21,
+                    "endAge": 30,
+                    "rate": 0.02
+                },
+                {
+                    "startAge": 31,
+                    "endAge": 40,
+                    "rate": 0.04
+                },
+                {
+                    "startAge": 41,
+                    "rate": 0.4
+                }
+            ]
+        },
+        "treatedMortality": {
+            "type": "Mortality",
+            "startDate": "01/01/0001",
+            "endDate": "31/12/2999",
+            "rates": [
+                {
+                    "endAge": 20,
+                    "rate": 0.005
+                },
+                {
+                    "startAge": 21,
+                    "endAge": 30,
+                    "rate": 0.02
+                },
+                {
+                    "startAge": 31,
+                    "endAge": 40,
+                    "rate": 0.04
+                },
+                {
+                    "startAge": 41,
+                    "rate": 0.1
+                }
+            ]
+        }
+    },
+    {
+        "name": "Killed In Battle",
+        "likelihood": 0.1,
+        "untreatedMortality": {
+            "type": "Mortality",
+            "rates": [
+                {
+                    "rate": 1
+                }
+            ]
+        },
+        "treatedMortality": {
+            "type": "Mortality",
+            "rates": [
+                {
+                    "rate": 1
+                }
+            ]
+        },
+        "impactedJobs": ["military"]
+    },
+    {
+        "name": "War Wounds",
+        "likelihood": 0.05,
+        "untreatedMortality": {
+            "type": "Mortality",
+            "rates": [
+                {
+                    "rate": 0.2
+                }
+            ]
+        },
+        "treatedMortality": {
+            "type": "Mortality",
+            "rates": [
+                {
+                    "rate": 0
+                }
+            ]
+        },
+        "impactedJobs": ["military"]
+    },
+    {
+        "name": "Innocent Casualty of War",
+        "likelihood": 0.01,
+        "untreatedMortality": {
+            "type": "Mortality",
+            "rates": [
+                {
+                    "rate": 1
+                }
+            ]
+        },
+        "treatedMortality": {
+            "type": "Mortality",
+            "rates": [
+                {
+                    "rate": 1
+                }
+            ]
+        }
+    }
+]

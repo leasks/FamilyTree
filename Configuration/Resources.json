@@ -1,17 +1,18 @@
 [
     {
+        "name": "Labour",
+        "inheritable": false,
+        "lifespan": 1
+    },
+    {
         "name": "Sword",
-        "inheritable": true,
-        "forSale": false
+        "requiredResources": {"Labour":1},
     },
     {
         "name": "Land",
-        "inheritable": true,
-        "forSale": false
     },
     {
         "name": "Coin",
-        "inheritable": true,
-        "forSale": false
-    }
+    },
+
 ]

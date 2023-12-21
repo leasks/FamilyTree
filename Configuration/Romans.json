@@ -1,242 +1,5 @@
 [
     {
-        "name": "Game Start",
-        "description": "Game Start",
-        "triggerYear": 0,
-        "triggerOrder": 1,
-        "affiliationsAdded": [
-            "Atrebates",
-            "Belgae",
-            "Cantiaci",
-            "Catuvellauni",
-            "Dobunni",
-            "Dumnonii",
-            "Durotriges",
-            "Regni",
-            "Trinovantes",
-            "Iceni",
-            "Carvetii",
-            "Cornovii",
-            "Corieltauvi",
-            "Parisi",
-            "Brigantes",
-            "Caledonii",
-            "Corionototae",
-            "Damnonii",
-            "Epidii",
-            "Novontae",
-            "Selgovae",
-            "Smertae",
-            "Textoverdi",
-            "Votadini",
-            "Deceangli",
-            "Demetae",
-            "Ordovices"
-        ],
-        "injuriesAdded": ["Poor Health"],
-        "jobsAdded": [
-            "Warrior",
-            "Blacksmith",
-            "Labourer",
-            "Chariot Rider",
-            "Blacksmith Apprentice",
-            "Tribal Leader",
-            "Farm Hand",
-            "Farmer"
-        ],
-        "newNPC": [
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Atrebates",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Belgae",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Cantiaci",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Catuvellauni",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Dobunni",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Dumnonii",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Durotriges",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Regni",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Trinovantes",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Iceni",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Carvetii",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Cornovii",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Corieltauvi",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Parisi",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Brigantes",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Caledonii",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Corionototae",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Damnonii",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Epidii",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Novontae",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Selgovae",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Smertae",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Ordovices",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Textoverdi",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Votadini",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Deceangli",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            },
-            {
-                "count": 100,
-                "minAge": 1,
-                "maxAge": 40,
-                "affiliation": "Demetae",
-                "jobDistribution": {"Warrior":0.15,"Blacksmith":0.05,"Labourer":0.2,"Tribal Leader":0.01,"Blacksmith Apprentice":0.08,"Chariot Rider":0.03,"Farm Hand":0.2,"Farmer":0.15}
-            }
-        ]
-    },
-    {
         "name": "Roman Invasion of Britain",
         "description": "In AD 43 the Roman emperor Claudius launched an invasion of Britain",
         "triggerYear": 43,
@@ -466,5 +229,28 @@
             "affiliation": "Roman",
             "jobDistribution": {"Legionary":0.25,"Labourer":0.55}
         }]
+    },
+    {
+        "name": "Hadrian's Wall",
+        "description": "",
+        "triggerYear": 122
+    },
+    {
+        "name": "Britannia Superior and Britannia Inferior",
+        "description": "",
+        "triggerYear": 214
+    },
+    {
+        "name": "The Britannic Empire",
+        "description": "",
+        "triggerYear": 286,
+        "endYear": 296
+    },
+    {
+        "name": "The Roman Withdrawl",
+        "description": "",
+        "triggerYear": 383,
+        "endYear": 410
     }
+
 ]

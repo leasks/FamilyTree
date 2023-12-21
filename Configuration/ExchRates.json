@@ -1,0 +1,19 @@
+[
+    {
+        "type": "Land-Coin",
+        "startDate": "01/01/0001",
+        "endDate": "31/12/2999",
+        "rate": 100,
+        "buyResource": "Land",
+        "sellResource": "Coin"
+    },
+    {
+        "type": "Labour-Coin",
+        "startDate": "01/01/0001",
+        "endDate": "31/12/2999",
+        "rate": 1,
+        "buyResource": "Labour",
+        "sellResource": "Coin"
+    }
+]
+

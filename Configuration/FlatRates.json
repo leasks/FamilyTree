@@ -1,6 +1,296 @@
-[{
-    "type": "Life Expectancy",
-    "startDate": "01/01/0001",
-    "endDate": "31/12/2998",
-    "rate": 40
-}]
+[
+    {
+        "type": "Inherit Job",
+        "startDate": "01/01/0001",
+        "endDate": "31/12/2999",
+        "rate": 0.8
+    },
+    {
+        "type": "Return To Pre-Event Location",
+        "startDate": "01/01/0001",
+        "endDate": "31/12/2999",
+        "rate": 0.8
+    },
+    {
+        "type": "Inter-Tribe Battle",
+        "startDate": "01/01/0001",
+        "endDate": "31/12/2999",
+        "rate": 0.005
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/0001",
+        "endDate": "31/12/1799",
+        "rate": 10
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1800",
+        "endDate": "31/12/1804",
+        "rate": 4.97
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1805",
+        "endDate": "31/12/1809",
+        "rate": 5.34
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1810",
+        "endDate": "31/12/1814",
+        "rate": 5.39
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1815",
+        "endDate": "31/12/1819",
+        "rate": 5.53
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1820",
+        "endDate": "31/12/1824",
+        "rate": 5.56
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1825",
+        "endDate": "31/12/1829",
+        "rate": 5.52
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1830",
+        "endDate": "31/12/1834",
+        "rate": 5.07
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1835",
+        "endDate": "31/12/1839",
+        "rate": 4.86
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1840",
+        "endDate": "31/12/1844",
+        "rate": 4.85
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1845",
+        "endDate": "31/12/1849",
+        "rate": 4.82
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1850",
+        "endDate": "31/12/1854",
+        "rate": 4.76
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1855",
+        "endDate": "31/12/1859",
+        "rate": 4.88
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1860",
+        "endDate": "31/12/1864",
+        "rate": 4.89
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1865",
+        "endDate": "31/12/1869",
+        "rate": 4.93
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1870",
+        "endDate": "31/12/1874",
+        "rate": 4.91
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1875",
+        "endDate": "31/12/1879",
+        "rate": 4.91
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1880",
+        "endDate": "31/12/1884",
+        "rate": 4.85
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1885",
+        "endDate": "31/12/1889",
+        "rate": 4.54
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1890",
+        "endDate": "31/12/1894",
+        "rate": 4.18
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1895",
+        "endDate": "31/12/1899",
+        "rate": 3.9
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1900",
+        "endDate": "31/12/1904",
+        "rate": 3.63
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1905",
+        "endDate": "31/12/1909",
+        "rate": 3.4
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1910",
+        "endDate": "31/12/1914",
+        "rate": 3.13
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1915",
+        "endDate": "31/12/1919",
+        "rate": 2.84
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1920",
+        "endDate": "31/12/1924",
+        "rate": 2.42
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1925",
+        "endDate": "31/12/1929",
+        "rate": 2.4
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1930",
+        "endDate": "31/12/1934",
+        "rate": 2.01
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1935",
+        "endDate": "31/12/1939",
+        "rate": 1.79
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1940",
+        "endDate": "31/12/1944",
+        "rate": 1.8
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1945",
+        "endDate": "31/12/1949",
+        "rate": 2
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1950",
+        "endDate": "31/12/1954",
+        "rate": 2.38
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1955",
+        "endDate": "31/12/1959",
+        "rate": 2.18
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1960",
+        "endDate": "31/12/1964",
+        "rate": 2.49
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1965",
+        "endDate": "31/12/1969",
+        "rate": 2.81
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1970",
+        "endDate": "31/12/1974",
+        "rate": 2.57
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1975",
+        "endDate": "31/12/1979",
+        "rate": 2.01
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1980",
+        "endDate": "31/12/1984",
+        "rate": 1.73
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1985",
+        "endDate": "31/12/1989",
+        "rate": 1.78
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1990",
+        "endDate": "31/12/1994",
+        "rate": 1.84
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/1995",
+        "endDate": "31/12/1999",
+        "rate": 1.78
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/2000",
+        "endDate": "31/12/2004",
+        "rate": 1.74
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/2005",
+        "endDate": "31/12/2009",
+        "rate": 1.66
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/2010",
+        "endDate": "31/12/2014",
+        "rate": 1.86
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/2015",
+        "endDate": "31/12/2019",
+        "rate": 1.87
+    },
+    {
+        "type": "Family Size",
+        "startDate": "01/01/2020",
+        "endDate": "31/12/2024",
+        "rate": 1.75
+    }
+]

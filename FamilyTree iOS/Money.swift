@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Money {
+struct Money: Codable {
     
 }

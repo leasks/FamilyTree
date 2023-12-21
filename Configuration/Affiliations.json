@@ -1,0 +1,224 @@
+[
+    {
+        "name": "Atrebates",
+        "capital": "Silchester",
+        "colour": "0x00FF00"
+    },
+    {
+        "name": "Belgae",
+        "capital": "Winchester",
+        "colour": "0xDA1884"
+    },
+    {
+        "name": "Cantiaci",
+        "capital": "Canterbury",
+        "colour": "0xB566CC"
+    },
+    {
+        "name": "Catuvellauni",
+        "capital": "St Albans",
+        "colour": "0x0000FF"
+    },
+    {
+        "name": "Dobunni",
+        "capital": "Cirencester",
+        "colour": "0xC7E1FF"
+    },
+    {
+        "name": "Dumnonii",
+        "capital": "Exeter",
+        "colour": "0xD98EFF"
+    },
+    {
+        "name": "Durotriges",
+        "capital": "Dorchester",
+        "colour": "0x8AFFA4"
+    },
+    {
+        "name": "Regni",
+        "capital": "Chichester",
+        "colour": "0xFFF68C"
+    },
+    {
+        "name": "Trinovantes",
+        "capital": "Colchester",
+        "colour": "0x4D10BD"
+    },
+    {
+        "name": "Iceni",
+        "capital": "Norwich",
+        "colour": "0x94F2FF"
+    },
+    {
+        "name": "Carvetii",
+        "capital": "Carlisle",
+        "colour": "0x888888"
+    },
+    {
+        "name": "Cornovii",
+        "capital": "Wroxeter",
+        "colour": "0xFF7979"
+    },
+    {
+        "name": "Corieltauvi",
+        "capital": "Leicester",
+        "colour": "0xF8D5FF"
+    },
+    {
+        "name": "Parisi",
+        "capital": "Brough",
+        "colour": "0xDFFFBA"
+    },
+    {
+        "name": "Deceangli",
+        "capital": "Chester",
+        "colour": "0x94F2FF"
+    },
+    {
+        "name": "Demetae",
+        "capital": "Carmarthen",
+        "colour": "0xD2BC14"
+    },
+    {
+        "name": "Ordovices",
+        "capital": "Meifod",
+        "colour": "0x2C9925"
+    },
+    {
+        "name": "Brigantes",
+        "capital": "Aldborough",
+        "colour": "0x6A1CB0"
+    },
+    {
+        "name": "Caledonii",
+        "capital": "Inverness",
+        "colour": "0x000000"
+    },
+    {
+        "name": "Corionototae",
+        "capital": "Corbridge",
+        "colour": "0x5E8CC8"
+    },
+    {
+        "name": "Damnonii",
+        "capital": "Strathclyde"
+    },
+    {
+        "name": "Epidii",
+        "capital": "Argyll"
+    },
+    {
+        "name": "Novontae",
+        "capital": "Galloway"
+    },
+    {
+        "name": "Selgovae",
+        "capital": "Kirkcudbright"
+    },
+    {
+        "name": "Smertae",
+        "capital": "Sutherland"
+    },
+    {
+        "name": "Setantii",
+        "capital": "Lancaster",
+        "colour": "0x0000D0"
+    },
+    {
+        "name": "Textoverdi",
+        "capital": "Beltingham",
+        "colour": "0xFFd77D"
+    },
+    {
+        "name": "Votadini",
+        "capital": "Stirling",
+        "colour": "0xFF83D1"
+    },
+    {
+        "name": "Roman",
+        "capital": "Rome",
+        "colour": "0xFF0000"
+    },
+    {
+        "name": "Romano British",
+        "capital": "London",
+        "colour": "0xFF0812"
+    },
+    {
+        "name": "Jutes",
+        "capital": "Canterbury"
+    },
+    {
+        "name": "Saxons",
+        "capital": "London"
+    },
+    {
+        "name": "Angles",
+        "capital": "London"
+    },
+    {
+        "name": "East Anglia",
+        "capital": "London"
+    },
+    {
+        "name": "Mercia",
+        "capital": "London"
+    },
+    {
+        "name": "Northumbria",
+        "capital": "London"
+    },
+    {
+        "name": "Wessex",
+        "capital": "London"
+    },
+    {
+        "name": "Essex",
+        "capital": "London"
+    },
+    {
+        "name": "Kent",
+        "capital": "London"
+    },
+    {
+        "name": "Sussex",
+        "capital": "London"
+    },
+    {
+        "name": "Dumnonia",
+        "capital": "London"
+    },
+    {
+        "name": "Gwynedd",
+        "capital": "London"
+    },
+    {
+        "name": "Powys",
+        "capital": "London"
+    },
+    {
+        "name": "Dyfed",
+        "capital": "London"
+    },
+    {
+        "name": "Gwent",
+        "capital": "London"
+    },
+    {
+        "name": "Strathclyde",
+        "capital": "London"
+    },
+    {
+        "name": "Dal Rhta",
+        "capital": "London"
+    },
+    {
+        "name": "Fortriu",
+        "capital": "London"
+    },
+    {
+        "name": "Cornovii",
+        "capital": "London"
+    },
+
+]

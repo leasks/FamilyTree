@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import FamilyTree
 
 final class AffiliationsTests: XCTestCase {
 
@@ -17,19 +18,39 @@ final class AffiliationsTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
+    func testAffiliations() async throws {
+        // Given Joanna is a Celt
+        // And Fred is a Roman
+        // And Dave is a Norman
+        // And Celts do not like Normans
+        // But have no opinion on Romans
+        // When Joanna is looking to marry
+        // Then she can marry Fred
+        // But won't marry Dave
+        let calendar = Calendar(identifier: .gregorian)
+        let components = DateComponents(year: 2000)
+        let dateOfBirth = calendar.date(from: components)!
+        var game = GameEngine(year: 2020, month: 1)
+        let joanna = await Person(name: "Joanna", dateOfBirth: dateOfBirth, gender: Sex.female, game: game)
+        let fred = await Person(name: "Fred", dateOfBirth: dateOfBirth, gender: Sex.male, game: game)
+        let dave = await Person(name: "Dave", dateOfBirth: dateOfBirth, gender: Sex.male, game: game)
+        let norman = Affiliation(name: "Norman")
+        var celtic = Affiliation(name: "Celtic")
+        celtic.dislikedAffiliations = [norman]
+        let roman = Affiliation(name: "Roman")
+        
+        joanna.affiliations = [celtic]
+        dave.affiliations = [norman]
+        fred.affiliations = [roman]
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        for person in [joanna, dave, fred] {
+            await game.addPerson(person: person)
         }
+
+        await joanna.marries(game: game)
+        
+        XCTAssertTrue(joanna.spouse == fred, "Joanna didn't marry Fred - but it may just be because of random nature")
+        XCTAssertFalse(joanna.spouse == dave, "Joanna married Dave but she doesn't like Normans")
     }
 
 }
