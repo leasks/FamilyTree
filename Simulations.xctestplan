@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "2F475B50-9E39-46E7-B189-9B3B5C35A225",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "GameTurns\/testSimulateTheGame()",
+        "GameTurns\/testWhatDoesJSONLookLike()",
+        "GameViewTests",
+        "GameViewTests\/testExample()",
+        "GameViewTests\/testPlayerDecisions()"
+      ],
+      "target" : {
+        "containerPath" : "container:FamilyTree.xcodeproj",
+        "identifier" : "CD1033952A7F7C5B004E0E5F",
+        "name" : "FamilyTreeTests"
+      }
+    }
+  ],
+  "version" : 1
+}
