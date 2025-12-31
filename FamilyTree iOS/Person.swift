@@ -393,10 +393,12 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         filter = filter.filter({
             if $0.affiliation == nil {
                 return true
-            } else if !affils.isDisjoint(with: $0.affiliation!) {
+            } else if let affiliation = $0.affiliation, !affils.isDisjoint(with: affiliation) {
                 return true
+            } else if let affiliation = $0.affiliation {
+                return affiliation.contains(affiliation)
             } else {
-                return $0.affiliation!.contains(affiliation)
+                return false
             }
         })
         if gender == .male {
@@ -435,7 +437,7 @@ class Person: Codable { //swiftlint:disable:this type_body_length
                 return true
             } else {
                 for parentAffil in parentAffils {
-                    if $0.affiliation!.contains(parentAffil) {
+                    if let nameAffiliation = $0.affiliation, nameAffiliation.contains(parentAffil) {
                         return true
                     }
                 }
@@ -609,8 +611,8 @@ class Person: Codable { //swiftlint:disable:this type_body_length
             //            retString += " due to \(self.causeOfDeath!)"
         }
         
-        if self.spouse != nil {
-            retString += "\r\nm. \(self.spouse!.name)"
+        if let spouse = self.spouse {
+            retString += "\r\nm. \(spouse.name)"
         }
         if self.descendants.filter({$0.dateOfDeath == nil}).count > 0 {
             retString += "\r\n\(self.descendants.filter({$0.dateOfDeath == nil}).count) children"
@@ -633,15 +635,15 @@ class Person: Codable { //swiftlint:disable:this type_body_length
             retString += " due to \(self.causeOfDeath ?? "Unknown")"
         }
         
-        if self.spouse != nil {
-            retString += " m. \(self.spouse!.name)"
+        if let spouse = self.spouse {
+            retString += " m. \(spouse.name)"
         }
         if self.descendants.count > 0 {
             retString += " \(self.descendants.count) children"
         }
 
-        if self.job != nil {
-            retString += " is a \(self.job!.name)"
+        if let job = self.job {
+            retString += " is a \(job.name)"
         }
         
         for (resource, count) in self.resources ?? [:] {

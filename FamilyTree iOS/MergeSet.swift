@@ -57,8 +57,8 @@ extension Set {
             case is Injury:
                 var curVal = self.remove(member) as? Injury
                 let oldVal = member as? Injury
-                if oldVal?.location != nil {
-                    let newloc = curVal?.location?.subtracting(oldVal!.location!)
+                if let oldLocation = oldVal?.location {
+                    let newloc = curVal?.location?.subtracting(oldLocation)
                     curVal?.location = newloc
                 }
                 if curVal?.location?.count == 0 {
@@ -69,7 +69,9 @@ extension Set {
             default:
                 break
             }
-            self.insert(newInsert!)
+            if let newInsert = newInsert {
+                self.insert(newInsert)
+            }
             return member
 
         }

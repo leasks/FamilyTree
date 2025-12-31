@@ -24,16 +24,16 @@ struct Injury: Codable {
         // If this injury only affects certain jobs then check and return if
         // the person does not have this job
 
-        if impactedJobs != nil  && person.job != nil {
-            if !impactedJobs!.contains(person.job!.type ?? .general) { return }
+        if let impactedJobs = impactedJobs, let job = person.job {
+            if !impactedJobs.contains(job.type ?? .general) { return }
         } else if impactedJobs != nil {
             return
         }
         
         // If this injury is only happening in certain locations then check and
         // return if the person is not in that location
-        if self.location != nil && person.location != nil {
-            if !self.location!.contains(person.location!) && self.location!.count > 0 { return }
+        if let location = self.location, let personLocation = person.location {
+            if !location.contains(personLocation) && location.count > 0 { return }
         }
         
         if !person.injuries.contains(self) && Float.random(in: 0...1) < self.likelihood ?? 0 {
@@ -55,8 +55,8 @@ struct Injury: Codable {
                 person.causeOfDeath = self.name
 
                 // TODO: How can I check if this person is related to the player - perhaps attribute of player on the person and traverse and keep parents
-                if person.spouse?.isThePlayer ?? false {
-                    await person.spouse!.addFamilyDeathEvent(person: person, game: game)
+                if let spouse = person.spouse, spouse.isThePlayer {
+                    await spouse.addFamilyDeathEvent(person: person, game: game)
                 }
                 //                Task {
 //                // Add a player event if they have a spouse
