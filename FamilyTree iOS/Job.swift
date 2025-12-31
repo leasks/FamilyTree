@@ -86,47 +86,67 @@ struct Job: Codable {
         self.travels = try container.decodeIfPresent(Bool.self, forKey: .travels) ?? false
 
         // Look up resource through the name
-        var strResources = try container.decodeIfPresent([String].self, forKey: .requiredResources)
+        let strResources = try container.decodeIfPresent([String].self, forKey: .requiredResources)
         var resourceList: Set<Resource> = []
         for resource in strResources ?? [] {
-            resourceList.insert(ConfigLoader.resources.first(where: {$0.name == resource})!)
+            if let foundResource = ConfigLoader.resources.first(where: {$0.name == resource}) {
+                resourceList.insert(foundResource)
+            } else {
+                print("Warning: Resource '\(resource)' not found in ConfigLoader for job '\(self.name)'")
+            }
         }
         self.requiredResources = resourceList
 
-        var createResource = try container.decodeIfPresent([String: Int].self, forKey: .produceResource)
+        let createResource = try container.decodeIfPresent([String: Int].self, forKey: .produceResource)
         var allData: [Resource: Int] = [:]
         for (resource, count) in createResource ?? [:] {
-            allData[ConfigLoader.resources.first(where: {$0.name == resource})!] = count
+            if let foundResource = ConfigLoader.resources.first(where: {$0.name == resource}) {
+                allData[foundResource] = count
+            } else {
+                print("Warning: Resource '\(resource)' not found in ConfigLoader for job '\(self.name)'")
+            }
         }
         self.produceResource = allData
 
         // Look up social class through its name if present
-        var strClass = try container.decodeIfPresent(String.self, forKey: .socialClass)
-        if strClass != nil {
+        let strClass = try container.decodeIfPresent(String.self, forKey: .socialClass)
+        if let strClass = strClass {
             self.socialClass = ConfigLoader.socialClasses.first(where: {$0.name == strClass})
         }
         
         // Look up the capital through its name from the ConfigLoader
-        var strAffils = try container.decodeIfPresent([String].self, forKey: .affiliations)
+        let strAffils = try container.decodeIfPresent([String].self, forKey: .affiliations)
         var afilList: Set<Affiliation> = []
         for afil in strAffils ?? [] {
-            afilList.insert(ConfigLoader.affiliations.first(where: {$0.name == afil})!)
+            if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
+                afilList.insert(foundAffiliation)
+            } else {
+                print("Warning: Affiliation '\(afil)' not found in ConfigLoader for job '\(self.name)'")
+            }
         }
         self.affiliations = afilList
 
-        strAffils = try container.decodeIfPresent([String].self, forKey: .blockedAffiliations)
-        afilList = []
-        for afil in strAffils ?? [] {
-            afilList.insert(ConfigLoader.affiliations.first(where: {$0.name == afil})!)
+        let strAffilsBlocked = try container.decodeIfPresent([String].self, forKey: .blockedAffiliations)
+        var afilListBlocked: Set<Affiliation> = []
+        for afil in strAffilsBlocked ?? [] {
+            if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
+                afilListBlocked.insert(foundAffiliation)
+            } else {
+                print("Warning: Affiliation '\(afil)' not found in ConfigLoader for job '\(self.name)'")
+            }
         }
-        self.blockedAffiliations = afilList
+        self.blockedAffiliations = afilListBlocked
 
-        strAffils = try container.decodeIfPresent([String].self, forKey: .earnAffiliations)
-        afilList = []
-        for afil in strAffils ?? [] {
-            afilList.insert(ConfigLoader.affiliations.first(where: {$0.name == afil})!)
+        let strAffilsEarn = try container.decodeIfPresent([String].self, forKey: .earnAffiliations)
+        var afilListEarn: Set<Affiliation> = []
+        for afil in strAffilsEarn ?? [] {
+            if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
+                afilListEarn.insert(foundAffiliation)
+            } else {
+                print("Warning: Affiliation '\(afil)' not found in ConfigLoader for job '\(self.name)'")
+            }
         }
-        self.earnAffiliations = afilList
+        self.earnAffiliations = afilListEarn
 
     }
 
@@ -153,18 +173,18 @@ struct Job: Codable {
     func meetsRequirements(person: Person, gameDate: Date) -> Bool {
         let personAge = person.age
         if minAge ?? 0 <= personAge && maxAge ?? 1000 >= personAge {
-            if !(allowedGenders.contains(person.gender)) { return false } // Job does not support this gender
+            if !allowedGenders.contains(person.gender) { return false } // Job does not support this gender
             
             if person.affiliations.count > 0 {
-                if !(self.affiliations ?? []).isEmpty {
-                    if self.affiliations!.isDisjoint(with: person.affiliations) {
+                if let affiliations = self.affiliations, !affiliations.isEmpty {
+                    if affiliations.isDisjoint(with: person.affiliations) {
                         // Person does not have the right affiliation
                         return false
                     }
                 }
                 
-                if !(self.blockedAffiliations ?? []).isEmpty {
-                    if !self.blockedAffiliations!.isDisjoint(with: person.affiliations) {
+                if let blockedAffiliations = self.blockedAffiliations, !blockedAffiliations.isEmpty {
+                    if !blockedAffiliations.isDisjoint(with: person.affiliations) {
                         // Person has a blocked affiliation
                         return false
                     }
@@ -174,8 +194,9 @@ struct Job: Codable {
                 return false
             }
             
-            if person.skills?.count ?? 0 > 0 {
-                if person.skills!.intersection(self.requiredSkills ?? person.skills!).count != (self.requiredSkills ?? person.skills!).count  {
+            if let personSkills = person.skills, personSkills.count > 0 {
+                let requiredSkills = self.requiredSkills ?? personSkills
+                if personSkills.intersection(requiredSkills).count != requiredSkills.count {
                     // The person doesn't have the required skills
                     return false
                 }
@@ -186,8 +207,8 @@ struct Job: Codable {
                 }
             }
             
-            if (self.requiredResources ?? []).count > 0 {
-                if self.requiredResources!.intersection(person.resources.keys).count != self.requiredResources!.count {
+            if let requiredResources = self.requiredResources, requiredResources.count > 0 {
+                if requiredResources.intersection(person.resources.keys).count != requiredResources.count {
                     // Person doesn't have the necessary resources
                     return false
                 }
@@ -228,11 +249,10 @@ struct Job: Codable {
         // Sales jobs also can relocate so carry this out here
         // TODO: should this be every turn or do they return home at random too?
         if travels {
-            var alltowns = await game.availableLocations.filter({$0.type == .town}) as? Set<Town>
+            let alltowns = await game.availableLocations.filter({$0.type == .town}) as? Set<Town>
 
-            let newlocation = alltowns?.randomElement()
-            if newlocation != nil {
-                person.moves(to: newlocation!, family: false)
+            if let newlocation = alltowns?.randomElement() {
+                person.moves(to: newlocation, family: false)
             }
 
         }
@@ -248,10 +268,11 @@ struct Job: Codable {
     }
 
     func learnSkills(person: Person, game: GameEngine) async {
+        guard let jobStartDate = person.jobStartDate else { return }
         let calendar = Calendar(identifier: .gregorian)
         let currDate = await game.getGameDate()
-        let jobAge = currDate > person.jobStartDate! ?
-        calendar.dateComponents([.year], from: person.jobStartDate!, to: currDate).year ?? 0 :
+        let jobAge = currDate > jobStartDate ?
+        calendar.dateComponents([.year], from: jobStartDate, to: currDate).year ?? 0 :
         0
 
         for (skill, period) in (learnSkills ?? [:]) where jobAge >= period && !(person.skills?.contains(skill) ?? false) {
@@ -265,10 +286,10 @@ struct Job: Codable {
 
     func buildTreeNode(game: GameEngine) async -> [TreeNode] {
         var fullNode: [TreeNode] = []
-        let player = await game.activePerson!
+        guard let player = await game.activePerson else { return fullNode }
         let jobs = await game.availableJobs
-        if self.learnSkills?.count ?? 0 > 0 {
-            for (skill, _) in self.learnSkills! {
+        if let learnSkills = self.learnSkills, learnSkills.count > 0 {
+            for (skill, _) in learnSkills {
                 let dependentJobs = await jobs.filter({$0.requiredSkills?.contains(skill) ?? false})
                 for child in dependentJobs {
                     await fullNode.append(TreeNode(value: child.name, description: child.details(),
@@ -307,26 +328,26 @@ struct Job: Codable {
                     retString += "Women only\r\n "
                 }
             }
-            if minAge != nil {
-                retString += "Minimum Age " + String(minAge!) + "\r\n"
+            if let minAge = minAge {
+                retString += "Minimum Age " + String(minAge) + "\r\n"
             }
 
-            if maxAge != nil {
-                retString += "Maximum Age " + String(minAge!) + "\r\n"
+            if let maxAge = maxAge {
+                retString += "Maximum Age " + String(maxAge) + "\r\n"
             }
 
         }
 
         // Display skill requirements
-        if requiredSkills != nil {
+        if let requiredSkills = requiredSkills {
             retString += "\r\nRequired Skills: "
-            for skill in requiredSkills! {
+            for skill in requiredSkills {
                 retString += skill.name + "\r\n"
             }
         }
-        if learnSkills != nil {
+        if let learnSkills = learnSkills {
             retString += "\r\nLearnt Skills: "
-            for (skill, years) in learnSkills! {
+            for (skill, years) in learnSkills {
                 retString += skill.name + " (" + String(years) + " years)\r\n"
             }
         }
