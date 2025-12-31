@@ -49,8 +49,12 @@ struct NewNPC: Codable {
         self.genderDistribution = try container.decodeIfPresent([Sex: Float].self, forKey: .genderDistribution)
 
         // Look up the affilliations through its name from the ConfigLoader
-        var strAffil = try container.decodeIfPresent(String.self, forKey: .affiliation)
-        self.affiliation = ConfigLoader.affiliations.first(where: {$0.name == strAffil})!
+        let strAffil = try container.decodeIfPresent(String.self, forKey: .affiliation)
+        guard let affiliation = ConfigLoader.affiliations.first(where: {$0.name == strAffil}) else {
+            throw DecodingError.dataCorruptedError(forKey: .affiliation, in: container,
+                                                    debugDescription: "Affiliation '\(strAffil ?? "nil")' not found in ConfigLoader")
+        }
+        self.affiliation = affiliation
     }
 
     init (count: Int, minAge: Int, maxAge: Int, affiliation: Affiliation? = nil, jobDistribution: [JobDistribution]? = [], genderDistribution: [Sex: Float]? = [:]) {

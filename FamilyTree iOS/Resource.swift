@@ -75,10 +75,13 @@ class Resource: Codable {
         self.requiredResources = [:]
 
         if !ConfigLoader.resources.isEmpty {
-            var reqResources = try container.decodeIfPresent([String: Int].self, forKey: .requiredResources)
+            let reqResources = try container.decodeIfPresent([String: Int].self, forKey: .requiredResources)
             for (resString, count) in reqResources ?? [:] {
-                let res = ConfigLoader.resources.filter({$0.name == resString}).first!
-                self.requiredResources[res] = count
+                if let res = ConfigLoader.resources.filter({$0.name == resString}).first {
+                    self.requiredResources[res] = count
+                } else {
+                    print("Warning: Required resource '\(resString)' not found in ConfigLoader for resource '\(self.name)'")
+                }
             }
         }
     }
