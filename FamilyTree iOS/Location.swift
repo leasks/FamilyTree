@@ -70,7 +70,11 @@ class County: Location {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         let strRegion = try container.decode(String.self, forKey: .region)
-        self.region = (ConfigLoader.locations.first(where: {$0.name == strRegion && $0.type == .region}) as? Region)!
+        guard let region = ConfigLoader.locations.first(where: {$0.name == strRegion && $0.type == .region}) as? Region else {
+            throw DecodingError.dataCorruptedError(forKey: .region, in: container,
+                                                    debugDescription: "Region '\(strRegion)' not found in ConfigLoader")
+        }
+        self.region = region
         try super.init(from: decoder)
     }
 
@@ -136,7 +140,7 @@ class Town: Location {
         self.longitude = try container.decodeIfPresent(Double.self, forKey: .longitude)
         self.latitutde = try container.decodeIfPresent(Double.self, forKey: .latitude)
         let strCurRuler = try container.decodeIfPresent(String.self, forKey: .ruler)
-        if strCurRuler != nil {
+        if let strCurRuler = strCurRuler {
             self.ruler = ConfigLoader.affiliations.first(where: {$0.name == strCurRuler})
         }
 
@@ -146,7 +150,7 @@ class Town: Location {
         }
 
         let strFoundedBy = try container.decodeIfPresent(String.self, forKey: .foundedBy)
-        if strFoundedBy != nil {
+        if let strFoundedBy = strFoundedBy {
             self.foundedBy = ConfigLoader.affiliations.first(where: {$0.name == strFoundedBy})
         }
         else
@@ -161,24 +165,27 @@ class Town: Location {
     }
 
     func createRulerEvents(year: Int) -> Event? {
-        if rulers[year] != nil {
-            let eventName = rulers[year]!.name + " conquers " + self.name
-            var rulerChangeEvent = Event(name: eventName, description: eventName, triggerYear: year)
-            rulerChangeEvent.location = [self]
+        guard let newRuler = rulers[year] else { return nil }
+        
+        let eventName = newRuler.name + " conquers " + self.name
+        var rulerChangeEvent = Event(name: eventName, description: eventName, triggerYear: year)
+        rulerChangeEvent.location = [self]
 
-            // Add injuries if hostile
-            // TODO: Need to add War/Battle Wounds too
-            if self.ruler != nil {
-                if (self.ruler!.dislikedAffiliations?.contains(rulers[year]!) ?? false) ||
-                    (rulers[year]!.dislikedAffiliations?.contains(self.ruler!) ?? false) {
-                    rulerChangeEvent.injuriesAdded = [ConfigLoader.injuries.first(where: {$0.name == "Killed In Battle"})!]
+        // Add injuries if hostile
+        // TODO: Need to add War/Battle Wounds too
+        if let currentRuler = self.ruler {
+            if (currentRuler.dislikedAffiliations?.contains(newRuler) ?? false) ||
+                (newRuler.dislikedAffiliations?.contains(currentRuler) ?? false) {
+                if let killedInjury = ConfigLoader.injuries.first(where: {$0.name == "Killed In Battle"}) {
+                    rulerChangeEvent.injuriesAdded = [killedInjury]
                 }
+            }
 
-                // Conversion details
-                let conversionAfil = ConfigLoader.affiliations.first(where: {
-                    $0.name == (rulers[year]!.conversionAffiliation ?? rulers[year]!.name)
-                })
-                rulerChangeEvent.convertAffiliation[self.ruler!] = conversionAfil
+            // Conversion details
+            let conversionAfil = ConfigLoader.affiliations.first(where: {
+                $0.name == (newRuler.conversionAffiliation ?? newRuler.name)
+            })
+            rulerChangeEvent.convertAffiliation[currentRuler] = conversionAfil
             }
 
             return rulerChangeEvent

@@ -103,13 +103,16 @@ actor GameEngine {
 
     func initPlayer(name: String, gender: Sex, affiliation: Affiliation) async {
         let components = DateComponents(year: self.year - Int.random(in: 10...14), month: Int.random(in: 1...12), day: Int.random(in: 0...28))
-        let birthD = calendar.date(from: components)!
+        guard let birthD = calendar.date(from: components) else {
+            print("Error: Failed to create birth date")
+            return
+        }
         
         let person = await Person(name: name, dateOfBirth: birthD, gender: gender, game: self)
         person.affiliations.insert(affiliation)
 
-        if affiliation.capital != nil {
-            person.location = affiliation.capital!
+        if let capital = affiliation.capital {
+            person.location = capital
         }
 
         person.isThePlayer = true
@@ -138,25 +141,24 @@ actor GameEngine {
     func playerEndTurnUpdates() async {
 
         // First apply to the active player
-        let player = self.getActivePerson()
-        if player != nil {
-            player!.age += 1
+        if let player = self.getActivePerson() {
+            player.age += 1
             for rate in ConfigLoader.rates {
-                await rate.apply(person: player!, game: self)
+                await rate.apply(person: player, game: self)
             }
 
             for injury in availableInjuries {
-                await injury.apply(person: player!, game: self, isPlayer: true)
+                await injury.apply(person: player, game: self, isPlayer: true)
             }
 
-            await player!.job?.doJob(person: player!, game: self)
+            await player.job?.doJob(person: player, game: self)
 
-            for (resource, count) in player!.resources where resource.lifespan > 0 {
-                player!.resources[resource] = nil
+            for (resource, count) in player.resources where resource.lifespan > 0 {
+                player.resources[resource] = nil
                 resource.age += 1
 
                 if resource.age <= resource.lifespan {
-                    player!.resources[resource] = count
+                    player.resources[resource] = count
                 }
             }
         }
@@ -244,8 +246,8 @@ actor GameEngine {
             self.tradeMatching(buyer: character)
             self.makeTrades(buyer: character)
 
-            if character.job != nil {
-                await character.job!.doJob(person: character, game: self)
+            if let job = character.job {
+                await job.doJob(person: character, game: self)
             } else {
                 // Find a job
                 await character.seekJob(startDate: generateDate(year: year),
@@ -263,9 +265,8 @@ actor GameEngine {
                         }
                     }
 
-                    let newlocation = alltowns?.randomElement()
-                    if newlocation != nil {
-                        character.moves(to: newlocation!, family: true)
+                    if let newlocation = alltowns?.randomElement() {
+                        character.moves(to: newlocation, family: true)
                     }
                 }
             }
@@ -342,14 +343,18 @@ actor GameEngine {
 
     func generateBattleEvent(attacker: Affiliation) {
         let filter = self.availableAffiliations.filter({$0 != attacker})
-        if filter.count == 0 { return }
+        guard let defender = filter.randomElement() else { return }
         let triggerYr = self.year + 1
-        let defender = filter.randomElement()!
         let name = "The Battle of " + (defender.capital?.name ?? "Nowhere")
         let desc = "The " + attacker.name + " tribe attacked the " + defender.name + " tribe"
-        let killed = ConfigLoader.injuries.first(where: {$0.name == "Killed In Battle"})!
+        guard let killed = ConfigLoader.injuries.first(where: {$0.name == "Killed In Battle"}) else {
+            print("Error: 'Killed In Battle' injury not found")
+            return
+        }
         var battle = Event(name: name, description: desc, triggerYear: triggerYr)
-        battle.jobRelocation = [[attacker: [JobType.military: 0.5]]: defender.capital!]
+        if let defenderCapital = defender.capital {
+            battle.jobRelocation = [[attacker: [JobType.military: 0.5]]: defenderCapital]
+        }
         battle.injuriesAdded = [killed]
         battle.returnOnEnd = true
 
@@ -361,11 +366,12 @@ actor GameEngine {
 
     func generateLocationEvents() async {
         for location in ConfigLoader.locations where location.type == .town {
-            let town = location as? Town
-            if town != nil && (town?.founded ?? 0) > self.year {
-                let eventName = town!.name + " founded"
-                let eventDesc = "New town " + town!.name + " has been founded"
-                var foundedEvent = Event(name: eventName, description: eventDesc, triggerYear: town!.founded)
+            guard let town = location as? Town else { continue }
+            
+            if (town.founded ?? 0) > self.year {
+                let eventName = town.name + " founded"
+                let eventDesc = "New town " + town.name + " has been founded"
+                var foundedEvent = Event(name: eventName, description: eventDesc, triggerYear: town.founded)
                 foundedEvent.locationsAdded = [location]
                 ConfigLoader.events.insert(foundedEvent)
             }
@@ -374,27 +380,23 @@ actor GameEngine {
                 self.availableLocations.insert(location)
             }
 
-            if town != nil && (town?.abandoned ?? 0) > self.year {
-                let eventName = town!.name + " abandoned"
-                let eventDesc = town!.name + " has been abandoned"
-                var abandonEvent = Event(name: eventName, description: eventDesc, triggerYear: town!.abandoned ?? 0)
+            if let abandoned = town.abandoned, abandoned > self.year {
+                let eventName = town.name + " abandoned"
+                let eventDesc = town.name + " has been abandoned"
+                var abandonEvent = Event(name: eventName, description: eventDesc, triggerYear: abandoned)
                 abandonEvent.locationsRemoved = [location]
                 ConfigLoader.events.insert(abandonEvent)
             }
-            else if town?.abandoned != nil {
+            else if town.abandoned != nil {
                 self.availableLocations.remove(location)
             }
 
-            if town != nil {
-                // Work out who would be the current rulers of the town based on the year
-                // defaulting to the founding group
-                let curRulerIdx = town!.rulers.keys.filter({$0 <= self.year}).sorted(by: {$0 > $1}).first
-                if curRulerIdx != nil {
-                    town?.ruler = town?.rulers[curRulerIdx!]
-                } else if town?.foundedBy != nil {
-                    town?.ruler = town?.foundedBy
-                }
-
+            // Work out who would be the current rulers of the town based on the year
+            // defaulting to the founding group
+            if let curRulerIdx = town.rulers.keys.filter({$0 <= self.year}).sorted(by: {$0 > $1}).first {
+                town.ruler = town.rulers[curRulerIdx]
+            } else if let foundedBy = town.foundedBy {
+                town.ruler = foundedBy
             }
         }
     }
@@ -421,18 +423,20 @@ actor GameEngine {
     }
 
     func generateDate(year: Int, month: Int? = nil, day: Int? = nil) -> Date {
-            var components: DateComponents
-
-            if month == nil && day == nil {
-                components = DateComponents(year: year, month: Int.random(in: 1...12), day: Int.random(in: 1...28))
-            } else if month == nil {
-                components = DateComponents(year: year, month: Int.random(in: 1...12), day: day!)
-            } else if day == nil {
-                components = DateComponents(year: year, month: month!, day: Int.random(in: 1...28))
-            } else {
-                components = DateComponents(year: year, month: month!, day: day!)
-            }
-            return calendar.date(from: components)!
-
+        let components: DateComponents
+        
+        if month == nil && day == nil {
+            components = DateComponents(year: year, month: Int.random(in: 1...12), day: Int.random(in: 1...28))
+        } else if let day = day, month == nil {
+            components = DateComponents(year: year, month: Int.random(in: 1...12), day: day)
+        } else if let month = month, day == nil {
+            components = DateComponents(year: year, month: month, day: Int.random(in: 1...28))
+        } else if let month = month, let day = day {
+            components = DateComponents(year: year, month: month, day: day)
+        } else {
+            components = DateComponents(year: year, month: Int.random(in: 1...12), day: Int.random(in: 1...28))
+        }
+        
+        return calendar.date(from: components) ?? Date()
     }
 }

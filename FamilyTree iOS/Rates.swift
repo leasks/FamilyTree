@@ -94,8 +94,8 @@ class AgeBasedRates: Rates {
     }
 
     override func getRate(person: Person? = nil) -> Float {
-        if person == nil { return 0 }
-        let age = person!.age
+        guard let person = person else { return 0 }
+        let age = person.age
         return rates?.first(where: {($0.startAge ?? 0) <= age && ($0.endAge ?? 1000) > age})?.rate ?? 0
     }
     
@@ -223,8 +223,17 @@ class ExchangeRate: Rates {
         let strBuyResource = try container.decode(String.self, forKey: .buyResource)
         let strSellResource = try container.decode(String.self, forKey: .sellResource)
 
-        self.buyResource = ConfigLoader.resources.first(where: {$0.name == strBuyResource})!
-        self.sellResource = ConfigLoader.resources.first(where: {$0.name == strSellResource})!
+        guard let buyResource = ConfigLoader.resources.first(where: {$0.name == strBuyResource}) else {
+            throw DecodingError.dataCorruptedError(forKey: .buyResource, in: container,
+                                                    debugDescription: "Resource '\(strBuyResource)' not found in ConfigLoader")
+        }
+        guard let sellResource = ConfigLoader.resources.first(where: {$0.name == strSellResource}) else {
+            throw DecodingError.dataCorruptedError(forKey: .sellResource, in: container,
+                                                    debugDescription: "Resource '\(strSellResource)' not found in ConfigLoader")
+        }
+        
+        self.buyResource = buyResource
+        self.sellResource = sellResource
 
         try super.init(from: decoder)
     }

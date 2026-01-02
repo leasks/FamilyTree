@@ -38,8 +38,12 @@ struct NewNPC: Codable {
         self.genderDistribution = try container.decodeIfPresent([Sex: Float].self, forKey: .genderDistribution)
 
         // Look up the affilliations through its name from the ConfigLoader
-        var strAffil = try container.decodeIfPresent(String.self, forKey: .affiliation)
-        self.affiliation = ConfigLoader.affiliations.first(where: {$0.name == strAffil})!
+        let strAffil = try container.decodeIfPresent(String.self, forKey: .affiliation)
+        guard let affiliation = ConfigLoader.affiliations.first(where: {$0.name == strAffil}) else {
+            throw DecodingError.dataCorruptedError(forKey: .affiliation, in: container,
+                                                    debugDescription: "Affiliation '\(strAffil ?? "nil")' not found in ConfigLoader")
+        }
+        self.affiliation = affiliation
     }
 
     init (count: Int, minAge: Int, maxAge: Int, affiliation: Affiliation? = nil, jobDistribution: [String: Float]? = [:], genderDistribution: [Sex: Float]? = [:]) {
@@ -69,10 +73,14 @@ struct Name: Codable {
         self.gender = try container.decode(Sex.self, forKey: .gender)
 
         // Look up the affilliations through its name from the ConfigLoader
-        var strAffil = try container.decodeIfPresent([String].self, forKey: .affiliation)
+        let strAffil = try container.decodeIfPresent([String].self, forKey: .affiliation)
         var nameAfils: Set<Affiliation> = []
         for afil in strAffil ?? [] {
-            nameAfils.insert(ConfigLoader.affiliations.first(where: {$0.name == afil})!)
+            if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
+                nameAfils.insert(foundAffiliation)
+            } else {
+                print("Warning: Affiliation '\(afil)' not found in ConfigLoader for name '\(self.name)'")
+            }
         }
         self.affiliation = nameAfils
     }
@@ -144,17 +152,17 @@ class Person: Codable { //swiftlint:disable:this type_body_length
                 wealth += Float(count)
             } else {
                 for exchRate in ConfigLoader.rates.filter({$0 is ExchangeRate}) {
-                    let conversion = exchRate as? ExchangeRate
-                    if conversion != nil && conversion?.sellResource.name ==  "Coin" && conversion?.buyResource == resource {
-                        wealth += (conversion!.rate * Float(count))
-                    } 
+                    if let conversion = exchRate as? ExchangeRate,
+                       conversion.sellResource.name == "Coin" && conversion.buyResource == resource {
+                        wealth += (conversion.rate * Float(count))
+                    }
                 }
             }
         }
 
         // Wealth is shared so if there is a spouse add their wealth
-        if spouse != nil && !recursed {
-            wealth += spouse!.wealth(recursed: true)
+        if let spouse = spouse, !recursed {
+            wealth += spouse.wealth(recursed: true)
         }
         return wealth
     }
@@ -180,8 +188,8 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         desc += "There is a " + String((injury.untreatedMortality?.getRate(person: self) ?? 0) * 100)
         desc += "% chance of death if untreated\r\n"
         
-        if injury.cure != nil {
-            desc += "Can be cured at " + (injury.cure!.location?.name ?? "UNSPECIFIED")
+        if let injuryCure = injury.cure {
+            desc += "Can be cured at " + (injuryCure.location?.name ?? "UNSPECIFIED")
             desc += ".  Which will reduce the change of death to " + String((injury.treatedMortality?.getRate(person: self) ?? 0) * 100)
             desc += "%\r\n"
         }
@@ -193,8 +201,8 @@ class Person: Codable { //swiftlint:disable:this type_body_length
 
         var desc = other.name + " would like to marry\r\n"
         desc += "They are " + String(other.age) + " years old"
-        if other.job != nil {
-            desc += " and a " + other.job!.name
+        if let job = other.job {
+            desc += " and a " + job.name
         }
         desc += "\r\nDo you accept the proposal?"
         
@@ -226,14 +234,14 @@ class Person: Codable { //swiftlint:disable:this type_body_length
     }
     
     func addResource(resource: Resource) {
-        if self.resources[resource] == nil {
-            self.resources[resource] = 1
+        if let currentCount = self.resources[resource] {
+            self.resources[resource] = currentCount + 1
         } else {
-            self.resources[resource]! += 1
+            self.resources[resource] = 1
         }
 
-        if self.wantedResources[resource] != nil {
-            self.wantedResources[resource]! -= 1
+        if let wantedCount = self.wantedResources[resource] {
+            self.wantedResources[resource] = wantedCount - 1
         }
 
     }
@@ -241,10 +249,12 @@ class Person: Codable { //swiftlint:disable:this type_body_length
     func removeResource(resource: Resource) {
         for res in self.resources.keys.filter({$0.name == resource.name}).sorted(by: {$0.age > $1.age})
         where (self.resources[res] ?? 0) > 0 {
-            self.resources[res]! -= 1
-
-            if self.resources[res]! == 0 {
-                self.resources.removeValue(forKey: res)
+            if let currentCount = self.resources[res] {
+                self.resources[res] = currentCount - 1
+                
+                if currentCount - 1 == 0 {
+                    self.resources.removeValue(forKey: res)
+                }
             }
             return
         }
@@ -252,17 +262,17 @@ class Person: Codable { //swiftlint:disable:this type_body_length
 
     func wantsToBuy(resource: Resource, number: Int) {
         let wantedRes = resource.newInstance()
-        if self.wantedResources[wantedRes] == nil {
-            self.wantedResources[wantedRes] = number
+        if let currentWanted = self.wantedResources[wantedRes] {
+            self.wantedResources[wantedRes] = currentWanted + number
         } else {
-            self.wantedResources[wantedRes]! += number
+            self.wantedResources[wantedRes] = number
         }
     }
     
 
     func marries(game: GameEngine, minAge: Int = 0, locationFilter: LocationType? = .town) async {
         // Select a random spouse for this person who is not already married
-        if self.dateOfMarriage != nil && self.spouse?.dateOfDeath == nil { return } // Only remarry if spouse is dead
+        guard self.dateOfMarriage == nil || self.spouse?.dateOfDeath != nil else { return } // Only remarry if spouse is dead
 
         var filter = await game.persons.filter({$0.dateOfMarriage == nil})
         filter = filter.filter({$0.dateOfDeath == nil})
@@ -275,8 +285,10 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         }
         
         // Check for any incompatible affiliations
-        for affiliation in affiliations where affiliation.dislikedAffiliations != nil {
-                filter = filter.filter({affiliation.dislikedAffiliations!.isDisjoint(with: $0.affiliations)})
+        for affiliation in affiliations {
+            if let dislikedAffiliations = affiliation.dislikedAffiliations {
+                filter = filter.filter({ dislikedAffiliations.isDisjoint(with: $0.affiliations) })
+            }
         }
 
         // Check for any social class incompatibility
@@ -305,10 +317,12 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         filter = filter.filter({$0.age > personAge - ageGap}).filter({$0.age < personAge + ageGap})
 
         if filter.count > 0 {
-            let spouse = filter.randomElement()!
+            guard let spouse = filter.randomElement() else { return }
             self.marries(spouse: spouse, game: game)
             if await game.getActivePerson() == self {
-                await self.addMarriageEvent(other: self.spouse!, game: game)
+                if let actualSpouse = self.spouse {
+                    await self.addMarriageEvent(other: actualSpouse, game: game)
+                }
             }
         }
     }
@@ -319,9 +333,9 @@ class Person: Codable { //swiftlint:disable:this type_body_length
                 
         // Perform any inheritance of resources
         for resource in self.resources.keys where resource.inheritable {
-            if fairInheritance && self.spouse != nil && self.spouse?.dateOfDeath == nil {
+            if fairInheritance, let spouse = self.spouse, spouse.dateOfDeath == nil {
                 while self.resources[resource] ?? 0 > 0 {
-                    self.spouse?.addResource(resource: resource)
+                    spouse.addResource(resource: resource)
                     self.removeResource(resource: resource)
                 }
             }
@@ -379,10 +393,12 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         filter = filter.filter({
             if $0.affiliation == nil {
                 return true
-            } else if !affils.isDisjoint(with: $0.affiliation!) {
+            } else if let affiliation = $0.affiliation, !affils.isDisjoint(with: affiliation) {
                 return true
+            } else if let affiliation = $0.affiliation {
+                return affiliation.contains(affiliation)
             } else {
-                return $0.affiliation!.contains(affiliation)
+                return false
             }
         })
         if gender == .male {
@@ -390,15 +406,15 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         } else {
             filter = filter.filter({$0.gender == .female})
         }
-        let rand = ConfigLoader.names.randomElement()!
+        let rand = ConfigLoader.names.randomElement() ?? Name(name: "Unknown", gender: gender, affiliation: nil)
         name = filter.randomElement() ?? rand
         
         // Use game date -1 to indicate child born in the last year
         let person = await Person(name: name.name, dateOfBirth: game.generateDate(year: game.year - age), gender: name.gender, game: game)
         person.affiliations.insert(affiliation)
 
-        if affiliation.capital != nil {
-            person.location = affiliation.capital!
+        if let capital = affiliation.capital {
+            person.location = capital
         }
         return person
     }
@@ -420,8 +436,10 @@ class Person: Codable { //swiftlint:disable:this type_body_length
             } else if parentAffils.isDisjoint(with: affils) {
                 return true
             } else {
-                for parentAffil in parentAffils where $0.affiliation!.contains(parentAffil) {
-                    return true
+                for parentAffil in parentAffils {
+                    if let nameAffiliation = $0.affiliation, nameAffiliation.contains(parentAffil) {
+                        return true
+                    }
                 }
                 return false
             }
@@ -443,8 +461,8 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         }
 
         // Locate person where the parents are
-        if parents.first?.location != nil {
-            person.location = parents.first?.location!
+        if let parentLocation = parents.first?.location {
+            person.location = parentLocation
         }
         return person
     }
@@ -452,13 +470,13 @@ class Person: Codable { //swiftlint:disable:this type_body_length
     func hasChild(game: GameEngine, patriachy: Bool = true) async {
         if self.gender == Sex.male { return }  // As of today males cannot have children
         
-        if self.spouse == nil { return }  // Not married so cannot have children TODO: Switch to relationship rather than marriage?
+        guard let spouse = self.spouse else { return }  // Not married so cannot have children TODO: Switch to relationship rather than marriage?
         
-        if self.spouse!.dateOfDeath != nil { return } // Spouse is dead so again cannot have children
+        if spouse.dateOfDeath != nil { return } // Spouse is dead so again cannot have children
         
         if !self.tryingForFamily { return } // No longer trying
         
-        let child = await generateRandomPerson(parents: [self, self.spouse!], patriachy: patriachy, game: game)
+        let child = await generateRandomPerson(parents: [self, spouse], patriachy: patriachy, game: game)
         
         await self.hasChild(child: child, game: game)
         
@@ -470,8 +488,8 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         // Children inherit characteristics such as location and relation to the player
         child.relatedToThePlayer = self.relatedToThePlayer ? true : (self.spouse?.relatedToThePlayer ?? false)
         child.location = self.location
-        if job != nil {
-            child.familyBusiness = job!.type ?? .general
+        if let job = job {
+            child.familyBusiness = job.type ?? .general
         }
 
         self.descendants.insert(child)
@@ -514,27 +532,26 @@ class Person: Codable { //swiftlint:disable:this type_body_length
 
         if jobFilter.count > 0 {
             let potentialJob = jobFilter.randomElement()
-            if potentialJob?.maxCount ?? 0 > 0 {
+            if let maxCount = potentialJob?.maxCount, maxCount > 0 {
                 let currCount = await game.persons.filter({!$0.affiliations.isDisjoint(with: self.affiliations)
                     && $0.job == potentialJob
                     && $0.dateOfDeath == nil
                 }).count
-                if currCount >= potentialJob?.maxCount ?? 0 {
+                if currCount >= maxCount {
                     // Position is already filled
                     return
                 }
             }
             self.job = potentialJob
             self.jobStartDate = startDate
-            if self.job?.earnAffiliations != nil {
-                self.affiliations.formUnion(self.job!.earnAffiliations!)
+            if let earnAffiliations = self.job?.earnAffiliations {
+                self.affiliations.formUnion(earnAffiliations)
             }
             
         }
     }
 
     func upgradeJob(skill: Skill? = nil, resource: Resource? = nil, game: GameEngine) async {
-        let personAge = self.age
         let gameD = await game.getGameDate()
         var jobFilter = await game.availableJobs.filter({$0.meetsRequirements(person: self, gameDate: gameD)})
         jobFilter = jobFilter.filter({$0.allowedGenders.contains(self.gender)})
@@ -543,10 +560,10 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         } else {
             jobFilter = jobFilter.filter({($0.affiliations ?? []).count == 0})
         }
-        if skill != nil {
-            jobFilter = jobFilter.filter({$0.requiredSkills?.contains(skill!) ?? false})
-        } else if resource != nil {
-            jobFilter = jobFilter.filter({$0.requiredResources?.contains(resource!) ?? false})
+        if let skill = skill {
+            jobFilter = jobFilter.filter({$0.requiredSkills?.contains(skill) ?? false})
+        } else if let resource = resource {
+            jobFilter = jobFilter.filter({$0.requiredResources?.contains(resource) ?? false})
         }
 
         if !jobFilter.isEmpty {
@@ -594,8 +611,8 @@ class Person: Codable { //swiftlint:disable:this type_body_length
             //            retString += " due to \(self.causeOfDeath!)"
         }
         
-        if self.spouse != nil {
-            retString += "\r\nm. \(self.spouse!.name)"
+        if let spouse = self.spouse {
+            retString += "\r\nm. \(spouse.name)"
         }
         if self.descendants.filter({$0.dateOfDeath == nil}).count > 0 {
             retString += "\r\n\(self.descendants.filter({$0.dateOfDeath == nil}).count) children"
@@ -618,15 +635,15 @@ class Person: Codable { //swiftlint:disable:this type_body_length
             retString += " due to \(self.causeOfDeath ?? "Unknown")"
         }
         
-        if self.spouse != nil {
-            retString += " m. \(self.spouse!.name)"
+        if let spouse = self.spouse {
+            retString += " m. \(spouse.name)"
         }
         if self.descendants.count > 0 {
             retString += " \(self.descendants.count) children"
         }
 
-        if self.job != nil {
-            retString += " is a \(self.job!.name)"
+        if let job = self.job {
+            retString += " is a \(job.name)"
         }
         
         for (resource, count) in self.resources ?? [:] {
@@ -661,7 +678,9 @@ class Person: Codable { //swiftlint:disable:this type_body_length
     
     func moves(to: Town, family: Bool = false) {
         if family {
-            if self.spouse?.location == self.location { self.spouse?.location = to }
+            if let spouse = self.spouse, spouse.location == self.location {
+                spouse.location = to
+            }
             
             for child in self.descendants where child.location == self.location {
                 child.location = to

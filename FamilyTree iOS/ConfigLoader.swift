@@ -58,7 +58,7 @@ class ConfigLoader {
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([AgeBasedRates].self, from: data)
             self.rates.formUnion(result)
         } catch {
@@ -69,7 +69,7 @@ class ConfigLoader {
         guard let path = Bundle.main.path(forResource: "FlatRates", ofType: "json") else { return }
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([FlatRates].self, from: data)
             self.rates.formUnion(result)
         } catch {
@@ -79,7 +79,7 @@ class ConfigLoader {
         guard let path = Bundle.main.path(forResource: "ExchRates", ofType: "json") else { return }
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([ExchangeRate].self, from: data)
             self.rates.formUnion(result)
         } catch {
@@ -95,7 +95,7 @@ class ConfigLoader {
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([Name].self, from: data)
             self.names.formUnion(result)
         } catch {
@@ -112,7 +112,7 @@ class ConfigLoader {
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([Affiliation].self, from: data)
             self.affiliations.formUnion(result)
         } catch {
@@ -129,7 +129,7 @@ class ConfigLoader {
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([SocialClass].self, from: data)
             self.socialClasses.formUnion(result)
         } catch {
@@ -146,7 +146,7 @@ class ConfigLoader {
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([Resource].self, from: data)
             for res in result {
                 self.resources.mergeInsert(res)
@@ -165,7 +165,7 @@ class ConfigLoader {
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([Job].self, from: data)
             self.jobs.formUnion(result)
         } catch {
@@ -182,7 +182,7 @@ class ConfigLoader {
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([Region].self, from: data)
             self.locations.formUnion(result)
         } catch {
@@ -193,7 +193,7 @@ class ConfigLoader {
         guard var path = Bundle.main.path(forResource: "Locations-County", ofType: "json") else { return }
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([County].self, from: data)
             for res in result {
                 self.locations.insert(res)
@@ -206,7 +206,7 @@ class ConfigLoader {
         guard var path = Bundle.main.path(forResource: "Locations-Town", ofType: "json") else { return }
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([Town].self, from: data)
             self.locations.formUnion(result)
         } catch {
@@ -223,7 +223,7 @@ class ConfigLoader {
         guard var path = Bundle.main.path(forResource: "Locations-Town", ofType: "json") else { return }
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([Town].self, from: data)
             for town in result {
                 self.locations.mergeInsert(town)
@@ -242,13 +242,16 @@ class ConfigLoader {
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([EventConfig].self, from: data)
 
             for config in result.sorted(by: {$0.order < $1.order}) {
                 do {
-                    let path1 = Bundle.main.path(forResource: config.configFile, ofType: "json")
-                    let data1 = try Data(contentsOf: URL(filePath: path1!))
+                    guard let path1 = Bundle.main.path(forResource: config.configFile, ofType: "json") else {
+                        print("Could not find path for: \(config.configFile)")
+                        continue
+                    }
+                    let data1 = try Data(contentsOf: URL(fileURLWithPath: path1))
                     let result1 = try decoder.decode([Event].self, from: data1)
                     self.events.formUnion(result1)
 
@@ -278,7 +281,7 @@ class ConfigLoader {
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
 
         do {
-            let data = try Data(contentsOf: URL(filePath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
             let result = try decoder.decode([Injury].self, from: data)
             self.injuries.formUnion(result)
         } catch {

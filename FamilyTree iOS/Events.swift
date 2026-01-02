@@ -64,87 +64,133 @@ struct Event: Codable {
         self.returnOnEnd = try container.decodeIfPresent(Bool.self, forKey: .returnOnEnd) ?? false
 
         // Look up the injuries through its name from the ConfigLoader
-        var strInjury = try container.decodeIfPresent([String].self, forKey: .injuriesAdded)
+        let strInjury = try container.decodeIfPresent([String].self, forKey: .injuriesAdded)
         var injList: Set<Injury> = []
         for inj in strInjury ?? [] {
-            injList.insert(ConfigLoader.injuries.first(where: {$0.name == inj})!)
+            if let foundInjury = ConfigLoader.injuries.first(where: {$0.name == inj}) {
+                injList.insert(foundInjury)
+            } else {
+                print("Warning: Injury '\(inj)' not found in ConfigLoader for event '\(self.name)'")
+            }
         }
         self.injuriesAdded = injList
 
-        strInjury = try container.decodeIfPresent([String].self, forKey: .injuriesRemoved)
-        injList = []
-        for inj in strInjury ?? [] {
-            injList.insert(ConfigLoader.injuries.first(where: {$0.name == inj})!)
+        let strInjuryRemoved = try container.decodeIfPresent([String].self, forKey: .injuriesRemoved)
+        var injListRemoved: Set<Injury> = []
+        for inj in strInjuryRemoved ?? [] {
+            if let foundInjury = ConfigLoader.injuries.first(where: {$0.name == inj}) {
+                injListRemoved.insert(foundInjury)
+            } else {
+                print("Warning: Injury '\(inj)' not found in ConfigLoader for event '\(self.name)'")
+            }
         }
-        self.injuriesRemoved = injList
+        self.injuriesRemoved = injListRemoved
 
         // Look up the affilliations through its name from the ConfigLoader
-        var strAffils = try container.decodeIfPresent([String].self, forKey: .affiliationsAdded)
+        let strAffils = try container.decodeIfPresent([String].self, forKey: .affiliationsAdded)
         var afilList: Set<Affiliation> = []
         for afil in strAffils ?? [] {
-            afilList.insert(ConfigLoader.affiliations.first(where: {$0.name == afil})!)
+            if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
+                afilList.insert(foundAffiliation)
+            } else {
+                print("Warning: Affiliation '\(afil)' not found in ConfigLoader for event '\(self.name)'")
+            }
         }
         self.affiliationsAdded = afilList
 
-        strAffils = try container.decodeIfPresent([String].self, forKey: .affiliationsRemoved)
-        afilList = []
-        for afil in strAffils ?? [] {
-            afilList.insert(ConfigLoader.affiliations.first(where: {$0.name == afil})!)
+        let strAffilsRemoved = try container.decodeIfPresent([String].self, forKey: .affiliationsRemoved)
+        var afilListRemoved: Set<Affiliation> = []
+        for afil in strAffilsRemoved ?? [] {
+            if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
+                afilListRemoved.insert(foundAffiliation)
+            } else {
+                print("Warning: Affiliation '\(afil)' not found in ConfigLoader for event '\(self.name)'")
+            }
         }
-        self.affiliationsRemoved = afilList
+        self.affiliationsRemoved = afilListRemoved
 
         let conversions = try container.decodeIfPresent([String: String].self, forKey: .convertAffiliation)
         for (old, new) in conversions ?? [:] {
-            let oldAfil = ConfigLoader.affiliations.first(where: {$0.name == old})!
-            let newAfil = ConfigLoader.affiliations.first(where: {$0.name == new})!
+            guard let oldAfil = ConfigLoader.affiliations.first(where: {$0.name == old}),
+                  let newAfil = ConfigLoader.affiliations.first(where: {$0.name == new}) else {
+                print("Warning: Affiliation conversion '\(old)' -> '\(new)' not found in ConfigLoader for event '\(self.name)'")
+                continue
+            }
+            self.convertAffiliation[oldAfil] = newAfil
             self.convertAffiliation[oldAfil] = newAfil
         }
         
         // Look up the jobs through its name from the ConfigLoader
-        var strJobs = try container.decodeIfPresent([String].self, forKey: .jobsAdded)
+        let strJobs = try container.decodeIfPresent([String].self, forKey: .jobsAdded)
         var jobList: Set<Job> = []
         for job in strJobs ?? [] {
-            jobList.insert(ConfigLoader.jobs.first(where: {$0.name == job})!)
+            if let foundJob = ConfigLoader.jobs.first(where: {$0.name == job}) {
+                jobList.insert(foundJob)
+            } else {
+                print("Warning: Job '\(job)' not found in ConfigLoader for event '\(self.name)'")
+            }
         }
         self.jobsAdded = jobList
 
-        strJobs = try container.decodeIfPresent([String].self, forKey: .jobsRemoved)
-        jobList = []
-        for job in strJobs ?? [] {
-            jobList.insert(ConfigLoader.jobs.first(where: {$0.name == job})!)
+        let strJobsRemoved = try container.decodeIfPresent([String].self, forKey: .jobsRemoved)
+        var jobListRemoved: Set<Job> = []
+        for job in strJobsRemoved ?? [] {
+            if let foundJob = ConfigLoader.jobs.first(where: {$0.name == job}) {
+                jobListRemoved.insert(foundJob)
+            } else {
+                print("Warning: Job '\(job)' not found in ConfigLoader for event '\(self.name)'")
+            }
         }
-        self.jobsRemoved = jobList
+        self.jobsRemoved = jobListRemoved
 
         // Look up the locations through its name from the ConfigLoader
-        var strLocations = try container.decodeIfPresent([String].self, forKey: .locationsAdded)
+        let strLocations = try container.decodeIfPresent([String].self, forKey: .locationsAdded)
         var locList: Set<Location> = []
         for loc in strLocations ?? [] {
-            locList.insert(ConfigLoader.locations.first(where: {$0.name == loc})!)
+            if let foundLocation = ConfigLoader.locations.first(where: {$0.name == loc}) {
+                locList.insert(foundLocation)
+            } else {
+                print("Warning: Location '\(loc)' not found in ConfigLoader for event '\(self.name)'")
+            }
         }
         self.locationsAdded = locList
 
-        strLocations = try container.decodeIfPresent([String].self, forKey: .locationsRemoved)
-        locList = []
-        for loc in strLocations ?? [] {
-            locList.insert(ConfigLoader.locations.first(where: {$0.name == loc})!)
+        let strLocationsRemoved = try container.decodeIfPresent([String].self, forKey: .locationsRemoved)
+        var locListRemoved: Set<Location> = []
+        for loc in strLocationsRemoved ?? [] {
+            if let foundLocation = ConfigLoader.locations.first(where: {$0.name == loc}) {
+                locListRemoved.insert(foundLocation)
+            } else {
+                print("Warning: Location '\(loc)' not found in ConfigLoader for event '\(self.name)'")
+            }
         }
-        self.locationsRemoved = locList
+        self.locationsRemoved = locListRemoved
 
-        strLocations = try container.decodeIfPresent([String].self, forKey: .location)
-        locList = []
-        for loc in strLocations ?? [] {
-            locList.insert(ConfigLoader.locations.first(where: {$0.name == loc})!)
+        let strLocationsEvent = try container.decodeIfPresent([String].self, forKey: .location)
+        var locListEvent: Set<Location> = []
+        for loc in strLocationsEvent ?? [] {
+            if let foundLocation = ConfigLoader.locations.first(where: {$0.name == loc}) {
+                locListEvent.insert(foundLocation)
+            } else {
+                print("Warning: Location '\(loc)' not found in ConfigLoader for event '\(self.name)'")
+            }
         }
-        self.location = locList
+        self.location = locListEvent
 
         // Finally handle the relocations by looking up locations and affiliations by name
         let ageReloc = try container.decodeIfPresent([[String: Int]: String].self, forKey: .ageRelocation)
         var allAgeData: [[Location: Int]: Location] = [:]
         for (ageDetails, reloc) in ageReloc ?? [:] {
-            let theReloc = ConfigLoader.locations.first(where: {$0.name == reloc})
+            guard let theReloc = ConfigLoader.locations.first(where: {$0.name == reloc}) else {
+                print("Warning: Relocation '\(reloc)' not found in ConfigLoader for event '\(self.name)'")
+                continue
+            }
             var theAgeData: [Location: Int] = [:]
             for (loc, theAge) in ageDetails {
-                let theLoc = ConfigLoader.locations.first(where: {$0.name == loc})!
+                guard let theLoc = ConfigLoader.locations.first(where: {$0.name == loc}) else {
+                    print("Warning: Location '\(loc)' not found in ConfigLoader for event '\(self.name)'")
+                    continue
+                }
 
                 theAgeData[theLoc] = theAge
                 allAgeData[theAgeData] = theReloc
@@ -152,13 +198,19 @@ struct Event: Codable {
         }
         self.ageRelocation = allAgeData
 
-        var jobReloc = try container.decodeIfPresent([[String: [JobType: Float]]: String].self, forKey: .jobRelocation)
+        let jobReloc = try container.decodeIfPresent([[String: [JobType: Float]]: String].self, forKey: .jobRelocation)
         var allJobData: [[Affiliation: [JobType: Float]]: Location] = [:]
         for (relocDetails, reloc) in jobReloc ?? [:] {
-            let theReloc = ConfigLoader.locations.first(where: {$0.name == reloc})
+            guard let theReloc = ConfigLoader.locations.first(where: {$0.name == reloc}) else {
+                print("Warning: Relocation '\(reloc)' not found in ConfigLoader for event '\(self.name)'")
+                continue
+            }
             var theJobData: [Affiliation: [JobType: Float]] = [:]
             for (affil, theJobs) in relocDetails {
-                let theAffil = ConfigLoader.affiliations.first(where: {$0.name == affil})!
+                guard let theAffil = ConfigLoader.affiliations.first(where: {$0.name == affil}) else {
+                    print("Warning: Affiliation '\(affil)' not found in ConfigLoader for event '\(self.name)'")
+                    continue
+                }
 
                 theJobData[theAffil] = theJobs
                 allJobData[theJobData] = theReloc
@@ -217,9 +269,9 @@ struct Event: Codable {
             for (jobDets, newlocation) in jobRelocation ?? [:] {
                 for (afil, _) in jobDets {
                     for person in await game.persons.filter({$0.dateOfDeath == nil && $0.location == newlocation && $0.affiliations.contains(afil)}) where Float.random(in: 0...1) < 0.8 {
-                        if person.spouse != nil {
+                        if let spouse = person.spouse {
                             // Send back to their partner
-                            person.location = person.spouse!.location
+                            person.location = spouse.location
                         } else {
                             // Otherwise send them back to the capital
                             let location = person.affiliations.randomElement()?.capital
@@ -242,14 +294,14 @@ struct Event: Codable {
         // First up, if the event has a location then any new injuries must inherit it
         var newinjuries: Set<Injury> = []
         for injury in self.injuriesAdded ?? [] {
-            if self.location != nil {
-                    var newinjury = injury
-                if newinjury.location != nil {
-                    newinjury.location = newinjury.location?.union(self.location!)
+            if let eventLocation = self.location {
+                var newinjury = injury
+                if let injuryLocation = newinjury.location {
+                    newinjury.location = injuryLocation.union(eventLocation)
                 } else {
-                    newinjury.location = self.location!
+                    newinjury.location = eventLocation
                 }
-                    newinjuries.insert(newinjury)
+                newinjuries.insert(newinjury)
             } else {
                 newinjuries.insert(injury)
             }
@@ -272,35 +324,33 @@ struct Event: Codable {
     }
 
     func applyLocations(game: GameEngine) async {
-        if locationsAdded?.count ?? 0 > 0 {
-            await game.addToSets(newLocations: locationsAdded!)
+        if let locationsAdded = locationsAdded, locationsAdded.count > 0 {
+            await game.addToSets(newLocations: locationsAdded)
 
             // Relocate some of the founding affiliation in to the new town
             // TODO: Limit this to those people who are in the county only
-            for location in locationsAdded! {
-                let town = location as? Town
-                if town != nil && town?.foundedBy != nil {
-                    let founders = await game.persons.filter({$0.affiliations.contains(town!.foundedBy!)})
+            for location in locationsAdded {
+                if let town = location as? Town, let foundedBy = town.foundedBy {
+                    let founders = await game.persons.filter({$0.affiliations.contains(foundedBy)})
                     let count = founders.count
                     if count > 2 {
                         let relocate = Int.random(in: 1...(count/2))
                         
                         for _ in 1...relocate {
-                            founders.randomElement()?.location = town!
+                            founders.randomElement()?.location = town
                         }
                     }
                 }
             }
         }
 
-        if locationsRemoved?.count ?? 0 > 0 {
-            await game.removeFromSets(oldLocations: locationsRemoved!)
+        if let locationsRemoved = locationsRemoved, locationsRemoved.count > 0 {
+            await game.removeFromSets(oldLocations: locationsRemoved)
 
             // Relocate the old inhabitants
-            for location in locationsRemoved! {
-                let town = location as? Town
-                if town != nil {
-                    for person in await game.persons.filter({$0.location?.name == town!.name}) {
+            for location in locationsRemoved {
+                if let town = location as? Town {
+                    for person in await game.persons.filter({$0.location?.name == town.name}) {
                         person.location = await game.availableLocations.randomElement() as? Town
                     }
                 }
@@ -309,7 +359,8 @@ struct Event: Codable {
     }
 
     func applyNPC(game: GameEngine) async {
-        for npc in newNPC! {
+        guard let newNPC = newNPC else { return }
+        for npc in newNPC {
             for _ in 1...Int.random(in: Int(Double(npc.count) * 0.8)...Int(Double(npc.count) * 1.2)) {
                 let minAge = npc.minAge
                 let maxAge = npc.maxAge
@@ -348,22 +399,22 @@ struct Event: Codable {
                 }
 
                 // Preload skills and resources to meet the job reqs
-                if person.job != nil {
-                    person.skills = person.job?.requiredSkills
+                if let job = person.job {
+                    person.skills = job.requiredSkills
 
-                    for resource in person.job?.requiredResources ?? [] {
+                    for resource in job.requiredResources ?? [] {
                         person.addResource(resource: resource)
                     }
 
-                    if person.job?.socialClass?.wealth ?? 0 > 0 {
+                    if let socialClass = job.socialClass, socialClass.wealth > 0 {
                         let coin = Resource(name: "Coin")
-                        while person.wealth() <= person.job!.socialClass!.wealth {
+                        while person.wealth() <= socialClass.wealth {
                             person.addResource(resource: coin)
                         }
                     }
 
                     // Do job once to generate resources for trading
-                    await person.job?.doJob(person: person, game: game)
+                    await job.doJob(person: person, game: game)
                 }
 
             }
@@ -371,8 +422,9 @@ struct Event: Codable {
     }
 
     func applyNPCRemoval(game: GameEngine) async {
+        guard let removeNPC = removeNPC else { return }
         // And remove NPCs that are no longer required
-        for (jobname, rate) in self.removeNPC! {
+        for (jobname, rate) in removeNPC {
             let job = Job(name: jobname)
             for person in await game.persons.filter({$0.job == job}) where Float.random(in: 0...1) <= rate {
                 await game.removePerson(person: person)
