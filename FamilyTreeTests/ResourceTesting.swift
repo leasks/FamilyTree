@@ -57,7 +57,7 @@ final class ResourceTesting: XCTestCase {
 
         await game.endTurn()
 
-        XCTAssertEqual(dave.resources.keys.filter({$0 == sword}).count, 10, "Dave didn't create ten swords")
+        XCTAssertEqual(sword.countIgnoringAge(resources: dave.resources), 10, "Dave didn't create ten swords")
 
         // Given Dave wants to sell a sword
         // And Bert wants to buy a sword
@@ -94,7 +94,7 @@ final class ResourceTesting: XCTestCase {
         ConfigLoader.rates = [exchRate]
 
         await game.tradeMatching(buyer: john)
-        await game.makeTrades(buyer: seller)
+        await game.makeTrades(buyer: john)
 
         XCTAssertFalse(john.resources.keys.contains(sword), "John managed to get a sword")
 
@@ -105,7 +105,7 @@ final class ResourceTesting: XCTestCase {
         john.addResource(resource: coin)
 
         await game.tradeMatching(buyer: john)
-        await game.makeTrades(buyer: seller)
+        await game.makeTrades(buyer: john)
 
         XCTAssertTrue(john.resources.keys.contains(sword), "John didn't buy his sword")
         XCTAssertFalse(john.resources[coin] ?? 0 > 0, "John still has some coins")
