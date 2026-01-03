@@ -99,7 +99,7 @@ extension Name: Hashable {
 }
 
 
-class Person: Codable { //swiftlint:disable:this type_body_length
+final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type_body_length
     // TODO: Refactor to move strings for events and/or string displays elsewhere
     var name: String
     var dateOfBirth: Date
