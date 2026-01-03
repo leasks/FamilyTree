@@ -6,7 +6,6 @@ on:
 
 jobs:
   test:
-    if: github.event.pull_request.merged == true
     runs-on: macos-latest
 
     steps:
@@ -22,10 +21,10 @@ jobs:
         run: gem install xcpretty
 
       - name: Run tests (project)
-         run: |
-           set -o pipefail
-           xcodebuild test \
-             -project "FamilyTree.xcodeproj" \
-             -scheme "FamilyTree iOS" \
-             -destination 'platform=iOS Simulator,name=iPhone 15' \
-             | xcpretty
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project "FamilyTree.xcodeproj" \
+            -scheme "FamilyTree iOS" \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            | xcpretty
