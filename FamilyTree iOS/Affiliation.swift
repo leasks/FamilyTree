@@ -69,8 +69,27 @@ struct Affiliation: Codable {
         self.name = try container.decode(String.self, forKey: .name)
         let hexColour = try container.decodeIfPresent(String.self, forKey: .colour) ?? "0xD3D3D3"
         self.colour = Int(hexColour.dropFirst(2), radix: 16) ?? 0
-        self.likedAffiliationIDs = try container.decodeIfPresent(Set<UUID>.self, forKey: .likedAffiliations)
-        self.dislikedAffiliationIDs = try container.decodeIfPresent(Set<UUID>.self, forKey: .dislikedAffiliations)
+        
+        // Decode liked affiliations as strings and convert to UUIDs
+        let strLikedAffils = try container.decodeIfPresent([String].self, forKey: .likedAffiliations)
+        var likedIDs: Set<UUID> = []
+        for afilName in strLikedAffils ?? [] {
+            if let afilID = ConfigLoader.findAffiliationID(byName: afilName) {
+                likedIDs.insert(afilID)
+            }
+        }
+        self.likedAffiliationIDs = likedIDs.isEmpty ? nil : likedIDs
+        
+        // Decode disliked affiliations as strings and convert to UUIDs
+        let strDislikedAffils = try container.decodeIfPresent([String].self, forKey: .dislikedAffiliations)
+        var dislikedIDs: Set<UUID> = []
+        for afilName in strDislikedAffils ?? [] {
+            if let afilID = ConfigLoader.findAffiliationID(byName: afilName) {
+                dislikedIDs.insert(afilID)
+            }
+        }
+        self.dislikedAffiliationIDs = dislikedIDs.isEmpty ? nil : dislikedIDs
+        
         let strStartDate = try container.decodeIfPresent(String.self, forKey: .startDate)
         if strStartDate != nil {
             self.startDate = dateFormatter.date(from: strStartDate!)
