@@ -26,5 +26,5 @@ jobs:
           xcodebuild test \
             -project "FamilyTree.xcodeproj" \
             -scheme "FamilyTree iOS" \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
             | xcpretty
