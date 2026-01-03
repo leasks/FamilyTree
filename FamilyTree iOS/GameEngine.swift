@@ -152,6 +152,9 @@ actor GameEngine {
             }
 
             await player.job?.doJob(person: player, game: self)
+            
+            // Consume food and check for starvation
+            await player.consumeFoodAndCheckStarvation(game: self)
 
             for (resource, count) in player.resources where resource.lifespan > 0 {
                 player.resources[resource] = nil
@@ -278,6 +281,9 @@ actor GameEngine {
                     }
                 }
             }
+            
+            // Consume food and check for starvation
+            await character.consumeFoodAndCheckStarvation(game: self)
         }
 
         for character in persons where !character.resources.filter({$0.key.lifespan > 0}).isEmpty {

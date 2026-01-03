@@ -19,6 +19,20 @@ struct Injury: Codable {
     var untreatedMortality: AgeBasedRates?
     var treatedMortality: AgeBasedRates?
     
+    init(name: String, description: String? = nil, cure: Cure? = nil, 
+         impactedJobs: Set<JobType>? = nil, location: Set<Location>? = nil, 
+         likelihood: Float? = nil, untreatedMortality: AgeBasedRates? = nil, 
+         treatedMortality: AgeBasedRates? = nil) {
+        self.name = name
+        self.description = description
+        self.cure = cure
+        self.impactedJobs = impactedJobs
+        self.location = location
+        self.likelihood = likelihood
+        self.untreatedMortality = untreatedMortality
+        self.treatedMortality = treatedMortality
+    }
+    
     func apply(person: Person, game: GameEngine, isPlayer: Bool = false) async {
         // TODO: Add treatment check and potential removal of injury when treated
         // If this injury only affects certain jobs then check and return if
