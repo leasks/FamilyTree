@@ -281,6 +281,105 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         }
     }
     
+    func consumeFoodAndCheckStarvation(game: GameEngine) async {
+        // Check if this person is already part of someone else's family processing
+        // If they have parents who are alive and have them as descendants, skip
+        if let parent = await game.persons.first(where: { person in
+            person.descendants.contains(self) && person.dateOfDeath == nil
+        }) {
+            // This person is a child and will be processed by their parent
+            return
+        }
+        
+        // Skip if this person is a spouse and their partner will handle it
+        // Use a stable ordering based on name comparison to ensure consistency
+        if let spouseRef = spouse {
+            // Use alphabetical ordering to determine which spouse processes the family
+            if self.name > spouseRef.name {
+                return
+            }
+        }
+        
+        // Single person with no family - check their own food
+        if spouse == nil && descendants.isEmpty {
+            await consumeFoodForPerson(game: game)
+            return
+        }
+        
+        // Process family food consumption
+        var familyMembers: [Person] = []
+        
+        // Add children first (sorted youngest to oldest for prioritization)
+        let aliveChildren = descendants.filter { $0.dateOfDeath == nil }
+        let sortedChildren = aliveChildren.sorted { $0.age < $1.age }
+        familyMembers.append(contentsOf: sortedChildren)
+        
+        // Then add adults (self first, then spouse)
+        familyMembers.append(self)
+        if let spouseRef = spouse {
+            familyMembers.append(spouseRef)
+        }
+        
+        // Create food resource once for efficiency
+        let food = Resource(name: "Food")
+        
+        // Count total available food from both spouses
+        var selfFoodCount = food.countIgnoringAge(resources: self.resources)
+        var spouseFoodCount = spouse != nil ? food.countIgnoringAge(resources: spouse!.resources) : 0
+        var availableFood = selfFoodCount + spouseFoodCount
+        
+        // Distribute food: children first (youngest to oldest), then adults
+        for person in familyMembers {
+            if availableFood > 0 {
+                // Remove starvation if they have food
+                if let starvation = await game.availableInjuries.first(where: { $0.name == "Starvation" }) {
+                    person.injuries.remove(starvation)
+                }
+                availableFood -= 1
+            } else {
+                // Apply starvation
+                await applyStarvationTo(person: person, game: game)
+            }
+        }
+        
+        // Remove all consumed food from family resources
+        // Use the counts we already calculated
+        for _ in 0..<selfFoodCount {
+            self.removeResource(resource: food)
+        }
+        if let spouseRef = spouse {
+            for _ in 0..<spouseFoodCount {
+                spouseRef.removeResource(resource: food)
+            }
+        }
+    }
+    
+    private func consumeFoodForPerson(game: GameEngine) async {
+        let food = Resource(name: "Food")
+        let hasFood = food.countIgnoringAge(resources: self.resources) > 0
+        
+        if hasFood {
+            // Remove starvation if they have food
+            if let starvation = await game.availableInjuries.first(where: { $0.name == "Starvation" }) {
+                self.injuries.remove(starvation)
+            }
+            self.removeResource(resource: food)
+        } else {
+            // Apply starvation
+            await applyStarvationTo(person: self, game: game)
+        }
+    }
+    
+    private func applyStarvationTo(person: Person, game: GameEngine) async {
+        if let starvation = await game.availableInjuries.first(where: { $0.name == "Starvation" }) {
+            if !person.injuries.contains(starvation) {
+                person.injuries.insert(starvation)
+                // Decrease health when starvation is applied
+                person.health = max(0, person.health - 0.1)
+            }
+        }
+    }
+    
 
     func marries(game: GameEngine, minAge: Int = 0, locationFilter: LocationType? = .town) async {
         // Select a random spouse for this person who is not already married
