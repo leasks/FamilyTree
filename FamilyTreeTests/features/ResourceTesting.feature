@@ -122,7 +122,7 @@ Feature: Resource Testing
 		And Billy has 1 coin and 1 new labour
 
 	Scenario: Producing with multiple resource inputs
-		Given to a farmer can produce 2 food and 1 coin
+		Given a farmer can produce 2 food and 1 coin
 		But Food requires 1 labour to create
 		And Max is a farmer
 		When the game turn ticks around
