@@ -1,0 +1,32 @@
+name: iOS Build & Tests (merged PRs)
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  test:
+    if: github.event.pull_request.merged == true
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4  # checks out your repo into the runner workspace
+        # actions/checkout is the standard way to fetch your code in Actions  [oai_citation:2‡GitHub](https://github.com/actions/checkout?utm_source=chatgpt.com)
+
+      # Optional but often helpful: show available Xcode versions / select one if needed.
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Install xcpretty
+        run: gem install xcpretty
+
+      - name: Run tests (project)
+         run: |
+           set -o pipefail
+           xcodebuild test \
+             -project "FamilyTree.xcodeproj" \
+             -scheme "FamilyTree" \
+             -destination 'platform=iOS Simulator,name=iPhone 15' \
+             | xcpretty
