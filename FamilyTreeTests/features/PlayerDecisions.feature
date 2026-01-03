@@ -5,4 +5,4 @@ Feature: Player Decisions
 		When player makes decisions
 		Then appropriate actions are taken
 
-	Note: This feature file is a placeholder as the test class only contains an empty example test.
+# This feature file is a placeholder as the test class only contains an empty example test.

@@ -24,7 +24,7 @@ Feature: Tree Building
 		Given John meets Jane
 		When they get married
 		Then Jane is added to the tree
-		And marked with the married date on the tree
+		And marked with the marriage date on the tree
 
 	Scenario: On death
 		Given John has a family tree
