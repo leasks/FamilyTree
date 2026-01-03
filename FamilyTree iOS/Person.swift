@@ -125,6 +125,7 @@ extension Name: Hashable {
 
 final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type_body_length
     // TODO: Refactor to move strings for events and/or string displays elsewhere
+    let id: UUID
     var name: String
     var dateOfBirth: Date
     var age: Int
@@ -135,22 +136,136 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
     var dateOfMarriage: Date?
     var money: Money?
     var gender: Sex
-    var affiliations: Set<Affiliation> = []
-    var location: Town?
-    var injuries: Set<Injury> = []
-    var treatedInjuries: Set<Injury> = []
-    var job: Job?
+    var affiliationIDs: Set<UUID> = []
+    var locationID: UUID?
+    var injuryIDs: Set<UUID> = []
+    var treatedInjuryIDs: Set<UUID> = []
+    var jobID: UUID?
     var jobStartDate: Date?
-    var skills: Set<Skill>? = []
-    var spouse: Person?
-    var descendants: Set<Person> = []
+    var skillIDs: Set<UUID>? = []
+    var spouseID: UUID?
+    var descendantIDs: Set<UUID> = []
     var tryingForFamily: Bool = true
-    var resources: [Resource: Int] = [:]
-    var wantedResources: [Resource: Int] = [:]
+    var resourceIDs: [UUID: Int] = [:]
+    var wantedResourceIDs: [UUID: Int] = [:]
     var familyBusiness: JobType = .general
     var health: Float = 1
+    
+    // Direct object references (for backward compatibility and performance)
+    // These should be kept in sync with the ID fields
+    var _spouse: Person?
+    var _descendants: Set<Person> = []
+    
+    // Computed properties for backward compatibility
+    var affiliations: Set<Affiliation> {
+        get {
+            return Set(affiliationIDs.compactMap { ConfigLoader.findAffiliation(byID: $0) })
+        }
+        set {
+            affiliationIDs = Set(newValue.map { $0.id })
+        }
+    }
+    
+    var location: Town? {
+        get {
+            guard let id = locationID else { return nil }
+            return ConfigLoader.findLocation(byID: id) as? Town
+        }
+        set {
+            locationID = newValue?.id
+        }
+    }
+    
+    var injuries: Set<Injury> {
+        get {
+            return Set(injuryIDs.compactMap { ConfigLoader.findInjury(byID: $0) })
+        }
+        set {
+            injuryIDs = Set(newValue.map { $0.id })
+        }
+    }
+    
+    var treatedInjuries: Set<Injury> {
+        get {
+            return Set(treatedInjuryIDs.compactMap { ConfigLoader.findInjury(byID: $0) })
+        }
+        set {
+            treatedInjuryIDs = Set(newValue.map { $0.id })
+        }
+    }
+    
+    var job: Job? {
+        get {
+            guard let id = jobID else { return nil }
+            return ConfigLoader.findJob(byID: id)
+        }
+        set {
+            jobID = newValue?.id
+        }
+    }
+    
+    var skills: Set<Skill>? {
+        get {
+            guard let ids = skillIDs else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findSkill(byID: $0) })
+        }
+        set {
+            skillIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var spouse: Person? {
+        get {
+            return _spouse
+        }
+        set {
+            _spouse = newValue
+            spouseID = newValue?.id
+        }
+    }
+    
+    var descendants: Set<Person> {
+        get {
+            return _descendants
+        }
+        set {
+            _descendants = newValue
+            descendantIDs = Set(newValue.map { $0.id })
+        }
+    }
+    
+    var resources: [Resource: Int] {
+        get {
+            var result: [Resource: Int] = [:]
+            for (id, count) in resourceIDs {
+                if let resource = ConfigLoader.findResource(byID: id) {
+                    result[resource] = count
+                }
+            }
+            return result
+        }
+        set {
+            resourceIDs = Dictionary(uniqueKeysWithValues: newValue.map { ($0.key.id, $0.value) })
+        }
+    }
+    
+    var wantedResources: [Resource: Int] {
+        get {
+            var result: [Resource: Int] = [:]
+            for (id, count) in wantedResourceIDs {
+                if let resource = ConfigLoader.findResource(byID: id) {
+                    result[resource] = count
+                }
+            }
+            return result
+        }
+        set {
+            wantedResourceIDs = Dictionary(uniqueKeysWithValues: newValue.map { ($0.key.id, $0.value) })
+        }
+    }
 
     init(name: String, dateOfBirth: Date, gender: Sex, game: GameEngine) async {
+        self.id = UUID()
         self.name = name
         self.dateOfBirth = dateOfBirth
         self.gender = gender
@@ -867,12 +982,10 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
 
 extension Person: Hashable {
     static func == (lhs: Person, rhs: Person) -> Bool {
-        return lhs.name == rhs.name && lhs.dateOfBirth == rhs.dateOfBirth && lhs.gender == rhs.gender
+        return lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(dateOfBirth)
-        hasher.combine(gender)
+        hasher.combine(id)
     }
 }
