@@ -189,8 +189,16 @@ actor GameEngine {
                 await event?.expire(game: self)
 
                 // Remove dislikes as the takeover happened
-                town?.rulers[self.year - 1]?.dislikedAffiliations?.remove(town?.ruler ?? Affiliation(name: "Dummy"))
-                town?.ruler?.dislikedAffiliations?.remove(town?.rulers[self.year - 1] ?? Affiliation(name: "Dummy"))
+                if let newRuler = town?.rulers[self.year - 1], let oldRuler = town?.ruler {
+                    // Find and update the new ruler's disliked affiliations
+                    if let index = ConfigLoader.affiliations.firstIndex(where: { $0 == newRuler }) {
+                        ConfigLoader.affiliations[index].dislikedAffiliations?.remove(oldRuler)
+                    }
+                    // Find and update the old ruler's disliked affiliations
+                    if let index = ConfigLoader.affiliations.firstIndex(where: { $0 == oldRuler }) {
+                        ConfigLoader.affiliations[index].dislikedAffiliations?.remove(newRuler)
+                    }
+                }
             }
         }
 
