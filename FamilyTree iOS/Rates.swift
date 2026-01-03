@@ -56,6 +56,14 @@ class Rates: Codable {
         endDate = try container.decodeIfPresent(Date.self, forKey: .endDate)
     }
     
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(type, forKey: .type)
+        try container.encodeIfPresent(startDate, forKey: .startDate)
+        try container.encodeIfPresent(endDate, forKey: .endDate)
+    }
+    
     func getRate(person: Person? = nil) -> Float { return 0 }
 
     func apply(person: Person, game: GameEngine) async { }
@@ -94,6 +102,13 @@ class AgeBasedRates: Rates {
         rates = try container.decode(Set<RateAgeRanges>.self, forKey: .rates)
         
         try super.init(from: decoder)
+    }
+    
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(rates, forKey: .rates)
+        
+        try super.encode(to: encoder)
     }
 
     override func getRate(person: Person? = nil) -> Float {
@@ -160,6 +175,13 @@ class FlatRates: Rates {
         rate = try container.decode(Float.self, forKey: .rate)
         
         try super.init(from: decoder)
+    }
+    
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(rate, forKey: .rate)
+        
+        try super.encode(to: encoder)
     }
 
     override func getRate(person: Person? = nil) -> Float {
@@ -258,6 +280,21 @@ class ExchangeRate: Rates {
         self.sellResourceID = sellResource.id
 
         try super.init(from: decoder)
+    }
+    
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(rate, forKey: .rate)
+        
+        // Encode resource names instead of UUIDs
+        if let buyResource = ConfigLoader.findResource(byID: buyResourceID) {
+            try container.encode(buyResource.name, forKey: .buyResource)
+        }
+        if let sellResource = ConfigLoader.findResource(byID: sellResourceID) {
+            try container.encode(sellResource.name, forKey: .sellResource)
+        }
+        
+        try super.encode(to: encoder)
     }
 
 }

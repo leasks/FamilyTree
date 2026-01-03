@@ -108,6 +108,27 @@ class Resource: Codable {
             }
         }
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(inheritable, forKey: .inheritable)
+        try container.encode(lifespan, forKey: .lifespan)
+        
+        // Encode required resources as dictionary of name -> count
+        if !requiredResourceIDs.isEmpty {
+            var requiredResourceNames: [String: Int] = [:]
+            for (resourceID, count) in requiredResourceIDs {
+                if let resource = ConfigLoader.findResource(byID: resourceID) {
+                    requiredResourceNames[resource.name] = count
+                }
+            }
+            if !requiredResourceNames.isEmpty {
+                try container.encode(requiredResourceNames, forKey: .requiredResources)
+            }
+        }
+    }
 
     func findBuyers(game: GameEngine) async -> Set<Person> {
         var retList: Set<Person> = []

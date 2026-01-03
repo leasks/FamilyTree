@@ -56,6 +56,20 @@ struct NewNPC: Codable {
         }
         self.affiliation = affiliation
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(count, forKey: .count)
+        try container.encode(minAge, forKey: .minAge)
+        try container.encode(maxAge, forKey: .maxAge)
+        try container.encode(jobDistribution, forKey: .jobDistribution)
+        try container.encodeIfPresent(genderDistribution, forKey: .genderDistribution)
+        
+        // Encode affiliation name instead of UUID
+        if let affiliation = affiliation {
+            try container.encode(affiliation.name, forKey: .affiliation)
+        }
+    }
 
     init (count: Int, minAge: Int, maxAge: Int, affiliation: Affiliation? = nil, jobDistribution: [JobDistribution]? = [], genderDistribution: [Sex: Float]? = [:]) {
         self.count = count

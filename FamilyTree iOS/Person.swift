@@ -53,6 +53,20 @@ struct NewNPC: Codable {
         }
         self.affiliationID = affiliation.id
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(count, forKey: .count)
+        try container.encode(minAge, forKey: .minAge)
+        try container.encode(maxAge, forKey: .maxAge)
+        try container.encode(jobDistribution, forKey: .jobDistribution)
+        try container.encodeIfPresent(genderDistribution, forKey: .genderDistribution)
+        
+        // Encode affiliation name instead of UUID
+        if let affiliation = ConfigLoader.findAffiliation(byID: affiliationID) {
+            try container.encode(affiliation.name, forKey: .affiliation)
+        }
+    }
 
     init (count: Int, minAge: Int, maxAge: Int, affiliationID: UUID? = nil, jobDistribution: [String: Float]? = [:], genderDistribution: [Sex: Float]? = [:]) {
         self.count = count
@@ -102,6 +116,21 @@ struct Name: Codable {
             }
         }
         self.affiliationIDs = nameAfilIDs
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(gender, forKey: .gender)
+        
+        // Encode affiliation names instead of UUIDs
+        if let affiliationIDs = affiliationIDs {
+            let affiliationNames = affiliationIDs.compactMap { ConfigLoader.findAffiliation(byID: $0)?.name }
+            if !affiliationNames.isEmpty {
+                try container.encode(affiliationNames, forKey: .affiliation)
+            }
+        }
     }
     
     init(id: UUID = UUID(), name: String, gender: Sex, affiliationIDs: Set<UUID>? = nil) {

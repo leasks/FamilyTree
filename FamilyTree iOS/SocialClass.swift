@@ -43,6 +43,23 @@ struct SocialClass: Codable {
         self.affiliationIDs = affiliationsDecoded != nil ? Set(affiliationsDecoded!.map { $0.id }) : nil
     }
     
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(startDate, forKey: .startDate)
+        try container.encode(endDate, forKey: .endDate)
+        try container.encode(wealth, forKey: .wealth)
+        
+        // Encode affiliations as full objects if present
+        if let affiliationIDs = affiliationIDs {
+            let affiliations = Set(affiliationIDs.compactMap { ConfigLoader.findAffiliation(byID: $0) })
+            if !affiliations.isEmpty {
+                try container.encode(affiliations, forKey: .affiliations)
+            }
+        }
+    }
+    
     init(id: UUID = UUID(), name: String, startDate: Date, endDate: Date, affiliationIDs: Set<UUID>? = nil, wealth: Float = -1) {
         self.id = id
         self.name = name

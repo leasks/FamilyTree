@@ -397,6 +397,128 @@ struct Event: Codable {
         }
         self.jobRelocationRules = jobRules.isEmpty ? nil : jobRules
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
+        try container.encode(triggerYear, forKey: .triggerYear)
+        try container.encodeIfPresent(triggerOrder, forKey: .triggerOrder)
+        try container.encode(endYear, forKey: .endYear)
+        try container.encodeIfPresent(newNPC, forKey: .newNPC)
+        try container.encodeIfPresent(removeNPC, forKey: .removeNPC)
+        try container.encode(returnOnEnd, forKey: .returnOnEnd)
+        
+        // Encode injury names instead of UUIDs
+        if let injuryIDsAdded = injuryIDsAdded {
+            let injuryNames = injuryIDsAdded.compactMap { ConfigLoader.findInjury(byID: $0)?.name }
+            if !injuryNames.isEmpty {
+                try container.encode(injuryNames, forKey: .injuriesAdded)
+            }
+        }
+        
+        if let injuryIDsRemoved = injuryIDsRemoved {
+            let injuryNames = injuryIDsRemoved.compactMap { ConfigLoader.findInjury(byID: $0)?.name }
+            if !injuryNames.isEmpty {
+                try container.encode(injuryNames, forKey: .injuriesRemoved)
+            }
+        }
+        
+        // Encode affiliation names instead of UUIDs
+        if let affiliationIDsAdded = affiliationIDsAdded {
+            let affiliationNames = affiliationIDsAdded.compactMap { ConfigLoader.findAffiliation(byID: $0)?.name }
+            if !affiliationNames.isEmpty {
+                try container.encode(affiliationNames, forKey: .affiliationsAdded)
+            }
+        }
+        
+        if let affiliationIDsRemoved = affiliationIDsRemoved {
+            let affiliationNames = affiliationIDsRemoved.compactMap { ConfigLoader.findAffiliation(byID: $0)?.name }
+            if !affiliationNames.isEmpty {
+                try container.encode(affiliationNames, forKey: .affiliationsRemoved)
+            }
+        }
+        
+        // Encode affiliation conversions as dictionary of name -> name
+        if !convertAffiliationIDs.isEmpty {
+            var conversions: [String: String] = [:]
+            for (oldID, newID) in convertAffiliationIDs {
+                if let oldAfil = ConfigLoader.findAffiliation(byID: oldID),
+                   let newAfil = ConfigLoader.findAffiliation(byID: newID) {
+                    conversions[oldAfil.name] = newAfil.name
+                }
+            }
+            if !conversions.isEmpty {
+                try container.encode(conversions, forKey: .convertAffiliation)
+            }
+        }
+        
+        // Encode job names instead of UUIDs
+        if let jobIDsAdded = jobIDsAdded {
+            let jobNames = jobIDsAdded.compactMap { ConfigLoader.findJob(byID: $0)?.name }
+            if !jobNames.isEmpty {
+                try container.encode(jobNames, forKey: .jobsAdded)
+            }
+        }
+        
+        if let jobIDsRemoved = jobIDsRemoved {
+            let jobNames = jobIDsRemoved.compactMap { ConfigLoader.findJob(byID: $0)?.name }
+            if !jobNames.isEmpty {
+                try container.encode(jobNames, forKey: .jobsRemoved)
+            }
+        }
+        
+        // Encode location names instead of UUIDs
+        if let locationIDsAdded = locationIDsAdded {
+            let locationNames = locationIDsAdded.compactMap { ConfigLoader.findLocation(byID: $0)?.name }
+            if !locationNames.isEmpty {
+                try container.encode(locationNames, forKey: .locationsAdded)
+            }
+        }
+        
+        if let locationIDsRemoved = locationIDsRemoved {
+            let locationNames = locationIDsRemoved.compactMap { ConfigLoader.findLocation(byID: $0)?.name }
+            if !locationNames.isEmpty {
+                try container.encode(locationNames, forKey: .locationsRemoved)
+            }
+        }
+        
+        if let locationIDs = locationIDs {
+            let locationNames = locationIDs.compactMap { ConfigLoader.findLocation(byID: $0)?.name }
+            if !locationNames.isEmpty {
+                try container.encode(locationNames, forKey: .location)
+            }
+        }
+        
+        // Encode age relocation rules as dictionary with location names
+        if let ageRelocationRules = ageRelocationRules, !ageRelocationRules.isEmpty {
+            var ageReloc: [[String: Int]: String] = [:]
+            for rule in ageRelocationRules {
+                if let fromLoc = ConfigLoader.findLocation(byID: rule.fromLocationID),
+                   let toLoc = ConfigLoader.findLocation(byID: rule.toLocationID) {
+                    ageReloc[[fromLoc.name: rule.maxAge]] = toLoc.name
+                }
+            }
+            if !ageReloc.isEmpty {
+                try container.encode(ageReloc, forKey: .ageRelocation)
+            }
+        }
+        
+        // Encode job relocation rules as dictionary with affiliation and location names
+        if let jobRelocationRules = jobRelocationRules, !jobRelocationRules.isEmpty {
+            var jobReloc: [[String: [JobType: Float]]: String] = [:]
+            for rule in jobRelocationRules {
+                if let affil = ConfigLoader.findAffiliation(byID: rule.affiliationID),
+                   let toLoc = ConfigLoader.findLocation(byID: rule.toLocationID) {
+                    jobReloc[[affil.name: rule.jobTypeDistribution]] = toLoc.name
+                }
+            }
+            if !jobReloc.isEmpty {
+                try container.encode(jobReloc, forKey: .jobRelocation)
+            }
+        }
+    }
 
     init(id: UUID = UUID(), name: String, description: String, triggerYear: Int, jobsAdded: Set<Job>? = [],
          injuriesAdded: Set<Injury>? = [],
