@@ -402,27 +402,3 @@ extension UIViewController {
     }
 
 }
-extension GameViewController: GameViewComponent {
-    @MainActor func render(_ props: GameProps) {
-        displayedName.setTitle(props.playerName, for: [])
-        displayedName.sizeToFit()
-        displayedJob?.setTitle(props.playerJob, for: [])
-        year?.text = props.year
-
-        genderPickerDataSource = props.genderPickerDataSource
-        affiliationPickerDataSource = props.affiliationPickerDataSource
-
-        playerEvent?.text = props.playerEvent
-        playerEventName?.text = props.playerEventName
-
-        if props.closePlayerEventButton {
-            yesButton?.isHidden = true
-            noButton?.isHidden = true
-            closePlayerEvent?.isHidden = false
-        } else {
-            yesButton?.isHidden = false
-            noButton?.isHidden = false
-            closePlayerEvent?.isHidden = true
-        }
-    }
-}
