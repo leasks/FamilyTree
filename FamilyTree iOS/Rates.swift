@@ -224,8 +224,8 @@ class ExchangeRate: Rates {
 
     private enum CodingKeys: String, CodingKey {
         case rate
-        case buyResourceID
-        case sellResourceID
+        case buyResource
+        case sellResource
     }
 
     init(id: UUID = UUID(), rate: Float, buyResourceID: UUID, sellResourceID: UUID) {
@@ -242,15 +242,15 @@ class ExchangeRate: Rates {
         // Get our container for this subclass' coding keys
         let container = try decoder.container(keyedBy: CodingKeys.self)
         rate = try container.decode(Float.self, forKey: .rate)
-        let strBuyResource = try container.decode(String.self, forKey: .buyResourceID)
-        let strSellResource = try container.decode(String.self, forKey: .sellResourceID)
+        let strBuyResource = try container.decode(String.self, forKey: .buyResource)
+        let strSellResource = try container.decode(String.self, forKey: .sellResource)
 
         guard let buyResource = ConfigLoader.resources.first(where: {$0.name == strBuyResource}) else {
-            throw DecodingError.dataCorruptedError(forKey: .buyResourceID, in: container,
+            throw DecodingError.dataCorruptedError(forKey: .buyResource, in: container,
                                                     debugDescription: "Resource '\(strBuyResource)' not found in ConfigLoader")
         }
         guard let sellResource = ConfigLoader.resources.first(where: {$0.name == strSellResource}) else {
-            throw DecodingError.dataCorruptedError(forKey: .sellResourceID, in: container,
+            throw DecodingError.dataCorruptedError(forKey: .sellResource, in: container,
                                                     debugDescription: "Resource '\(strSellResource)' not found in ConfigLoader")
         }
         

@@ -27,7 +27,20 @@ struct SocialClass: Codable {
     }
     
     private enum CodingKeys: String, CodingKey {
-        case id, name, startDate, endDate, affiliationIDs, wealth
+        case id, name, startDate, endDate, affiliations, wealth
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        self.name = try container.decode(String.self, forKey: .name)
+        self.startDate = try container.decode(Date.self, forKey: .startDate)
+        self.endDate = try container.decode(Date.self, forKey: .endDate)
+        self.wealth = try container.decodeIfPresent(Float.self, forKey: .wealth) ?? -1
+        
+        // Decode affiliations as full objects if present
+        let affiliationsDecoded = try container.decodeIfPresent(Set<Affiliation>.self, forKey: .affiliations)
+        self.affiliationIDs = affiliationsDecoded != nil ? Set(affiliationsDecoded!.map { $0.id }) : nil
     }
     
     init(id: UUID = UUID(), name: String, startDate: Date, endDate: Date, affiliationIDs: Set<UUID>? = nil, wealth: Float = -1) {

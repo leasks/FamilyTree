@@ -13,7 +13,7 @@ class Resource: Codable {
         case name
         case inheritable
         case lifespan
-        case requiredResourceIDs
+        case requiredResources
     }
 
     let id: UUID
@@ -98,7 +98,7 @@ class Resource: Codable {
         self.requiredResourceIDs = [:]
 
         if !ConfigLoader.resources.isEmpty {
-            let reqResources = try container.decodeIfPresent([String: Int].self, forKey: .requiredResourceIDs)
+            let reqResources = try container.decodeIfPresent([String: Int].self, forKey: .requiredResources)
             for (resString, count) in reqResources ?? [:] {
                 if let res = ConfigLoader.resources.filter({$0.name == resString}).first {
                     self.requiredResourceIDs[res.id] = count

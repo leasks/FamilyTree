@@ -17,7 +17,7 @@ struct NewNPC: Codable {
         case count
         case minAge
         case maxAge
-        case affiliationID
+        case affiliation
         case jobDistribution
         case genderDistribution
     }
@@ -46,7 +46,7 @@ struct NewNPC: Codable {
         self.genderDistribution = try container.decodeIfPresent([Sex: Float].self, forKey: .genderDistribution)
 
         // Look up the affilliations through its name from the ConfigLoader
-        let strAffil = try container.decodeIfPresent(String.self, forKey: .affiliationID)
+        let strAffil = try container.decodeIfPresent(String.self, forKey: .affiliation)
         guard let affiliation = ConfigLoader.affiliations.first(where: {$0.name == strAffil}) else {
             throw DecodingError.dataCorruptedError(forKey: .affiliationID, in: container,
                                                     debugDescription: "Affiliation '\(strAffil ?? "nil")' not found in ConfigLoader")
@@ -69,7 +69,7 @@ struct Name: Codable {
         case id
         case name
         case gender
-        case affiliationIDs
+        case affiliation
     }
 
     let id: UUID
@@ -92,7 +92,7 @@ struct Name: Codable {
         self.gender = try container.decode(Sex.self, forKey: .gender)
 
         // Look up the affilliations through its name from the ConfigLoader
-        let strAffil = try container.decodeIfPresent([String].self, forKey: .affiliationIDs)
+        let strAffil = try container.decodeIfPresent([String].self, forKey: .affiliation)
         var nameAfilIDs: Set<UUID> = []
         for afil in strAffil ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {

@@ -24,7 +24,17 @@ struct Cure: Codable {
     }
     
     private enum CodingKeys: String, CodingKey {
-        case id, startDate, locationID
+        case id, startDate, location
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        self.startDate = try container.decode(Date.self, forKey: .startDate)
+        
+        // Decode location as full object if present
+        let locationDecoded = try container.decodeIfPresent(Location.self, forKey: .location)
+        self.locationID = locationDecoded?.id
     }
     
     init(id: UUID = UUID(), startDate: Date, locationID: UUID? = nil) {

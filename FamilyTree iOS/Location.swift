@@ -49,7 +49,7 @@ class Region: Location {
 
 class County: Location {
     private enum CodingKeys: String, CodingKey {
-        case regionID
+        case region
     }
 
     override var type: LocationType {
@@ -81,9 +81,9 @@ class County: Location {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        let strRegion = try container.decode(String.self, forKey: .regionID)
+        let strRegion = try container.decode(String.self, forKey: .region)
         guard let region = ConfigLoader.locations.first(where: {$0.name == strRegion && $0.type == .region}) as? Region else {
-            throw DecodingError.dataCorruptedError(forKey: .regionID, in: container,
+            throw DecodingError.dataCorruptedError(forKey: .region, in: container,
                                                     debugDescription: "Region '\(strRegion)' not found in ConfigLoader")
         }
         self.regionID = region.id
@@ -102,11 +102,11 @@ class County: Location {
 class Town: Location {
     private enum CodingKeys: String, CodingKey {
         case founded
-        case countyID
-        case foundedByID
+        case county
+        case foundedBy
         case abandoned
-        case rulerID
-        case rulerIDs
+        case ruler
+        case rulers
         case longitude
         case latitude
     }
@@ -198,17 +198,17 @@ class Town: Location {
         self.abandoned = try container.decodeIfPresent(Int.self, forKey: .abandoned)
         self.longitude = try container.decodeIfPresent(Double.self, forKey: .longitude)
         self.latitutde = try container.decodeIfPresent(Double.self, forKey: .latitude)
-        let strCurRuler = try container.decodeIfPresent(String.self, forKey: .rulerID)
+        let strCurRuler = try container.decodeIfPresent(String.self, forKey: .ruler)
         if let strCurRuler = strCurRuler {
             self.rulerID = ConfigLoader.affiliations.first(where: {$0.name == strCurRuler})?.id
         }
 
-        let strRulers = try container.decodeIfPresent([Int: String].self, forKey: .rulerIDs) ?? [:]
+        let strRulers = try container.decodeIfPresent([Int: String].self, forKey: .rulers) ?? [:]
         for (year, ruling) in strRulers {
             self.rulerIDs[year] = ConfigLoader.affiliations.first(where: {$0.name == ruling})?.id
         }
 
-        let strFoundedBy = try container.decodeIfPresent(String.self, forKey: .foundedByID)
+        let strFoundedBy = try container.decodeIfPresent(String.self, forKey: .foundedBy)
         if let strFoundedBy = strFoundedBy {
             self.foundedByID = ConfigLoader.affiliations.first(where: {$0.name == strFoundedBy})?.id
         }
@@ -216,7 +216,7 @@ class Town: Location {
         {
             self.foundedByID = nil
         }
-        let strCounty = try container.decode(String.self, forKey: .countyID)
+        let strCounty = try container.decode(String.self, forKey: .county)
         self.countyID = (ConfigLoader.locations.first(where: {$0.name == strCounty && $0.type == .county}) as? County)?.id
             ?? County(name: strCounty, regionID: Region(name: "Unspecified").id).id
 

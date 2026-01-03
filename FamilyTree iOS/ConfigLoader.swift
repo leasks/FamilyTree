@@ -80,6 +80,52 @@ actor ConfigLoader {
         }
         return nil
     }
+    
+    // Name-based lookup methods that return UUIDs
+    static func findAffiliationID(byName name: String) -> UUID? {
+        return affiliations.first(where: { $0.name == name })?.id
+    }
+    
+    static func findJobID(byName name: String) -> UUID? {
+        return jobs.first(where: { $0.name == name })?.id
+    }
+    
+    static func findLocationID(byName name: String) -> UUID? {
+        return locations.first(where: { $0.name == name })?.id
+    }
+    
+    static func findInjuryID(byName name: String) -> UUID? {
+        return injuries.first(where: { $0.name == name })?.id
+    }
+    
+    static func findSocialClassID(byName name: String) -> UUID? {
+        return socialClasses.first(where: { $0.name == name })?.id
+    }
+    
+    static func findResourceID(byName name: String) -> UUID? {
+        return resources.first(where: { $0.name == name })?.id
+    }
+    
+    static func findEventID(byName name: String) -> UUID? {
+        return events.first(where: { $0.name == name })?.id
+    }
+    
+    static func findSkillID(byName name: String) -> UUID? {
+        // Skills are embedded in jobs, so we need to search through all jobs
+        for job in jobs {
+            if let skills = job.requiredSkills {
+                if let skill = skills.first(where: { $0.name == name }) {
+                    return skill.id
+                }
+            }
+            if let learnSkills = job.learnSkills {
+                if let skill = learnSkills.keys.first(where: { $0.name == name }) {
+                    return skill.id
+                }
+            }
+        }
+        return nil
+    }
 
     static func load() {
         rates = []

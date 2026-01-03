@@ -11,11 +11,11 @@ struct Affiliation: Codable {
     private enum CodingKeys: String, CodingKey {
         case id
         case name
-        case likedAffiliationIDs
-        case dislikedAffiliationIDs
+        case likedAffiliations
+        case dislikedAffiliations
         case startDate
         case endDate
-        case capitalID
+        case capital
         case colour
     }
 
@@ -69,8 +69,8 @@ struct Affiliation: Codable {
         self.name = try container.decode(String.self, forKey: .name)
         let hexColour = try container.decodeIfPresent(String.self, forKey: .colour) ?? "0xD3D3D3"
         self.colour = Int(hexColour.dropFirst(2), radix: 16) ?? 0
-        self.likedAffiliationIDs = try container.decodeIfPresent(Set<UUID>.self, forKey: .likedAffiliationIDs)
-        self.dislikedAffiliationIDs = try container.decodeIfPresent(Set<UUID>.self, forKey: .dislikedAffiliationIDs)
+        self.likedAffiliationIDs = try container.decodeIfPresent(Set<UUID>.self, forKey: .likedAffiliations)
+        self.dislikedAffiliationIDs = try container.decodeIfPresent(Set<UUID>.self, forKey: .dislikedAffiliations)
         let strStartDate = try container.decodeIfPresent(String.self, forKey: .startDate)
         if strStartDate != nil {
             self.startDate = dateFormatter.date(from: strStartDate!)
@@ -81,7 +81,7 @@ struct Affiliation: Codable {
         }
 
         // Look up the capital through its name from the ConfigLoader
-        let strCapital = try container.decode(String.self, forKey: .capitalID)
+        let strCapital = try container.decode(String.self, forKey: .capital)
         self.capitalID = (ConfigLoader.locations.first(where: {$0.name == strCapital && $0.type == .town}) as? Town)?.id
         print(strCapital)
         print(ConfigLoader.locations.first(where: {$0.name == strCapital}) == nil)

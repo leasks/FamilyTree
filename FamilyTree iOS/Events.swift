@@ -36,20 +36,20 @@ struct Event: Codable {
         case triggerYear
         case triggerOrder
         case endYear
-        case injuryIDsAdded
-        case injuryIDsRemoved
-        case affiliationIDsAdded
-        case affiliationIDsRemoved
-        case convertAffiliationIDs
-        case jobIDsAdded
-        case jobIDsRemoved
-        case locationIDs
+        case injuriesAdded
+        case injuriesRemoved
+        case affiliationsAdded
+        case affiliationsRemoved
+        case convertAffiliation
+        case jobsAdded
+        case jobsRemoved
+        case location
         case ageRelocation
         case jobRelocation
         case newNPC
         case removeNPC
-        case locationIDsAdded
-        case locationIDsRemoved
+        case locationsAdded
+        case locationsRemoved
         case returnOnEnd
     }
 
@@ -249,7 +249,7 @@ struct Event: Codable {
         self.returnOnEnd = try container.decodeIfPresent(Bool.self, forKey: .returnOnEnd) ?? false
 
         // Look up the injuries through its name from the ConfigLoader
-        let strInjury = try container.decodeIfPresent([String].self, forKey: .injuryIDsAdded)
+        let strInjury = try container.decodeIfPresent([String].self, forKey: .injuriesAdded)
         var injIDList: Set<UUID> = []
         for inj in strInjury ?? [] {
             if let foundInjury = ConfigLoader.injuries.first(where: {$0.name == inj}) {
@@ -260,7 +260,7 @@ struct Event: Codable {
         }
         self.injuryIDsAdded = injIDList
 
-        let strInjuryRemoved = try container.decodeIfPresent([String].self, forKey: .injuryIDsRemoved)
+        let strInjuryRemoved = try container.decodeIfPresent([String].self, forKey: .injuriesRemoved)
         var injIDListRemoved: Set<UUID> = []
         for inj in strInjuryRemoved ?? [] {
             if let foundInjury = ConfigLoader.injuries.first(where: {$0.name == inj}) {
@@ -272,7 +272,7 @@ struct Event: Codable {
         self.injuryIDsRemoved = injIDListRemoved
 
         // Look up the affilliations through its name from the ConfigLoader
-        let strAffils = try container.decodeIfPresent([String].self, forKey: .affiliationIDsAdded)
+        let strAffils = try container.decodeIfPresent([String].self, forKey: .affiliationsAdded)
         var afilIDList: Set<UUID> = []
         for afil in strAffils ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
@@ -283,7 +283,7 @@ struct Event: Codable {
         }
         self.affiliationIDsAdded = afilIDList
 
-        let strAffilsRemoved = try container.decodeIfPresent([String].self, forKey: .affiliationIDsRemoved)
+        let strAffilsRemoved = try container.decodeIfPresent([String].self, forKey: .affiliationsRemoved)
         var afilIDListRemoved: Set<UUID> = []
         for afil in strAffilsRemoved ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
@@ -294,7 +294,7 @@ struct Event: Codable {
         }
         self.affiliationIDsRemoved = afilIDListRemoved
 
-        let conversions = try container.decodeIfPresent([String: String].self, forKey: .convertAffiliationIDs)
+        let conversions = try container.decodeIfPresent([String: String].self, forKey: .convertAffiliation)
         for (old, new) in conversions ?? [:] {
             guard let oldAfil = ConfigLoader.affiliations.first(where: {$0.name == old}),
                   let newAfil = ConfigLoader.affiliations.first(where: {$0.name == new}) else {
@@ -306,7 +306,7 @@ struct Event: Codable {
         }
         
         // Look up the jobs through its name from the ConfigLoader
-        let strJobs = try container.decodeIfPresent([String].self, forKey: .jobIDsAdded)
+        let strJobs = try container.decodeIfPresent([String].self, forKey: .jobsAdded)
         var jobIDList: Set<UUID> = []
         for job in strJobs ?? [] {
             if let foundJob = ConfigLoader.jobs.first(where: {$0.name == job}) {
@@ -317,7 +317,7 @@ struct Event: Codable {
         }
         self.jobIDsAdded = jobIDList
 
-        let strJobsRemoved = try container.decodeIfPresent([String].self, forKey: .jobIDsRemoved)
+        let strJobsRemoved = try container.decodeIfPresent([String].self, forKey: .jobsRemoved)
         var jobIDListRemoved: Set<UUID> = []
         for job in strJobsRemoved ?? [] {
             if let foundJob = ConfigLoader.jobs.first(where: {$0.name == job}) {
@@ -329,7 +329,7 @@ struct Event: Codable {
         self.jobIDsRemoved = jobIDListRemoved
 
         // Look up the locations through its name from the ConfigLoader
-        let strLocations = try container.decodeIfPresent([String].self, forKey: .locationIDsAdded)
+        let strLocations = try container.decodeIfPresent([String].self, forKey: .locationsAdded)
         var locIDList: Set<UUID> = []
         for loc in strLocations ?? [] {
             if let foundLocation = ConfigLoader.locations.first(where: {$0.name == loc}) {
@@ -340,7 +340,7 @@ struct Event: Codable {
         }
         self.locationIDsAdded = locIDList
 
-        let strLocationsRemoved = try container.decodeIfPresent([String].self, forKey: .locationIDsRemoved)
+        let strLocationsRemoved = try container.decodeIfPresent([String].self, forKey: .locationsRemoved)
         var locIDListRemoved: Set<UUID> = []
         for loc in strLocationsRemoved ?? [] {
             if let foundLocation = ConfigLoader.locations.first(where: {$0.name == loc}) {
@@ -351,7 +351,7 @@ struct Event: Codable {
         }
         self.locationIDsRemoved = locIDListRemoved
 
-        let strLocationsEvent = try container.decodeIfPresent([String].self, forKey: .locationIDs)
+        let strLocationsEvent = try container.decodeIfPresent([String].self, forKey: .location)
         var locIDListEvent: Set<UUID> = []
         for loc in strLocationsEvent ?? [] {
             if let foundLocation = ConfigLoader.locations.first(where: {$0.name == loc}) {

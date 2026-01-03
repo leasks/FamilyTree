@@ -52,16 +52,16 @@ struct Job: Codable {
         case minAge
         case maxAge
         case allowedGenders
-        case affiliationIDs
-        case requiredSkillIDs
-        case learnSkillsIDs
-        case blockedAffiliationIDs
-        case earnAffiliationIDs
-        case requiredResourceIDs
-        case produceResourceIDs
+        case affiliations
+        case requiredSkills
+        case learnSkills
+        case blockedAffiliations
+        case earnAffiliations
+        case requiredResources
+        case produceResource
         case maxCount
         case travels
-        case socialClassID
+        case socialClass
     }
 
     let id: UUID
@@ -186,14 +186,14 @@ struct Job: Codable {
         self.travels = try container.decodeIfPresent(Bool.self, forKey: .travels) ?? false
         
         // Decode skills
-        let skills = try container.decodeIfPresent(Set<Skill>.self, forKey: .requiredSkillIDs)
+        let skills = try container.decodeIfPresent(Set<Skill>.self, forKey: .requiredSkills)
         self.requiredSkillIDs = skills != nil ? Set(skills!.map { $0.id }) : []
         
-        let learnSkillsDecoded = try container.decodeIfPresent([Skill: Int].self, forKey: .learnSkillsIDs)
+        let learnSkillsDecoded = try container.decodeIfPresent([Skill: Int].self, forKey: .learnSkills)
         self.learnSkillsIDs = learnSkillsDecoded != nil ? Dictionary(uniqueKeysWithValues: learnSkillsDecoded!.map { ($0.key.id, $0.value) }) : [:]
 
         // Look up resource through the name
-        let strResources = try container.decodeIfPresent([String].self, forKey: .requiredResourceIDs)
+        let strResources = try container.decodeIfPresent([String].self, forKey: .requiredResources)
         var resourceIDList: Set<UUID> = []
         for resource in strResources ?? [] {
             if let foundResource = ConfigLoader.resources.first(where: {$0.name == resource}) {
@@ -204,7 +204,7 @@ struct Job: Codable {
         }
         self.requiredResourceIDs = resourceIDList
 
-        let createResource = try container.decodeIfPresent([String: Int].self, forKey: .produceResourceIDs)
+        let createResource = try container.decodeIfPresent([String: Int].self, forKey: .produceResource)
         var allData: [UUID: Int] = [:]
         for (resource, count) in createResource ?? [:] {
             if let foundResource = ConfigLoader.resources.first(where: {$0.name == resource}) {
@@ -216,13 +216,13 @@ struct Job: Codable {
         self.produceResourceIDs = allData
 
         // Look up social class through its name if present
-        let strClass = try container.decodeIfPresent(String.self, forKey: .socialClassID)
+        let strClass = try container.decodeIfPresent(String.self, forKey: .socialClass)
         if let strClass = strClass {
             self.socialClassID = ConfigLoader.socialClasses.first(where: {$0.name == strClass})?.id
         }
         
         // Look up the capital through its name from the ConfigLoader
-        let strAffils = try container.decodeIfPresent([String].self, forKey: .affiliationIDs)
+        let strAffils = try container.decodeIfPresent([String].self, forKey: .affiliations)
         var afilIDList: Set<UUID> = []
         for afil in strAffils ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
@@ -233,7 +233,7 @@ struct Job: Codable {
         }
         self.affiliationIDs = afilIDList
 
-        let strAffilsBlocked = try container.decodeIfPresent([String].self, forKey: .blockedAffiliationIDs)
+        let strAffilsBlocked = try container.decodeIfPresent([String].self, forKey: .blockedAffiliations)
         var afilIDListBlocked: Set<UUID> = []
         for afil in strAffilsBlocked ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
@@ -244,7 +244,7 @@ struct Job: Codable {
         }
         self.blockedAffiliationIDs = afilIDListBlocked
 
-        let strAffilsEarn = try container.decodeIfPresent([String].self, forKey: .earnAffiliationIDs)
+        let strAffilsEarn = try container.decodeIfPresent([String].self, forKey: .earnAffiliations)
         var afilIDListEarn: Set<UUID> = []
         for afil in strAffilsEarn ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
