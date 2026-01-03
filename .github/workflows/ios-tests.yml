@@ -1,8 +1,7 @@
 name: iOS Build & Tests (merged PRs)
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches: [main]
 
 jobs:
