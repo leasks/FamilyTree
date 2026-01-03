@@ -7,6 +7,27 @@
 
 import Foundation
 
+struct AgeRelocationRule: Codable, Hashable {
+    let fromLocationID: UUID
+    let maxAge: Int
+    let toLocationID: UUID
+}
+
+struct JobRelocationRule: Codable, Hashable {
+    let affiliationID: UUID
+    let jobTypeDistribution: [JobType: Float]
+    let toLocationID: UUID
+    
+    static func == (lhs: JobRelocationRule, rhs: JobRelocationRule) -> Bool {
+        return lhs.affiliationID == rhs.affiliationID && lhs.toLocationID == rhs.toLocationID
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(affiliationID)
+        hasher.combine(toLocationID)
+    }
+}
+
 struct Event: Codable {
     private enum CodingKeys: String, CodingKey {
         case id
@@ -45,8 +66,8 @@ struct Event: Codable {
     var jobIDsAdded: Set<UUID>? = []
     var jobIDsRemoved: Set<UUID>? = []
     var locationIDs: Set<UUID>?
-    var ageRelocation: [[UUID: Int]: UUID]?
-    var jobRelocation: [[UUID: [JobType: Float]]: UUID]?
+    var ageRelocationRules: [AgeRelocationRule]?
+    var jobRelocationRules: [JobRelocationRule]?
     var newNPC: [NewNPC]?
     var removeNPC: [String: Float]?
     var locationIDsAdded: Set<UUID>? = []
@@ -158,6 +179,60 @@ struct Event: Codable {
         }
         set {
             convertAffiliationIDs = Dictionary(uniqueKeysWithValues: newValue.map { ($0.key.id, $0.value.id) })
+        }
+    }
+    
+    var ageRelocation: [[Location: Int]: Location]? {
+        get {
+            guard let rules = ageRelocationRules else { return nil }
+            var result: [[Location: Int]: Location] = [:]
+            for rule in rules {
+                if let fromLoc = ConfigLoader.findLocation(byID: rule.fromLocationID),
+                   let toLoc = ConfigLoader.findLocation(byID: rule.toLocationID) {
+                    result[[fromLoc: rule.maxAge]] = toLoc
+                }
+            }
+            return result
+        }
+        set {
+            if let value = newValue {
+                var rules: [AgeRelocationRule] = []
+                for (criteria, toLoc) in value {
+                    for (fromLoc, maxAge) in criteria {
+                        rules.append(AgeRelocationRule(fromLocationID: fromLoc.id, maxAge: maxAge, toLocationID: toLoc.id))
+                    }
+                }
+                ageRelocationRules = rules
+            } else {
+                ageRelocationRules = nil
+            }
+        }
+    }
+    
+    var jobRelocation: [[Affiliation: [JobType: Float]]: Location]? {
+        get {
+            guard let rules = jobRelocationRules else { return nil }
+            var result: [[Affiliation: [JobType: Float]]: Location] = [:]
+            for rule in rules {
+                if let affil = ConfigLoader.findAffiliation(byID: rule.affiliationID),
+                   let toLoc = ConfigLoader.findLocation(byID: rule.toLocationID) {
+                    result[[affil: rule.jobTypeDistribution]] = toLoc
+                }
+            }
+            return result
+        }
+        set {
+            if let value = newValue {
+                var rules: [JobRelocationRule] = []
+                for (criteria, toLoc) in value {
+                    for (affil, jobDist) in criteria {
+                        rules.append(JobRelocationRule(affiliationID: affil.id, jobTypeDistribution: jobDist, toLocationID: toLoc.id))
+                    }
+                }
+                jobRelocationRules = rules
+            } else {
+                jobRelocationRules = nil
+            }
         }
     }
 
@@ -289,44 +364,38 @@ struct Event: Codable {
 
         // Finally handle the relocations by looking up locations and affiliations by name
         let ageReloc = try container.decodeIfPresent([[String: Int]: String].self, forKey: .ageRelocation)
-        var allAgeData: [[UUID: Int]: UUID] = [:]
+        var ageRules: [AgeRelocationRule] = []
         for (ageDetails, reloc) in ageReloc ?? [:] {
             guard let theReloc = ConfigLoader.locations.first(where: {$0.name == reloc}) else {
                 print("Warning: Relocation '\(reloc)' not found in ConfigLoader for event '\(self.name)'")
                 continue
             }
-            var theAgeData: [UUID: Int] = [:]
             for (loc, theAge) in ageDetails {
                 guard let theLoc = ConfigLoader.locations.first(where: {$0.name == loc}) else {
                     print("Warning: Location '\(loc)' not found in ConfigLoader for event '\(self.name)'")
                     continue
                 }
-
-                theAgeData[theLoc.id] = theAge
-                allAgeData[theAgeData] = theReloc.id
+                ageRules.append(AgeRelocationRule(fromLocationID: theLoc.id, maxAge: theAge, toLocationID: theReloc.id))
             }
         }
-        self.ageRelocation = allAgeData
+        self.ageRelocationRules = ageRules.isEmpty ? nil : ageRules
 
         let jobReloc = try container.decodeIfPresent([[String: [JobType: Float]]: String].self, forKey: .jobRelocation)
-        var allJobData: [[UUID: [JobType: Float]]: UUID] = [:]
+        var jobRules: [JobRelocationRule] = []
         for (relocDetails, reloc) in jobReloc ?? [:] {
             guard let theReloc = ConfigLoader.locations.first(where: {$0.name == reloc}) else {
                 print("Warning: Relocation '\(reloc)' not found in ConfigLoader for event '\(self.name)'")
                 continue
             }
-            var theJobData: [UUID: [JobType: Float]] = [:]
             for (affil, theJobs) in relocDetails {
                 guard let theAffil = ConfigLoader.affiliations.first(where: {$0.name == affil}) else {
                     print("Warning: Affiliation '\(affil)' not found in ConfigLoader for event '\(self.name)'")
                     continue
                 }
-
-                theJobData[theAffil.id] = theJobs
-                allJobData[theJobData] = theReloc.id
+                jobRules.append(JobRelocationRule(affiliationID: theAffil.id, jobTypeDistribution: theJobs, toLocationID: theReloc.id))
             }
         }
-        self.jobRelocation = allJobData
+        self.jobRelocationRules = jobRules.isEmpty ? nil : jobRules
     }
 
     init(id: UUID = UUID(), name: String, description: String, triggerYear: Int, jobsAdded: Set<Job>? = [],
