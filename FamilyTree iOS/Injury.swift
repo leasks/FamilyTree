@@ -8,29 +8,74 @@
 import Foundation
 
 struct Injury: Codable {
+    let id: UUID
     var name: String
     var description: String?
-    var cure: Cure?
+    var cureID: UUID?
 
     var impactedJobs: Set<JobType>?
-    var location: Set<Location>?
+    var locationIDs: Set<UUID>?
 
     var likelihood: Float?
-    var untreatedMortality: AgeBasedRates?
-    var treatedMortality: AgeBasedRates?
+    var untreatedMortalityID: UUID?
+    var treatedMortalityID: UUID?
     
-    init(name: String, description: String? = nil, cure: Cure? = nil, 
-         impactedJobs: Set<JobType>? = nil, location: Set<Location>? = nil, 
-         likelihood: Float? = nil, untreatedMortality: AgeBasedRates? = nil, 
-         treatedMortality: AgeBasedRates? = nil) {
+    // Computed properties for backward compatibility
+    var cure: Cure? {
+        get {
+            guard let id = cureID else { return nil }
+            // Cure is a simple struct, so we need to handle it differently
+            // For now, return nil as Cure isn't stored in ConfigLoader
+            return nil
+        }
+        set {
+            cureID = newValue?.id
+        }
+    }
+    
+    var location: Set<Location>? {
+        get {
+            guard let ids = locationIDs else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findLocation(byID: $0) })
+        }
+        set {
+            locationIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var untreatedMortality: AgeBasedRates? {
+        get {
+            guard let id = untreatedMortalityID else { return nil }
+            return ConfigLoader.findRate(byID: id) as? AgeBasedRates
+        }
+        set {
+            untreatedMortalityID = newValue?.id
+        }
+    }
+    
+    var treatedMortality: AgeBasedRates? {
+        get {
+            guard let id = treatedMortalityID else { return nil }
+            return ConfigLoader.findRate(byID: id) as? AgeBasedRates
+        }
+        set {
+            treatedMortalityID = newValue?.id
+        }
+    }
+    
+    init(id: UUID = UUID(), name: String, description: String? = nil, cureID: UUID? = nil, 
+         impactedJobs: Set<JobType>? = nil, locationIDs: Set<UUID>? = nil, 
+         likelihood: Float? = nil, untreatedMortalityID: UUID? = nil, 
+         treatedMortalityID: UUID? = nil) {
+        self.id = id
         self.name = name
         self.description = description
-        self.cure = cure
+        self.cureID = cureID
         self.impactedJobs = impactedJobs
-        self.location = location
+        self.locationIDs = locationIDs
         self.likelihood = likelihood
-        self.untreatedMortality = untreatedMortality
-        self.treatedMortality = treatedMortality
+        self.untreatedMortalityID = untreatedMortalityID
+        self.treatedMortalityID = treatedMortalityID
     }
     
     func apply(person: Person, game: GameEngine, isPlayer: Bool = false) async {
@@ -94,10 +139,10 @@ struct Injury: Codable {
 }
 extension Injury: Hashable {
     static func == (lhs: Injury, rhs: Injury) -> Bool {
-        return lhs.name == rhs.name 
+        return lhs.id == rhs.id
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
+        hasher.combine(id)
     }
 }

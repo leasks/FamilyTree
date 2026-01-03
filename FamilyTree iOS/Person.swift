@@ -17,7 +17,7 @@ struct NewNPC: Codable {
         case count
         case minAge
         case maxAge
-        case affiliation
+        case affiliationID
         case jobDistribution
         case genderDistribution
     }
@@ -25,9 +25,17 @@ struct NewNPC: Codable {
     let count: Int
     let minAge: Int
     let maxAge: Int
-    let affiliation: Affiliation?
+    let affiliationID: UUID?
     let jobDistribution: [String: Float]
     var genderDistribution: [Sex: Float]?
+    
+    // Computed property for backward compatibility
+    var affiliation: Affiliation? {
+        get {
+            guard let id = affiliationID else { return nil }
+            return ConfigLoader.findAffiliation(byID: id)
+        }
+    }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -38,63 +46,79 @@ struct NewNPC: Codable {
         self.genderDistribution = try container.decodeIfPresent([Sex: Float].self, forKey: .genderDistribution)
 
         // Look up the affilliations through its name from the ConfigLoader
-        let strAffil = try container.decodeIfPresent(String.self, forKey: .affiliation)
+        let strAffil = try container.decodeIfPresent(String.self, forKey: .affiliationID)
         guard let affiliation = ConfigLoader.affiliations.first(where: {$0.name == strAffil}) else {
-            throw DecodingError.dataCorruptedError(forKey: .affiliation, in: container,
+            throw DecodingError.dataCorruptedError(forKey: .affiliationID, in: container,
                                                     debugDescription: "Affiliation '\(strAffil ?? "nil")' not found in ConfigLoader")
         }
-        self.affiliation = affiliation
+        self.affiliationID = affiliation.id
     }
 
-    init (count: Int, minAge: Int, maxAge: Int, affiliation: Affiliation? = nil, jobDistribution: [String: Float]? = [:], genderDistribution: [Sex: Float]? = [:]) {
+    init (count: Int, minAge: Int, maxAge: Int, affiliationID: UUID? = nil, jobDistribution: [String: Float]? = [:], genderDistribution: [Sex: Float]? = [:]) {
         self.count = count
         self.minAge = minAge
         self.maxAge = maxAge
         self.genderDistribution = genderDistribution
         self.jobDistribution = jobDistribution ?? [:]
-        self.affiliation = affiliation
+        self.affiliationID = affiliationID
     }
 }
 
 struct Name: Codable {
     private enum CodingKeys: String, CodingKey {
+        case id
         case name
         case gender
-        case affiliation
+        case affiliationIDs
     }
 
+    let id: UUID
     let name: String
     let gender: Sex
-    let affiliation: Set<Affiliation>?
+    let affiliationIDs: Set<UUID>?
+    
+    // Computed property for backward compatibility
+    var affiliation: Set<Affiliation>? {
+        get {
+            guard let ids = affiliationIDs else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findAffiliation(byID: $0) })
+        }
+    }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         self.name = try container.decode(String.self, forKey: .name)
         self.gender = try container.decode(Sex.self, forKey: .gender)
 
         // Look up the affilliations through its name from the ConfigLoader
-        let strAffil = try container.decodeIfPresent([String].self, forKey: .affiliation)
-        var nameAfils: Set<Affiliation> = []
+        let strAffil = try container.decodeIfPresent([String].self, forKey: .affiliationIDs)
+        var nameAfilIDs: Set<UUID> = []
         for afil in strAffil ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
-                nameAfils.insert(foundAffiliation)
+                nameAfilIDs.insert(foundAffiliation.id)
             } else {
                 print("Warning: Affiliation '\(afil)' not found in ConfigLoader for name '\(self.name)'")
             }
         }
-        self.affiliation = nameAfils
+        self.affiliationIDs = nameAfilIDs
+    }
+    
+    init(id: UUID = UUID(), name: String, gender: Sex, affiliationIDs: Set<UUID>? = nil) {
+        self.id = id
+        self.name = name
+        self.gender = gender
+        self.affiliationIDs = affiliationIDs
     }
 
 }
 extension Name: Hashable {
     static func == (lhs: Name, rhs: Name) -> Bool {
-        return lhs.name == rhs.name && lhs.gender == rhs.gender && lhs.affiliation == rhs.affiliation
+        return lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(gender)
-        hasher.combine(affiliation)
+        hasher.combine(id)
     }
 }
 

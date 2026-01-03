@@ -23,151 +23,261 @@ enum JobType: String, Codable {
 }
 
 struct Skill: Codable {
+    let id: UUID
     let name: String
     let description: String?
+    
+    init(name: String, description: String? = nil) {
+        self.id = UUID()
+        self.name = name
+        self.description = description
+    }
 }
 extension Skill: Hashable {
     static func == (lhs: Skill, rhs: Skill) -> Bool {
-        return lhs.name == rhs.name
+        return lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
+        hasher.combine(id)
     }
 }
 
 struct Job: Codable {
     private enum CodingKeys: String, CodingKey {
+        case id
         case name
         case type
         case description
         case minAge
         case maxAge
         case allowedGenders
-        case affiliations
-        case requiredSkills
-        case learnSkills
-        case blockedAffiliations
-        case earnAffiliations
-        case requiredResources
-        case produceResource
+        case affiliationIDs
+        case requiredSkillIDs
+        case learnSkillsIDs
+        case blockedAffiliationIDs
+        case earnAffiliationIDs
+        case requiredResourceIDs
+        case produceResourceIDs
         case maxCount
         case travels
-        case socialClass
+        case socialClassID
     }
 
+    let id: UUID
     var name: String
     var type: JobType?
     var description: String?
     var minAge: Int?
     var maxAge: Int?
     var allowedGenders: Set<Sex> = [Sex.male, Sex.female]
-    var affiliations: Set<Affiliation>? = []
-    var requiredSkills: Set<Skill>? = []
-    var learnSkills: [Skill: Int]? = [:]
-    var blockedAffiliations: Set<Affiliation>? = []
-    var earnAffiliations: Set<Affiliation>? = []
-    var requiredResources: Set<Resource>? = []
-    var produceResource: [Resource: Int] = [:]
+    var affiliationIDs: Set<UUID>? = []
+    var requiredSkillIDs: Set<UUID>? = []
+    var learnSkillsIDs: [UUID: Int]? = [:]
+    var blockedAffiliationIDs: Set<UUID>? = []
+    var earnAffiliationIDs: Set<UUID>? = []
+    var requiredResourceIDs: Set<UUID>? = []
+    var produceResourceIDs: [UUID: Int] = [:]
     var maxCount: Int? = 0
     var travels: Bool = false
-    var socialClass: SocialClass?
+    var socialClassID: UUID?
+    
+    // Computed properties for backward compatibility
+    var affiliations: Set<Affiliation>? {
+        get {
+            guard let ids = affiliationIDs else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findAffiliation(byID: $0) })
+        }
+        set {
+            affiliationIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var requiredSkills: Set<Skill>? {
+        get {
+            guard let ids = requiredSkillIDs else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findSkill(byID: $0) })
+        }
+        set {
+            requiredSkillIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var learnSkills: [Skill: Int]? {
+        get {
+            guard let ids = learnSkillsIDs else { return nil }
+            var result: [Skill: Int] = [:]
+            for (id, value) in ids {
+                if let skill = ConfigLoader.findSkill(byID: id) {
+                    result[skill] = value
+                }
+            }
+            return result
+        }
+        set {
+            learnSkillsIDs = newValue != nil ? Dictionary(uniqueKeysWithValues: newValue!.map { ($0.key.id, $0.value) }) : nil
+        }
+    }
+    
+    var blockedAffiliations: Set<Affiliation>? {
+        get {
+            guard let ids = blockedAffiliationIDs else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findAffiliation(byID: $0) })
+        }
+        set {
+            blockedAffiliationIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var earnAffiliations: Set<Affiliation>? {
+        get {
+            guard let ids = earnAffiliationIDs else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findAffiliation(byID: $0) })
+        }
+        set {
+            earnAffiliationIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var requiredResources: Set<Resource>? {
+        get {
+            guard let ids = requiredResourceIDs else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findResource(byID: $0) })
+        }
+        set {
+            requiredResourceIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var produceResource: [Resource: Int] {
+        get {
+            var result: [Resource: Int] = [:]
+            for (id, value) in produceResourceIDs {
+                if let resource = ConfigLoader.findResource(byID: id) {
+                    result[resource] = value
+                }
+            }
+            return result
+        }
+        set {
+            produceResourceIDs = Dictionary(uniqueKeysWithValues: newValue.map { ($0.key.id, $0.value) })
+        }
+    }
+    
+    var socialClass: SocialClass? {
+        get {
+            guard let id = socialClassID else { return nil }
+            return ConfigLoader.findSocialClass(byID: id)
+        }
+        set {
+            socialClassID = newValue?.id
+        }
+    }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         self.name = try container.decode(String.self, forKey: .name)
         self.type = try container.decodeIfPresent(JobType.self, forKey: .type)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.minAge = try container.decodeIfPresent(Int.self, forKey: .minAge)
         self.maxAge = try container.decodeIfPresent(Int.self, forKey: .maxAge)
         self.allowedGenders = try container.decodeIfPresent(Set<Sex>.self, forKey: .allowedGenders) ?? [.male, .female]
-        self.requiredSkills = try container.decodeIfPresent(Set<Skill>.self, forKey: .requiredSkills)
-        self.learnSkills = try container.decodeIfPresent([Skill: Int].self, forKey: .learnSkills)
         self.travels = try container.decodeIfPresent(Bool.self, forKey: .travels) ?? false
+        
+        // Decode skills
+        let skills = try container.decodeIfPresent(Set<Skill>.self, forKey: .requiredSkillIDs)
+        self.requiredSkillIDs = skills != nil ? Set(skills!.map { $0.id }) : []
+        
+        let learnSkillsDecoded = try container.decodeIfPresent([Skill: Int].self, forKey: .learnSkillsIDs)
+        self.learnSkillsIDs = learnSkillsDecoded != nil ? Dictionary(uniqueKeysWithValues: learnSkillsDecoded!.map { ($0.key.id, $0.value) }) : [:]
 
         // Look up resource through the name
-        let strResources = try container.decodeIfPresent([String].self, forKey: .requiredResources)
-        var resourceList: Set<Resource> = []
+        let strResources = try container.decodeIfPresent([String].self, forKey: .requiredResourceIDs)
+        var resourceIDList: Set<UUID> = []
         for resource in strResources ?? [] {
             if let foundResource = ConfigLoader.resources.first(where: {$0.name == resource}) {
-                resourceList.insert(foundResource)
+                resourceIDList.insert(foundResource.id)
             } else {
                 print("Warning: Resource '\(resource)' not found in ConfigLoader for job '\(self.name)'")
             }
         }
-        self.requiredResources = resourceList
+        self.requiredResourceIDs = resourceIDList
 
-        let createResource = try container.decodeIfPresent([String: Int].self, forKey: .produceResource)
-        var allData: [Resource: Int] = [:]
+        let createResource = try container.decodeIfPresent([String: Int].self, forKey: .produceResourceIDs)
+        var allData: [UUID: Int] = [:]
         for (resource, count) in createResource ?? [:] {
             if let foundResource = ConfigLoader.resources.first(where: {$0.name == resource}) {
-                allData[foundResource] = count
+                allData[foundResource.id] = count
             } else {
                 print("Warning: Resource '\(resource)' not found in ConfigLoader for job '\(self.name)'")
             }
         }
-        self.produceResource = allData
+        self.produceResourceIDs = allData
 
         // Look up social class through its name if present
-        let strClass = try container.decodeIfPresent(String.self, forKey: .socialClass)
+        let strClass = try container.decodeIfPresent(String.self, forKey: .socialClassID)
         if let strClass = strClass {
-            self.socialClass = ConfigLoader.socialClasses.first(where: {$0.name == strClass})
+            self.socialClassID = ConfigLoader.socialClasses.first(where: {$0.name == strClass})?.id
         }
         
         // Look up the capital through its name from the ConfigLoader
-        let strAffils = try container.decodeIfPresent([String].self, forKey: .affiliations)
-        var afilList: Set<Affiliation> = []
+        let strAffils = try container.decodeIfPresent([String].self, forKey: .affiliationIDs)
+        var afilIDList: Set<UUID> = []
         for afil in strAffils ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
-                afilList.insert(foundAffiliation)
+                afilIDList.insert(foundAffiliation.id)
             } else {
                 print("Warning: Affiliation '\(afil)' not found in ConfigLoader for job '\(self.name)'")
             }
         }
-        self.affiliations = afilList
+        self.affiliationIDs = afilIDList
 
-        let strAffilsBlocked = try container.decodeIfPresent([String].self, forKey: .blockedAffiliations)
-        var afilListBlocked: Set<Affiliation> = []
+        let strAffilsBlocked = try container.decodeIfPresent([String].self, forKey: .blockedAffiliationIDs)
+        var afilIDListBlocked: Set<UUID> = []
         for afil in strAffilsBlocked ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
-                afilListBlocked.insert(foundAffiliation)
+                afilIDListBlocked.insert(foundAffiliation.id)
             } else {
                 print("Warning: Affiliation '\(afil)' not found in ConfigLoader for job '\(self.name)'")
             }
         }
-        self.blockedAffiliations = afilListBlocked
+        self.blockedAffiliationIDs = afilIDListBlocked
 
-        let strAffilsEarn = try container.decodeIfPresent([String].self, forKey: .earnAffiliations)
-        var afilListEarn: Set<Affiliation> = []
+        let strAffilsEarn = try container.decodeIfPresent([String].self, forKey: .earnAffiliationIDs)
+        var afilIDListEarn: Set<UUID> = []
         for afil in strAffilsEarn ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
-                afilListEarn.insert(foundAffiliation)
+                afilIDListEarn.insert(foundAffiliation.id)
             } else {
                 print("Warning: Affiliation '\(afil)' not found in ConfigLoader for job '\(self.name)'")
             }
         }
-        self.earnAffiliations = afilListEarn
+        self.earnAffiliationIDs = afilIDListEarn
+        
+        self.maxCount = try container.decodeIfPresent(Int.self, forKey: .maxCount)
 
     }
 
-    init(name: String, description: String? = nil, type: JobType? = nil, minAge: Int? = 0,
+    init(id: UUID = UUID(), name: String, description: String? = nil, type: JobType? = nil, minAge: Int? = 0,
          allowedGenders: Set<Sex>? = [Sex.male, Sex.female],
          affiliations: Set<Affiliation>? = [], blockedAffiliations: Set<Affiliation>? = [],
          earnAffiliations: Set<Affiliation>? = [],
          requiredSkills: Set<Skill>? = [], learnSkills: [Skill: Int]? = [:],
          requiredResources: Set<Resource>? = [], produceResource: [Resource: Int]? = [:]) {
+        self.id = id
         self.name = name
         self.description = description
         self.type = type
         self.minAge = minAge
         self.allowedGenders = allowedGenders ?? [Sex.male, Sex.female]
-        self.affiliations = affiliations
-        self.blockedAffiliations = blockedAffiliations
-        self.earnAffiliations = earnAffiliations
-        self.requiredSkills = requiredSkills
-        self.learnSkills = learnSkills
-        self.requiredResources = requiredResources
-        self.produceResource = produceResource ?? [:]
+        self.affiliationIDs = affiliations != nil ? Set(affiliations!.map { $0.id }) : []
+        self.blockedAffiliationIDs = blockedAffiliations != nil ? Set(blockedAffiliations!.map { $0.id }) : []
+        self.earnAffiliationIDs = earnAffiliations != nil ? Set(earnAffiliations!.map { $0.id }) : []
+        self.requiredSkillIDs = requiredSkills != nil ? Set(requiredSkills!.map { $0.id }) : []
+        self.learnSkillsIDs = learnSkills != nil ? Dictionary(uniqueKeysWithValues: learnSkills!.map { ($0.key.id, $0.value) }) : [:]
+        self.requiredResourceIDs = requiredResources != nil ? Set(requiredResources!.map { $0.id }) : []
+        self.produceResourceIDs = produceResource != nil ? Dictionary(uniqueKeysWithValues: produceResource!.map { ($0.key.id, $0.value) }) : [:]
     }
 
     func meetsRequirements(person: Person, gameDate: Date) -> Bool {
@@ -357,10 +467,10 @@ struct Job: Codable {
 }
 extension Job: Hashable {
     static func == (lhs: Job, rhs: Job) -> Bool {
-        return lhs.name == rhs.name
+        return lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
+        hasher.combine(id)
     }
 }

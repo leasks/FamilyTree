@@ -15,19 +15,21 @@ enum LocationType: String, Codable {
 }
 
 class Location: Codable, Hashable {
+    let id: UUID
     var name: String
     var type: LocationType = .town
 
-    init(name: String) {
+    init(id: UUID = UUID(), name: String) {
+        self.id = id
         self.name = name
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
+        hasher.combine(id)
     }
 
     static func == (lhs: Location, rhs: Location) -> Bool {
-        return lhs.name == rhs.name
+        return lhs.id == rhs.id
     }
 
 }
@@ -47,7 +49,7 @@ class Region: Location {
 
 class County: Location {
     private enum CodingKeys: String, CodingKey {
-        case region
+        case regionID
     }
 
     override var type: LocationType {
@@ -59,43 +61,52 @@ class County: Location {
             super.type = newValue
         }
     }
-    var region: Region
+    var regionID: UUID
+    
+    // Computed property for backward compatibility
+    var region: Region {
+        get {
+            return ConfigLoader.findLocation(byID: regionID) as! Region
+        }
+        set {
+            regionID = newValue.id
+        }
+    }
 
-    init(name: String, region: Region) {
-        self.region = region
-        super.init(name: name)
+    init(id: UUID = UUID(), name: String, regionID: UUID) {
+        self.regionID = regionID
+        super.init(id: id, name: name)
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        let strRegion = try container.decode(String.self, forKey: .region)
+        let strRegion = try container.decode(String.self, forKey: .regionID)
         guard let region = ConfigLoader.locations.first(where: {$0.name == strRegion && $0.type == .region}) as? Region else {
-            throw DecodingError.dataCorruptedError(forKey: .region, in: container,
+            throw DecodingError.dataCorruptedError(forKey: .regionID, in: container,
                                                     debugDescription: "Region '\(strRegion)' not found in ConfigLoader")
         }
-        self.region = region
+        self.regionID = region.id
         try super.init(from: decoder)
     }
 
     static func == (lhs: County, rhs: County) -> Bool {
-        return lhs.name == rhs.name && lhs.region == rhs.region
+        return lhs.id == rhs.id
     }
 
     override func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(region)
+        hasher.combine(id)
     }
 }
 
 class Town: Location {
     private enum CodingKeys: String, CodingKey {
         case founded
-        case county
-        case foundedBy
+        case countyID
+        case foundedByID
         case abandoned
-        case ruler
-        case rulers
+        case rulerID
+        case rulerIDs
         case longitude
         case latitude
     }
@@ -115,22 +126,70 @@ class Town: Location {
         }
     }
     var founded: Int
-    var county: County
-    var foundedBy: Affiliation?
+    var countyID: UUID
+    var foundedByID: UUID?
     let abandoned: Int?
-    var rulers: [Int: Affiliation] = [:]
-    var ruler: Affiliation?
+    var rulerIDs: [Int: UUID] = [:]
+    var rulerID: UUID?
     var longitude: Double?
     var latitutde: Double?
     var infrastructure: [Infrastructure] = []
+    
+    // Computed properties for backward compatibility
+    var county: County {
+        get {
+            return ConfigLoader.findLocation(byID: countyID) as! County
+        }
+        set {
+            countyID = newValue.id
+        }
+    }
+    
+    var foundedBy: Affiliation? {
+        get {
+            guard let id = foundedByID else { return nil }
+            return ConfigLoader.findAffiliation(byID: id)
+        }
+        set {
+            foundedByID = newValue?.id
+        }
+    }
+    
+    var ruler: Affiliation? {
+        get {
+            guard let id = rulerID else { return nil }
+            return ConfigLoader.findAffiliation(byID: id)
+        }
+        set {
+            rulerID = newValue?.id
+        }
+    }
+    
+    var rulers: [Int: Affiliation] {
+        get {
+            var result: [Int: Affiliation] = [:]
+            for (year, id) in rulerIDs {
+                if let affiliation = ConfigLoader.findAffiliation(byID: id) {
+                    result[year] = affiliation
+                }
+            }
+            return result
+        }
+        set {
+            rulerIDs = [:]
+            for (year, affiliation) in newValue {
+                rulerIDs[year] = affiliation.id
+            }
+        }
+    }
 
-    init(name: String, founded: Int, county: County, foundedBy: Affiliation? = nil, abandoned: Int? = nil) {
+    init(id: UUID = UUID(), name: String, founded: Int, countyID: UUID, foundedByID: UUID? = nil, abandoned: Int? = nil) {
         self.founded = founded
-        self.county = county
-        self.foundedBy = foundedBy
+        self.countyID = countyID
+        self.foundedByID = foundedByID
         self.abandoned = abandoned
 
-        super.init(name: name)
+        super.init(id: id, name: name)
     }
 
     required init(from decoder: Decoder) throws {
@@ -139,27 +198,27 @@ class Town: Location {
         self.abandoned = try container.decodeIfPresent(Int.self, forKey: .abandoned)
         self.longitude = try container.decodeIfPresent(Double.self, forKey: .longitude)
         self.latitutde = try container.decodeIfPresent(Double.self, forKey: .latitude)
-        let strCurRuler = try container.decodeIfPresent(String.self, forKey: .ruler)
+        let strCurRuler = try container.decodeIfPresent(String.self, forKey: .rulerID)
         if let strCurRuler = strCurRuler {
-            self.ruler = ConfigLoader.affiliations.first(where: {$0.name == strCurRuler})
+            self.rulerID = ConfigLoader.affiliations.first(where: {$0.name == strCurRuler})?.id
         }
 
-        let strRulers = try container.decodeIfPresent([Int: String].self, forKey: .rulers) ?? [:]
+        let strRulers = try container.decodeIfPresent([Int: String].self, forKey: .rulerIDs) ?? [:]
         for (year, ruling) in strRulers {
-            self.rulers[year] = ConfigLoader.affiliations.first(where: {$0.name == ruling})
+            self.rulerIDs[year] = ConfigLoader.affiliations.first(where: {$0.name == ruling})?.id
         }
 
-        let strFoundedBy = try container.decodeIfPresent(String.self, forKey: .foundedBy)
+        let strFoundedBy = try container.decodeIfPresent(String.self, forKey: .foundedByID)
         if let strFoundedBy = strFoundedBy {
-            self.foundedBy = ConfigLoader.affiliations.first(where: {$0.name == strFoundedBy})
+            self.foundedByID = ConfigLoader.affiliations.first(where: {$0.name == strFoundedBy})?.id
         }
         else
         {
-            self.foundedBy = nil
+            self.foundedByID = nil
         }
-        let strCounty = try container.decode(String.self, forKey: .county)
-        self.county = (ConfigLoader.locations.first(where: {$0.name == strCounty && $0.type == .county}) as? County)
-            ?? County(name: strCounty, region: Region(name: "Unspecified"))
+        let strCounty = try container.decode(String.self, forKey: .countyID)
+        self.countyID = (ConfigLoader.locations.first(where: {$0.name == strCounty && $0.type == .county}) as? County)?.id
+            ?? County(name: strCounty, regionID: Region(name: "Unspecified").id).id
 
         try super.init(from: decoder)
     }
@@ -196,12 +255,10 @@ class Town: Location {
     }
 
     static func == (lhs: Town, rhs: Town) -> Bool {
-        return lhs.name == rhs.name && lhs.founded == rhs.founded && lhs.county == rhs.county
+        return lhs.id == rhs.id
     }
 
     override func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(county)
-        hasher.combine(founded)
+        hasher.combine(id)
     }
 }
