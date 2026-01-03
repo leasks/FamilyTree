@@ -140,7 +140,7 @@ class Person: Codable { //swiftlint:disable:this type_body_length
     func socialClass(date: Date) -> SocialClass? {
         return ConfigLoader.socialClasses.filter({$0.startDate < date})
             .filter({$0.endDate > date})
-            .filter({$0.wealth < self.wealth()})
+            .filter({$0.wealth <= self.wealth()})
             .filter({$0.affiliations?.isSubset(of: self.affiliations) ?? true})
             .sorted(by: {$0.wealth > $1.wealth}).first
     }
