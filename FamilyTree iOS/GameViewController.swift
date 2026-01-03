@@ -403,7 +403,7 @@ extension UIViewController {
 
 }
 extension GameViewController: GameViewComponent {
-    func render(_ props: GameProps) {
+    @MainActor func render(_ props: GameProps) {
         displayedName.setTitle(props.playerName, for: [])
         displayedName.sizeToFit()
         displayedJob?.setTitle(props.playerJob, for: [])
