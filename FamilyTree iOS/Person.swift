@@ -282,16 +282,18 @@ class Person: Codable { //swiftlint:disable:this type_body_length
     }
     
     func consumeFoodAndCheckStarvation(game: GameEngine) async {
-        // Skip if this person is a spouse and their partner hasn't been processed yet
-        // We process families as a unit through one person
-        if let spouseRef = spouse, spouseRef.gender == .male && self.gender == .female {
-            // Let the male spouse handle the family (arbitrary but consistent choice)
+        // Check if this person is already part of someone else's family processing
+        // If they have parents who are alive and have them as descendants, skip
+        if let parent = await game.persons.first(where: { person in
+            person.descendants.contains(self) && person.dateOfDeath == nil
+        }) {
+            // This person is a child and will be processed by their parent
             return
         }
         
-        // If this person has a spouse but no shared children, and they're female,
-        // skip - the male spouse will handle it
-        if let spouseRef = spouse, descendants.isEmpty && spouseRef.descendants.isEmpty && self.gender == .female {
+        // Skip if this person is a spouse and their partner will handle it
+        if let spouseRef = spouse, spouseRef.gender == .male && self.gender == .female {
+            // Let the male spouse handle the family
             return
         }
         
