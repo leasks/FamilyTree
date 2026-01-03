@@ -57,14 +57,14 @@ final class ResourceTesting: XCTestCase {
 
         await game.endTurn()
 
-        XCTAssertEqual(dave.resources.keys.filter({$0 == sword}).count, 10, "Dave didn't create ten swords")
+        XCTAssertEqual(sword.countIgnoringAge(resources: dave.resources), 10, "Dave didn't create ten swords")
 
         // Given Dave wants to sell a sword
         // And Bert wants to buy a sword
         // When trading happens
         // Then they are matched for the trade
         let bert = await Person(name: "Bert", dateOfBirth: game.generateDate(year: 2000), gender: Sex.male, game: game)
-        let resource = dave.resources.keys.filter({$0 == sword}).first
+        let resource = dave.resources.keys.filter({$0.name == sword.name}).first
         resource?.markForSale()
         bert.wantsToBuy(resource: sword, number: 1)
         await game.addPerson(person: bert)
@@ -94,9 +94,9 @@ final class ResourceTesting: XCTestCase {
         ConfigLoader.rates = [exchRate]
 
         await game.tradeMatching(buyer: john)
-        await game.makeTrades(buyer: seller)
+        await game.makeTrades(buyer: john)
 
-        XCTAssertFalse(john.resources.keys.contains(sword), "John managed to get a sword")
+        XCTAssertFalse(sword.countIgnoringAge(resources: john.resources) > 0, "John managed to get a sword")
 
         // Given John now has 5 coins
         // When he tries to buy a sword
@@ -105,9 +105,9 @@ final class ResourceTesting: XCTestCase {
         john.addResource(resource: coin)
 
         await game.tradeMatching(buyer: john)
-        await game.makeTrades(buyer: seller)
+        await game.makeTrades(buyer: john)
 
-        XCTAssertTrue(john.resources.keys.contains(sword), "John didn't buy his sword")
+        XCTAssertTrue(sword.countIgnoringAge(resources: john.resources) > 0, "John didn't buy his sword")
         XCTAssertFalse(john.resources[coin] ?? 0 > 0, "John still has some coins")
     }
 

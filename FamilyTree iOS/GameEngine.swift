@@ -291,7 +291,7 @@ actor GameEngine {
         var possibleMatches: [Resource] = []
         for (resource, number) in buyer.wantedResources {
             for character in persons where character.resources.keys.contains(where: {$0.forSale && $0.name == resource.name}) {
-                possibleMatches.append(contentsOf: character.resources.keys.filter({$0.forSale}))
+                possibleMatches.append(contentsOf: character.resources.keys.filter({$0.forSale && $0.name == resource.name}))
             }
 
             if possibleMatches.count > 0 {
