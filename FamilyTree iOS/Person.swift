@@ -742,10 +742,14 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
             child.familyBusiness = job.type ?? .general
         }
 
-        self.descendants.insert(child)
+        _descendants.insert(child)
+        descendantIDs.insert(child.id)
         
         // And add child to spouse
-        self.spouse?.descendants.insert(child)
+        if let spouse = self.spouse {
+            spouse._descendants.insert(child)
+            spouse.descendantIDs.insert(child.id)
+        }
 
         if isThePlayer {
             await self.addChildEvent(child: child, game: game)
@@ -765,8 +769,8 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
         spouse.dateOfMarriage = self.dateOfMarriage
 
         // Gain affiliations - TODO: Limit this to only shareable one?
-        self.affiliations.formUnion(spouse.affiliations)
-        spouse.affiliations.formUnion(self.affiliations)
+        self.affiliationIDs.formUnion(spouse.affiliationIDs)
+        spouse.affiliationIDs.formUnion(self.affiliationIDs)
     }
     
     func seekJob(startDate: Date, game: GameEngine) async {
