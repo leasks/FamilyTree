@@ -182,10 +182,10 @@ class Town: Location {
             }
 
             // Conversion details
-            let conversionAfil = ConfigLoader.affiliations.first(where: {
+            if let conversionAfil = ConfigLoader.affiliations.first(where: {
                 $0.name == (newRuler.conversionAffiliation ?? newRuler.name)
-            })
-            rulerChangeEvent.convertAffiliation[currentRuler] = conversionAfil
+            }) {
+                rulerChangeEvent.convertAffiliation[currentRuler] = conversionAfil
             }
 
             return rulerChangeEvent
