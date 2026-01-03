@@ -292,9 +292,12 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         }
         
         // Skip if this person is a spouse and their partner will handle it
-        if let spouseRef = spouse, spouseRef.gender == .male && self.gender == .female {
-            // Let the male spouse handle the family
-            return
+        // Use a stable ordering based on name comparison to ensure consistency
+        if let spouseRef = spouse {
+            // Use alphabetical ordering to determine which spouse processes the family
+            if self.name > spouseRef.name {
+                return
+            }
         }
         
         // Single person with no family - check their own food
@@ -317,12 +320,13 @@ class Person: Codable { //swiftlint:disable:this type_body_length
             familyMembers.append(spouseRef)
         }
         
-        // Count total available food from both spouses
+        // Create food resource once for efficiency
         let food = Resource(name: "Food")
-        var availableFood = food.countIgnoringAge(resources: self.resources)
-        if let spouseRef = spouse {
-            availableFood += food.countIgnoringAge(resources: spouseRef.resources)
-        }
+        
+        // Count total available food from both spouses
+        var selfFoodCount = food.countIgnoringAge(resources: self.resources)
+        var spouseFoodCount = spouse != nil ? food.countIgnoringAge(resources: spouse!.resources) : 0
+        var availableFood = selfFoodCount + spouseFoodCount
         
         // Distribute food: children first (youngest to oldest), then adults
         for person in familyMembers {
@@ -339,12 +343,12 @@ class Person: Codable { //swiftlint:disable:this type_body_length
         }
         
         // Remove all consumed food from family resources
-        let totalFood = food.countIgnoringAge(resources: self.resources) + 
-                        food.countIgnoringAge(resources: spouse?.resources ?? [:])
-        for _ in 0..<totalFood {
-            if food.countIgnoringAge(resources: self.resources) > 0 {
-                self.removeResource(resource: food)
-            } else if let spouseRef = spouse {
+        // Use the counts we already calculated
+        for _ in 0..<selfFoodCount {
+            self.removeResource(resource: food)
+        }
+        if let spouseRef = spouse {
+            for _ in 0..<spouseFoodCount {
                 spouseRef.removeResource(resource: food)
             }
         }
