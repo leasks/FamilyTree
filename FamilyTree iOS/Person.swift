@@ -142,7 +142,19 @@ class Person: Codable { //swiftlint:disable:this type_body_length
             .filter({$0.endDate > date})
             .filter({$0.wealth <= self.wealth()})
             .filter({$0.affiliations?.isSubset(of: self.affiliations) ?? true})
-            .sorted(by: {$0.wealth > $1.wealth}).first
+            .sorted(by: {
+                if $0.wealth != $1.wealth {
+                    return $0.wealth > $1.wealth
+                }
+                // When wealth is equal, prefer classes with affiliation requirements
+                let has0Affil = $0.affiliations != nil && !$0.affiliations!.isEmpty
+                let has1Affil = $1.affiliations != nil && !$1.affiliations!.isEmpty
+                if has0Affil != has1Affil {
+                    return has0Affil
+                }
+                // Otherwise maintain original order
+                return false
+            }).first
     }
 
     func wealth(recursed: Bool = false) -> Float {
