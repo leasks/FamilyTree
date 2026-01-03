@@ -12,7 +12,7 @@ struct EventConfig: Codable {
     var order: Int
 }
 
-class ConfigLoader {
+actor ConfigLoader {
     static let dateFormatter = DateFormatter()
     static let decoder = JSONDecoder()
     static var rates: Set<Rates> = []
