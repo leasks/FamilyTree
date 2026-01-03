@@ -7,8 +7,30 @@
 
 import Foundation
 
+struct AgeRelocationRule: Codable, Hashable {
+    let fromLocationID: UUID
+    let maxAge: Int
+    let toLocationID: UUID
+}
+
+struct JobRelocationRule: Codable, Hashable {
+    let affiliationID: UUID
+    let jobTypeDistribution: [JobType: Float]
+    let toLocationID: UUID
+    
+    static func == (lhs: JobRelocationRule, rhs: JobRelocationRule) -> Bool {
+        return lhs.affiliationID == rhs.affiliationID && lhs.toLocationID == rhs.toLocationID
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(affiliationID)
+        hasher.combine(toLocationID)
+    }
+}
+
 struct Event: Codable {
     private enum CodingKeys: String, CodingKey {
+        case id
         case name
         case description
         case triggerYear
@@ -31,29 +53,192 @@ struct Event: Codable {
         case returnOnEnd
     }
 
+    let id: UUID
     var name: String
     var description: String
     var triggerYear: Int
     var triggerOrder: Int?
     var endYear: Int?
-    var injuriesAdded: Set<Injury>? = []
-    var injuriesRemoved: Set<Injury>? = []
-    var affiliationsAdded: Set<Affiliation>? = []
-    var affiliationsRemoved: Set<Affiliation>? = []
-    var jobsAdded: Set<Job>? = []
-    var jobsRemoved: Set<Job>? = []
-    var location: Set<Location>?
-    var ageRelocation: [[Location: Int]: Location]?
-    var jobRelocation: [[Affiliation: [JobType: Float]]: Location]?
+    var injuryIDsAdded: Set<UUID>? = []
+    var injuryIDsRemoved: Set<UUID>? = []
+    var affiliationIDsAdded: Set<UUID>? = []
+    var affiliationIDsRemoved: Set<UUID>? = []
+    var jobIDsAdded: Set<UUID>? = []
+    var jobIDsRemoved: Set<UUID>? = []
+    var locationIDs: Set<UUID>?
+    var ageRelocationRules: [AgeRelocationRule]?
+    var jobRelocationRules: [JobRelocationRule]?
     var newNPC: [NewNPC]?
     var removeNPC: [String: Float]?
-    var locationsAdded: Set<Location>? = []
-    var locationsRemoved: Set<Location>? = []
-    var convertAffiliation: [Affiliation: Affiliation] = [:]
+    var locationIDsAdded: Set<UUID>? = []
+    var locationIDsRemoved: Set<UUID>? = []
+    var convertAffiliationIDs: [UUID: UUID] = [:]
     var returnOnEnd: Bool = false
+    
+    // Computed properties for backward compatibility
+    var injuriesAdded: Set<Injury>? {
+        get {
+            guard let ids = injuryIDsAdded else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findInjury(byID: $0) })
+        }
+        set {
+            injuryIDsAdded = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var injuriesRemoved: Set<Injury>? {
+        get {
+            guard let ids = injuryIDsRemoved else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findInjury(byID: $0) })
+        }
+        set {
+            injuryIDsRemoved = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var affiliationsAdded: Set<Affiliation>? {
+        get {
+            guard let ids = affiliationIDsAdded else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findAffiliation(byID: $0) })
+        }
+        set {
+            affiliationIDsAdded = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var affiliationsRemoved: Set<Affiliation>? {
+        get {
+            guard let ids = affiliationIDsRemoved else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findAffiliation(byID: $0) })
+        }
+        set {
+            affiliationIDsRemoved = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var jobsAdded: Set<Job>? {
+        get {
+            guard let ids = jobIDsAdded else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findJob(byID: $0) })
+        }
+        set {
+            jobIDsAdded = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var jobsRemoved: Set<Job>? {
+        get {
+            guard let ids = jobIDsRemoved else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findJob(byID: $0) })
+        }
+        set {
+            jobIDsRemoved = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var location: Set<Location>? {
+        get {
+            guard let ids = locationIDs else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findLocation(byID: $0) })
+        }
+        set {
+            locationIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var locationsAdded: Set<Location>? {
+        get {
+            guard let ids = locationIDsAdded else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findLocation(byID: $0) })
+        }
+        set {
+            locationIDsAdded = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var locationsRemoved: Set<Location>? {
+        get {
+            guard let ids = locationIDsRemoved else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findLocation(byID: $0) })
+        }
+        set {
+            locationIDsRemoved = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var convertAffiliation: [Affiliation: Affiliation] {
+        get {
+            var result: [Affiliation: Affiliation] = [:]
+            for (oldID, newID) in convertAffiliationIDs {
+                if let oldAffil = ConfigLoader.findAffiliation(byID: oldID),
+                   let newAffil = ConfigLoader.findAffiliation(byID: newID) {
+                    result[oldAffil] = newAffil
+                }
+            }
+            return result
+        }
+        set {
+            convertAffiliationIDs = Dictionary(uniqueKeysWithValues: newValue.map { ($0.key.id, $0.value.id) })
+        }
+    }
+    
+    var ageRelocation: [[Location: Int]: Location]? {
+        get {
+            guard let rules = ageRelocationRules else { return nil }
+            var result: [[Location: Int]: Location] = [:]
+            for rule in rules {
+                if let fromLoc = ConfigLoader.findLocation(byID: rule.fromLocationID),
+                   let toLoc = ConfigLoader.findLocation(byID: rule.toLocationID) {
+                    result[[fromLoc: rule.maxAge]] = toLoc
+                }
+            }
+            return result
+        }
+        set {
+            if let value = newValue {
+                var rules: [AgeRelocationRule] = []
+                for (criteria, toLoc) in value {
+                    for (fromLoc, maxAge) in criteria {
+                        rules.append(AgeRelocationRule(fromLocationID: fromLoc.id, maxAge: maxAge, toLocationID: toLoc.id))
+                    }
+                }
+                ageRelocationRules = rules
+            } else {
+                ageRelocationRules = nil
+            }
+        }
+    }
+    
+    var jobRelocation: [[Affiliation: [JobType: Float]]: Location]? {
+        get {
+            guard let rules = jobRelocationRules else { return nil }
+            var result: [[Affiliation: [JobType: Float]]: Location] = [:]
+            for rule in rules {
+                if let affil = ConfigLoader.findAffiliation(byID: rule.affiliationID),
+                   let toLoc = ConfigLoader.findLocation(byID: rule.toLocationID) {
+                    result[[affil: rule.jobTypeDistribution]] = toLoc
+                }
+            }
+            return result
+        }
+        set {
+            if let value = newValue {
+                var rules: [JobRelocationRule] = []
+                for (criteria, toLoc) in value {
+                    for (affil, jobDist) in criteria {
+                        rules.append(JobRelocationRule(affiliationID: affil.id, jobTypeDistribution: jobDist, toLocationID: toLoc.id))
+                    }
+                }
+                jobRelocationRules = rules
+            } else {
+                jobRelocationRules = nil
+            }
+        }
+    }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         self.name = try container.decode(String.self, forKey: .name)
         self.description = try container.decode(String.self, forKey: .description)
         self.triggerYear = try container.decode(Int.self, forKey: .triggerYear)
@@ -65,49 +250,49 @@ struct Event: Codable {
 
         // Look up the injuries through its name from the ConfigLoader
         let strInjury = try container.decodeIfPresent([String].self, forKey: .injuriesAdded)
-        var injList: Set<Injury> = []
+        var injIDList: Set<UUID> = []
         for inj in strInjury ?? [] {
             if let foundInjury = ConfigLoader.injuries.first(where: {$0.name == inj}) {
-                injList.insert(foundInjury)
+                injIDList.insert(foundInjury.id)
             } else {
                 print("Warning: Injury '\(inj)' not found in ConfigLoader for event '\(self.name)'")
             }
         }
-        self.injuriesAdded = injList
+        self.injuryIDsAdded = injIDList
 
         let strInjuryRemoved = try container.decodeIfPresent([String].self, forKey: .injuriesRemoved)
-        var injListRemoved: Set<Injury> = []
+        var injIDListRemoved: Set<UUID> = []
         for inj in strInjuryRemoved ?? [] {
             if let foundInjury = ConfigLoader.injuries.first(where: {$0.name == inj}) {
-                injListRemoved.insert(foundInjury)
+                injIDListRemoved.insert(foundInjury.id)
             } else {
                 print("Warning: Injury '\(inj)' not found in ConfigLoader for event '\(self.name)'")
             }
         }
-        self.injuriesRemoved = injListRemoved
+        self.injuryIDsRemoved = injIDListRemoved
 
         // Look up the affilliations through its name from the ConfigLoader
         let strAffils = try container.decodeIfPresent([String].self, forKey: .affiliationsAdded)
-        var afilList: Set<Affiliation> = []
+        var afilIDList: Set<UUID> = []
         for afil in strAffils ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
-                afilList.insert(foundAffiliation)
+                afilIDList.insert(foundAffiliation.id)
             } else {
                 print("Warning: Affiliation '\(afil)' not found in ConfigLoader for event '\(self.name)'")
             }
         }
-        self.affiliationsAdded = afilList
+        self.affiliationIDsAdded = afilIDList
 
         let strAffilsRemoved = try container.decodeIfPresent([String].self, forKey: .affiliationsRemoved)
-        var afilListRemoved: Set<Affiliation> = []
+        var afilIDListRemoved: Set<UUID> = []
         for afil in strAffilsRemoved ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
-                afilListRemoved.insert(foundAffiliation)
+                afilIDListRemoved.insert(foundAffiliation.id)
             } else {
                 print("Warning: Affiliation '\(afil)' not found in ConfigLoader for event '\(self.name)'")
             }
         }
-        self.affiliationsRemoved = afilListRemoved
+        self.affiliationIDsRemoved = afilIDListRemoved
 
         let conversions = try container.decodeIfPresent([String: String].self, forKey: .convertAffiliation)
         for (old, new) in conversions ?? [:] {
@@ -116,118 +301,113 @@ struct Event: Codable {
                 print("Warning: Affiliation conversion '\(old)' -> '\(new)' not found in ConfigLoader for event '\(self.name)'")
                 continue
             }
-            self.convertAffiliation[oldAfil] = newAfil
-            self.convertAffiliation[oldAfil] = newAfil
+            self.convertAffiliationIDs[oldAfil.id] = newAfil.id
+            self.convertAffiliationIDs[oldAfil.id] = newAfil.id
         }
         
         // Look up the jobs through its name from the ConfigLoader
         let strJobs = try container.decodeIfPresent([String].self, forKey: .jobsAdded)
-        var jobList: Set<Job> = []
+        var jobIDList: Set<UUID> = []
         for job in strJobs ?? [] {
             if let foundJob = ConfigLoader.jobs.first(where: {$0.name == job}) {
-                jobList.insert(foundJob)
+                jobIDList.insert(foundJob.id)
             } else {
                 print("Warning: Job '\(job)' not found in ConfigLoader for event '\(self.name)'")
             }
         }
-        self.jobsAdded = jobList
+        self.jobIDsAdded = jobIDList
 
         let strJobsRemoved = try container.decodeIfPresent([String].self, forKey: .jobsRemoved)
-        var jobListRemoved: Set<Job> = []
+        var jobIDListRemoved: Set<UUID> = []
         for job in strJobsRemoved ?? [] {
             if let foundJob = ConfigLoader.jobs.first(where: {$0.name == job}) {
-                jobListRemoved.insert(foundJob)
+                jobIDListRemoved.insert(foundJob.id)
             } else {
                 print("Warning: Job '\(job)' not found in ConfigLoader for event '\(self.name)'")
             }
         }
-        self.jobsRemoved = jobListRemoved
+        self.jobIDsRemoved = jobIDListRemoved
 
         // Look up the locations through its name from the ConfigLoader
         let strLocations = try container.decodeIfPresent([String].self, forKey: .locationsAdded)
-        var locList: Set<Location> = []
+        var locIDList: Set<UUID> = []
         for loc in strLocations ?? [] {
             if let foundLocation = ConfigLoader.locations.first(where: {$0.name == loc}) {
-                locList.insert(foundLocation)
+                locIDList.insert(foundLocation.id)
             } else {
                 print("Warning: Location '\(loc)' not found in ConfigLoader for event '\(self.name)'")
             }
         }
-        self.locationsAdded = locList
+        self.locationIDsAdded = locIDList
 
         let strLocationsRemoved = try container.decodeIfPresent([String].self, forKey: .locationsRemoved)
-        var locListRemoved: Set<Location> = []
+        var locIDListRemoved: Set<UUID> = []
         for loc in strLocationsRemoved ?? [] {
             if let foundLocation = ConfigLoader.locations.first(where: {$0.name == loc}) {
-                locListRemoved.insert(foundLocation)
+                locIDListRemoved.insert(foundLocation.id)
             } else {
                 print("Warning: Location '\(loc)' not found in ConfigLoader for event '\(self.name)'")
             }
         }
-        self.locationsRemoved = locListRemoved
+        self.locationIDsRemoved = locIDListRemoved
 
         let strLocationsEvent = try container.decodeIfPresent([String].self, forKey: .location)
-        var locListEvent: Set<Location> = []
+        var locIDListEvent: Set<UUID> = []
         for loc in strLocationsEvent ?? [] {
             if let foundLocation = ConfigLoader.locations.first(where: {$0.name == loc}) {
-                locListEvent.insert(foundLocation)
+                locIDListEvent.insert(foundLocation.id)
             } else {
                 print("Warning: Location '\(loc)' not found in ConfigLoader for event '\(self.name)'")
             }
         }
-        self.location = locListEvent
+        self.locationIDs = locIDListEvent
 
         // Finally handle the relocations by looking up locations and affiliations by name
         let ageReloc = try container.decodeIfPresent([[String: Int]: String].self, forKey: .ageRelocation)
-        var allAgeData: [[Location: Int]: Location] = [:]
+        var ageRules: [AgeRelocationRule] = []
         for (ageDetails, reloc) in ageReloc ?? [:] {
             guard let theReloc = ConfigLoader.locations.first(where: {$0.name == reloc}) else {
                 print("Warning: Relocation '\(reloc)' not found in ConfigLoader for event '\(self.name)'")
                 continue
             }
-            var theAgeData: [Location: Int] = [:]
             for (loc, theAge) in ageDetails {
                 guard let theLoc = ConfigLoader.locations.first(where: {$0.name == loc}) else {
                     print("Warning: Location '\(loc)' not found in ConfigLoader for event '\(self.name)'")
                     continue
                 }
-
-                theAgeData[theLoc] = theAge
-                allAgeData[theAgeData] = theReloc
+                ageRules.append(AgeRelocationRule(fromLocationID: theLoc.id, maxAge: theAge, toLocationID: theReloc.id))
             }
         }
-        self.ageRelocation = allAgeData
+        self.ageRelocationRules = ageRules.isEmpty ? nil : ageRules
 
         let jobReloc = try container.decodeIfPresent([[String: [JobType: Float]]: String].self, forKey: .jobRelocation)
-        var allJobData: [[Affiliation: [JobType: Float]]: Location] = [:]
+        var jobRules: [JobRelocationRule] = []
         for (relocDetails, reloc) in jobReloc ?? [:] {
             guard let theReloc = ConfigLoader.locations.first(where: {$0.name == reloc}) else {
                 print("Warning: Relocation '\(reloc)' not found in ConfigLoader for event '\(self.name)'")
                 continue
             }
-            var theJobData: [Affiliation: [JobType: Float]] = [:]
             for (affil, theJobs) in relocDetails {
                 guard let theAffil = ConfigLoader.affiliations.first(where: {$0.name == affil}) else {
                     print("Warning: Affiliation '\(affil)' not found in ConfigLoader for event '\(self.name)'")
                     continue
                 }
-
-                theJobData[theAffil] = theJobs
-                allJobData[theJobData] = theReloc
+                jobRules.append(JobRelocationRule(affiliationID: theAffil.id, jobTypeDistribution: theJobs, toLocationID: theReloc.id))
             }
         }
-        self.jobRelocation = allJobData
+        self.jobRelocationRules = jobRules.isEmpty ? nil : jobRules
     }
 
-    init(name: String, description: String, triggerYear: Int, jobsAdded: Set<Job>? = [],
+    init(id: UUID = UUID(), name: String, description: String, triggerYear: Int, jobsAdded: Set<Job>? = [],
          injuriesAdded: Set<Injury>? = [],
          injuriesRemoved: Set<Injury>? = [], newNPC: [NewNPC]? = []) {
+        self.id = id
         self.name = name
         self.description = description
         self.triggerYear = triggerYear
-        self.injuriesAdded = injuriesAdded
-        self.injuriesRemoved = injuriesRemoved
-        self.jobsAdded = jobsAdded
+        self.injuryIDsAdded = injuriesAdded != nil ? Set(injuriesAdded!.map { $0.id }) : []
+        self.injuryIDsRemoved = injuriesRemoved != nil ? Set(injuriesRemoved!.map { $0.id }) : []
+        self.jobIDsAdded = jobsAdded != nil ? Set(jobsAdded!.map { $0.id }) : []
         self.newNPC = newNPC
     }
 
@@ -468,12 +648,10 @@ struct Event: Codable {
 }
 extension Event: Hashable {
     static func == (lhs: Event, rhs: Event) -> Bool {
-        return lhs.name == rhs.name && lhs.triggerYear == rhs.triggerYear && lhs.description == rhs.description
+        return lhs.id == rhs.id
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(triggerYear)
-        hasher.combine(description)
+        hasher.combine(id)
     }
 }

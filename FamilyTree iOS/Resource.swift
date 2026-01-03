@@ -9,21 +9,43 @@ import Foundation
 
 class Resource: Codable {
     private enum CodingKeys: String, CodingKey {
+        case id
         case name
         case inheritable
         case lifespan
         case requiredResources
     }
 
+    let id: UUID
     let name: String
     var inheritable: Bool = true
     var forSale: Bool = false
     var matchedBuyer: Person?
     var lifespan: Int = 0
     var age: Int = 0
-    var requiredResources: [Resource: Int] = [:]
+    var requiredResourceIDs: [UUID: Int] = [:]
+    
+    // Computed property for backward compatibility
+    var requiredResources: [Resource: Int] {
+        get {
+            var result: [Resource: Int] = [:]
+            for (id, count) in requiredResourceIDs {
+                if let resource = ConfigLoader.findResource(byID: id) {
+                    result[resource] = count
+                }
+            }
+            return result
+        }
+        set {
+            requiredResourceIDs = [:]
+            for (resource, count) in newValue {
+                requiredResourceIDs[resource.id] = count
+            }
+        }
+    }
 
-    init(name: String) {
+    init(id: UUID = UUID(), name: String) {
+        self.id = id
         self.name = name
     }
     
@@ -49,7 +71,7 @@ class Resource: Codable {
     }
 
     func newInstance() -> Resource {
-        let retVal = Resource(name: self.name)
+        let retVal = Resource(id: UUID(), name: self.name)
         retVal.lifespan = self.lifespan
         return retVal
     }
@@ -67,18 +89,19 @@ class Resource: Codable {
     required init(from decoder: Decoder) throws {
         // Get our container for this subclass' coding keys
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         self.name = try container.decode(String.self, forKey: .name)
         self.inheritable = try container.decodeIfPresent(Bool.self, forKey: .inheritable) ?? true
         self.lifespan = try container.decodeIfPresent(Int.self, forKey: .lifespan) ?? 0
         self.forSale = false
         self.age = 0
-        self.requiredResources = [:]
+        self.requiredResourceIDs = [:]
 
         if !ConfigLoader.resources.isEmpty {
             let reqResources = try container.decodeIfPresent([String: Int].self, forKey: .requiredResources)
             for (resString, count) in reqResources ?? [:] {
                 if let res = ConfigLoader.resources.filter({$0.name == resString}).first {
-                    self.requiredResources[res] = count
+                    self.requiredResourceIDs[res.id] = count
                 } else {
                     print("Warning: Required resource '\(resString)' not found in ConfigLoader for resource '\(self.name)'")
                 }
@@ -119,12 +142,10 @@ class Resource: Codable {
 }
 extension Resource: Hashable {
     static func == (lhs: Resource, rhs: Resource) -> Bool {
-        return lhs.name == rhs.name && lhs.age == rhs.age && lhs.forSale == rhs.forSale
+        return lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(age)
-        hasher.combine(forSale)
+        hasher.combine(id)
     }
 }

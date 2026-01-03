@@ -25,9 +25,17 @@ struct NewNPC: Codable {
     let count: Int
     let minAge: Int
     let maxAge: Int
-    let affiliation: Affiliation?
+    let affiliationID: UUID?
     let jobDistribution: [String: Float]
     var genderDistribution: [Sex: Float]?
+    
+    // Computed property for backward compatibility
+    var affiliation: Affiliation? {
+        get {
+            guard let id = affiliationID else { return nil }
+            return ConfigLoader.findAffiliation(byID: id)
+        }
+    }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -40,67 +48,84 @@ struct NewNPC: Codable {
         // Look up the affilliations through its name from the ConfigLoader
         let strAffil = try container.decodeIfPresent(String.self, forKey: .affiliation)
         guard let affiliation = ConfigLoader.affiliations.first(where: {$0.name == strAffil}) else {
-            throw DecodingError.dataCorruptedError(forKey: .affiliation, in: container,
+            throw DecodingError.dataCorruptedError(forKey: .affiliationID, in: container,
                                                     debugDescription: "Affiliation '\(strAffil ?? "nil")' not found in ConfigLoader")
         }
-        self.affiliation = affiliation
+        self.affiliationID = affiliation.id
     }
 
-    init (count: Int, minAge: Int, maxAge: Int, affiliation: Affiliation? = nil, jobDistribution: [String: Float]? = [:], genderDistribution: [Sex: Float]? = [:]) {
+    init (count: Int, minAge: Int, maxAge: Int, affiliationID: UUID? = nil, jobDistribution: [String: Float]? = [:], genderDistribution: [Sex: Float]? = [:]) {
         self.count = count
         self.minAge = minAge
         self.maxAge = maxAge
         self.genderDistribution = genderDistribution
         self.jobDistribution = jobDistribution ?? [:]
-        self.affiliation = affiliation
+        self.affiliationID = affiliationID
     }
 }
 
 struct Name: Codable {
     private enum CodingKeys: String, CodingKey {
+        case id
         case name
         case gender
         case affiliation
     }
 
+    let id: UUID
     let name: String
     let gender: Sex
-    let affiliation: Set<Affiliation>?
+    let affiliationIDs: Set<UUID>?
+    
+    // Computed property for backward compatibility
+    var affiliation: Set<Affiliation>? {
+        get {
+            guard let ids = affiliationIDs else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findAffiliation(byID: $0) })
+        }
+    }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         self.name = try container.decode(String.self, forKey: .name)
         self.gender = try container.decode(Sex.self, forKey: .gender)
 
         // Look up the affilliations through its name from the ConfigLoader
         let strAffil = try container.decodeIfPresent([String].self, forKey: .affiliation)
-        var nameAfils: Set<Affiliation> = []
+        var nameAfilIDs: Set<UUID> = []
         for afil in strAffil ?? [] {
             if let foundAffiliation = ConfigLoader.affiliations.first(where: {$0.name == afil}) {
-                nameAfils.insert(foundAffiliation)
+                nameAfilIDs.insert(foundAffiliation.id)
             } else {
                 print("Warning: Affiliation '\(afil)' not found in ConfigLoader for name '\(self.name)'")
             }
         }
-        self.affiliation = nameAfils
+        self.affiliationIDs = nameAfilIDs
+    }
+    
+    init(id: UUID = UUID(), name: String, gender: Sex, affiliationIDs: Set<UUID>? = nil) {
+        self.id = id
+        self.name = name
+        self.gender = gender
+        self.affiliationIDs = affiliationIDs
     }
 
 }
 extension Name: Hashable {
     static func == (lhs: Name, rhs: Name) -> Bool {
-        return lhs.name == rhs.name && lhs.gender == rhs.gender && lhs.affiliation == rhs.affiliation
+        return lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(gender)
-        hasher.combine(affiliation)
+        hasher.combine(id)
     }
 }
 
 
 final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type_body_length
     // TODO: Refactor to move strings for events and/or string displays elsewhere
+    let id: UUID
     var name: String
     var dateOfBirth: Date
     var age: Int
@@ -111,22 +136,136 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
     var dateOfMarriage: Date?
     var money: Money?
     var gender: Sex
-    var affiliations: Set<Affiliation> = []
-    var location: Town?
-    var injuries: Set<Injury> = []
-    var treatedInjuries: Set<Injury> = []
-    var job: Job?
+    var affiliationIDs: Set<UUID> = []
+    var locationID: UUID?
+    var injuryIDs: Set<UUID> = []
+    var treatedInjuryIDs: Set<UUID> = []
+    var jobID: UUID?
     var jobStartDate: Date?
-    var skills: Set<Skill>? = []
-    var spouse: Person?
-    var descendants: Set<Person> = []
+    var skillIDs: Set<UUID>? = []
+    var spouseID: UUID?
+    var descendantIDs: Set<UUID> = []
     var tryingForFamily: Bool = true
-    var resources: [Resource: Int] = [:]
-    var wantedResources: [Resource: Int] = [:]
+    var resourceIDs: [UUID: Int] = [:]
+    var wantedResourceIDs: [UUID: Int] = [:]
     var familyBusiness: JobType = .general
     var health: Float = 1
+    
+    // Direct object references (for backward compatibility and performance)
+    // These should be kept in sync with the ID fields
+    var _spouse: Person?
+    var _descendants: Set<Person> = []
+    
+    // Computed properties for backward compatibility
+    var affiliations: Set<Affiliation> {
+        get {
+            return Set(affiliationIDs.compactMap { ConfigLoader.findAffiliation(byID: $0) })
+        }
+        set {
+            affiliationIDs = Set(newValue.map { $0.id })
+        }
+    }
+    
+    var location: Town? {
+        get {
+            guard let id = locationID else { return nil }
+            return ConfigLoader.findLocation(byID: id) as? Town
+        }
+        set {
+            locationID = newValue?.id
+        }
+    }
+    
+    var injuries: Set<Injury> {
+        get {
+            return Set(injuryIDs.compactMap { ConfigLoader.findInjury(byID: $0) })
+        }
+        set {
+            injuryIDs = Set(newValue.map { $0.id })
+        }
+    }
+    
+    var treatedInjuries: Set<Injury> {
+        get {
+            return Set(treatedInjuryIDs.compactMap { ConfigLoader.findInjury(byID: $0) })
+        }
+        set {
+            treatedInjuryIDs = Set(newValue.map { $0.id })
+        }
+    }
+    
+    var job: Job? {
+        get {
+            guard let id = jobID else { return nil }
+            return ConfigLoader.findJob(byID: id)
+        }
+        set {
+            jobID = newValue?.id
+        }
+    }
+    
+    var skills: Set<Skill>? {
+        get {
+            guard let ids = skillIDs else { return nil }
+            return Set(ids.compactMap { ConfigLoader.findSkill(byID: $0) })
+        }
+        set {
+            skillIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
+        }
+    }
+    
+    var spouse: Person? {
+        get {
+            return _spouse
+        }
+        set {
+            _spouse = newValue
+            spouseID = newValue?.id
+        }
+    }
+    
+    var descendants: Set<Person> {
+        get {
+            return _descendants
+        }
+        set {
+            _descendants = newValue
+            descendantIDs = Set(newValue.map { $0.id })
+        }
+    }
+    
+    var resources: [Resource: Int] {
+        get {
+            var result: [Resource: Int] = [:]
+            for (id, count) in resourceIDs {
+                if let resource = ConfigLoader.findResource(byID: id) {
+                    result[resource] = count
+                }
+            }
+            return result
+        }
+        set {
+            resourceIDs = Dictionary(uniqueKeysWithValues: newValue.map { ($0.key.id, $0.value) })
+        }
+    }
+    
+    var wantedResources: [Resource: Int] {
+        get {
+            var result: [Resource: Int] = [:]
+            for (id, count) in wantedResourceIDs {
+                if let resource = ConfigLoader.findResource(byID: id) {
+                    result[resource] = count
+                }
+            }
+            return result
+        }
+        set {
+            wantedResourceIDs = Dictionary(uniqueKeysWithValues: newValue.map { ($0.key.id, $0.value) })
+        }
+    }
 
     init(name: String, dateOfBirth: Date, gender: Sex, game: GameEngine) async {
+        self.id = UUID()
         self.name = name
         self.dateOfBirth = dateOfBirth
         self.gender = gender
@@ -603,10 +742,14 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
             child.familyBusiness = job.type ?? .general
         }
 
-        self.descendants.insert(child)
+        _descendants.insert(child)
+        descendantIDs.insert(child.id)
         
         // And add child to spouse
-        self.spouse?.descendants.insert(child)
+        if let spouse = self.spouse {
+            spouse._descendants.insert(child)
+            spouse.descendantIDs.insert(child.id)
+        }
 
         if isThePlayer {
             await self.addChildEvent(child: child, game: game)
@@ -626,8 +769,8 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
         spouse.dateOfMarriage = self.dateOfMarriage
 
         // Gain affiliations - TODO: Limit this to only shareable one?
-        self.affiliations.formUnion(spouse.affiliations)
-        spouse.affiliations.formUnion(self.affiliations)
+        self.affiliationIDs.formUnion(spouse.affiliationIDs)
+        spouse.affiliationIDs.formUnion(self.affiliationIDs)
     }
     
     func seekJob(startDate: Date, game: GameEngine) async {
@@ -843,12 +986,10 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
 
 extension Person: Hashable {
     static func == (lhs: Person, rhs: Person) -> Bool {
-        return lhs.name == rhs.name && lhs.dateOfBirth == rhs.dateOfBirth && lhs.gender == rhs.gender
+        return lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-        hasher.combine(dateOfBirth)
-        hasher.combine(gender)
+        hasher.combine(id)
     }
 }

@@ -25,27 +25,32 @@ extension RateAgeRanges: Hashable {
 }
 
 class Rates: Codable {
+    let id: UUID
     var type: String
     var startDate: Date?
     var endDate: Date?
     
     private enum CodingKeys: String, CodingKey {
+        case id
         case type
         case startDate
         case endDate
     }
     
-    init() {
+    init(id: UUID = UUID()) {
+        self.id = id
         self.type = ""
     }
     
-    init(type: String) {
+    init(id: UUID = UUID(), type: String) {
+        self.id = id
         self.type = type
     }
     
     required init(from decoder: Decoder) throws {
         // Get our container for this subclass' coding keys
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         type = try container.decode(String.self, forKey: .type)
         startDate = try container.decodeIfPresent(Date.self, forKey: .startDate)
         endDate = try container.decodeIfPresent(Date.self, forKey: .endDate)
@@ -57,13 +62,11 @@ class Rates: Codable {
 }
 extension Rates: Hashable {
     static func == (lhs: Rates, rhs: Rates) -> Bool {
-        return lhs.startDate == rhs.startDate && lhs.endDate == rhs.endDate && lhs.type == rhs.type
+        return lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(startDate)
-        hasher.combine(endDate)
-        hasher.combine(type)
+        hasher.combine(id)
     }
 }
 
@@ -74,15 +77,15 @@ class AgeBasedRates: Rates {
         case rates
     }
     
-    init(rates: Set<RateAgeRanges>) {
+    init(id: UUID = UUID(), rates: Set<RateAgeRanges>) {
         self.rates = rates
         
-        super.init()
+        super.init(id: id)
     }
     
-    init(rates: Set<RateAgeRanges>, type: String) {
+    init(id: UUID = UUID(), rates: Set<RateAgeRanges>, type: String) {
         self.rates = rates
-        super.init(type: type)
+        super.init(id: id, type: type)
     }
     
     required init(from decoder: Decoder) throws {
@@ -140,15 +143,15 @@ class FlatRates: Rates {
         case rate
     }
     
-    init(rate: Float) {
+    init(id: UUID = UUID(), rate: Float) {
         self.rate = rate
         
-        super.init()
+        super.init(id: id)
     }
     
-    init(rate: Float, type: String) {
+    init(id: UUID = UUID(), rate: Float, type: String) {
         self.rate = rate
-        super.init(type: type)
+        super.init(id: id, type: type)
     }
     
     required init(from decoder: Decoder) throws {
@@ -197,8 +200,27 @@ class FlatRates: Rates {
 
 class ExchangeRate: Rates {
     var rate: Float
-    var buyResource: Resource
-    var sellResource: Resource
+    var buyResourceID: UUID
+    var sellResourceID: UUID
+    
+    // Computed properties for backward compatibility
+    var buyResource: Resource {
+        get {
+            return ConfigLoader.findResource(byID: buyResourceID)!
+        }
+        set {
+            buyResourceID = newValue.id
+        }
+    }
+    
+    var sellResource: Resource {
+        get {
+            return ConfigLoader.findResource(byID: sellResourceID)!
+        }
+        set {
+            sellResourceID = newValue.id
+        }
+    }
 
     private enum CodingKeys: String, CodingKey {
         case rate
@@ -206,12 +228,12 @@ class ExchangeRate: Rates {
         case sellResource
     }
 
-    init(rate: Float, buyResource: Resource, sellResource: Resource) {
+    init(id: UUID = UUID(), rate: Float, buyResourceID: UUID, sellResourceID: UUID) {
         self.rate = rate
-        self.buyResource = buyResource
-        self.sellResource = sellResource
+        self.buyResourceID = buyResourceID
+        self.sellResourceID = sellResourceID
 
-        super.init()
+        super.init(id: id)
         self.type = "Exchange Rate"
 
     }
@@ -232,8 +254,8 @@ class ExchangeRate: Rates {
                                                     debugDescription: "Resource '\(strSellResource)' not found in ConfigLoader")
         }
         
-        self.buyResource = buyResource
-        self.sellResource = sellResource
+        self.buyResourceID = buyResource.id
+        self.sellResourceID = sellResource.id
 
         try super.init(from: decoder)
     }
