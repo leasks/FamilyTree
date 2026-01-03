@@ -258,6 +258,88 @@ struct Job: Codable {
         self.maxCount = try container.decodeIfPresent(Int.self, forKey: .maxCount)
 
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encodeIfPresent(type, forKey: .type)
+        try container.encodeIfPresent(description, forKey: .description)
+        try container.encodeIfPresent(minAge, forKey: .minAge)
+        try container.encodeIfPresent(maxAge, forKey: .maxAge)
+        try container.encode(allowedGenders, forKey: .allowedGenders)
+        try container.encode(travels, forKey: .travels)
+        
+        // Encode skills as full objects
+        if let requiredSkillIDs = requiredSkillIDs {
+            let skills = Set(requiredSkillIDs.compactMap { ConfigLoader.findSkill(byID: $0) })
+            if !skills.isEmpty {
+                try container.encode(skills, forKey: .requiredSkills)
+            }
+        }
+        
+        if let learnSkillsIDs = learnSkillsIDs {
+            var learnSkills: [Skill: Int] = [:]
+            for (skillID, value) in learnSkillsIDs {
+                if let skill = ConfigLoader.findSkill(byID: skillID) {
+                    learnSkills[skill] = value
+                }
+            }
+            if !learnSkills.isEmpty {
+                try container.encode(learnSkills, forKey: .learnSkills)
+            }
+        }
+        
+        // Encode resource names instead of UUIDs
+        if let requiredResourceIDs = requiredResourceIDs {
+            let resourceNames = requiredResourceIDs.compactMap { ConfigLoader.findResource(byID: $0)?.name }
+            if !resourceNames.isEmpty {
+                try container.encode(resourceNames, forKey: .requiredResources)
+            }
+        }
+        
+        // Encode produce resources as dictionary of name -> count
+        if !produceResourceIDs.isEmpty {
+            var produceResourceNames: [String: Int] = [:]
+            for (resourceID, count) in produceResourceIDs {
+                if let resource = ConfigLoader.findResource(byID: resourceID) {
+                    produceResourceNames[resource.name] = count
+                }
+            }
+            if !produceResourceNames.isEmpty {
+                try container.encode(produceResourceNames, forKey: .produceResource)
+            }
+        }
+        
+        // Encode social class name instead of UUID
+        if let socialClassID = socialClassID, let socialClass = ConfigLoader.findSocialClass(byID: socialClassID) {
+            try container.encode(socialClass.name, forKey: .socialClass)
+        }
+        
+        // Encode affiliation names instead of UUIDs
+        if let affiliationIDs = affiliationIDs {
+            let affiliationNames = affiliationIDs.compactMap { ConfigLoader.findAffiliation(byID: $0)?.name }
+            if !affiliationNames.isEmpty {
+                try container.encode(affiliationNames, forKey: .affiliations)
+            }
+        }
+        
+        if let blockedAffiliationIDs = blockedAffiliationIDs {
+            let blockedAffiliationNames = blockedAffiliationIDs.compactMap { ConfigLoader.findAffiliation(byID: $0)?.name }
+            if !blockedAffiliationNames.isEmpty {
+                try container.encode(blockedAffiliationNames, forKey: .blockedAffiliations)
+            }
+        }
+        
+        if let earnAffiliationIDs = earnAffiliationIDs {
+            let earnAffiliationNames = earnAffiliationIDs.compactMap { ConfigLoader.findAffiliation(byID: $0)?.name }
+            if !earnAffiliationNames.isEmpty {
+                try container.encode(earnAffiliationNames, forKey: .earnAffiliations)
+            }
+        }
+        
+        try container.encodeIfPresent(maxCount, forKey: .maxCount)
+    }
 
     init(id: UUID = UUID(), name: String, description: String? = nil, type: JobType? = nil, minAge: Int? = 0,
          allowedGenders: Set<Sex>? = [Sex.male, Sex.female],

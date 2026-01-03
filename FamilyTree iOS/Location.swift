@@ -89,6 +89,17 @@ class County: Location {
         self.regionID = region.id
         try super.init(from: decoder)
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        // Encode region name instead of UUID
+        if let region = ConfigLoader.findLocation(byID: regionID) {
+            try container.encode(region.name, forKey: .region)
+        }
+        
+        try super.encode(to: encoder)
+    }
 
     static func == (lhs: County, rhs: County) -> Bool {
         return lhs.id == rhs.id
@@ -221,6 +232,44 @@ class Town: Location {
             ?? County(name: strCounty, regionID: Region(name: "Unspecified").id).id
 
         try super.init(from: decoder)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(founded, forKey: .founded)
+        try container.encodeIfPresent(abandoned, forKey: .abandoned)
+        try container.encodeIfPresent(longitude, forKey: .longitude)
+        try container.encodeIfPresent(latitutde, forKey: .latitude)
+        
+        // Encode ruler name instead of UUID
+        if let rulerID = rulerID, let ruler = ConfigLoader.findAffiliation(byID: rulerID) {
+            try container.encode(ruler.name, forKey: .ruler)
+        }
+        
+        // Encode rulers as dictionary of year -> name
+        if !rulerIDs.isEmpty {
+            var rulerNames: [Int: String] = [:]
+            for (year, rulerID) in rulerIDs {
+                if let ruler = ConfigLoader.findAffiliation(byID: rulerID) {
+                    rulerNames[year] = ruler.name
+                }
+            }
+            if !rulerNames.isEmpty {
+                try container.encode(rulerNames, forKey: .rulers)
+            }
+        }
+        
+        // Encode foundedBy name instead of UUID
+        if let foundedByID = foundedByID, let foundedBy = ConfigLoader.findAffiliation(byID: foundedByID) {
+            try container.encode(foundedBy.name, forKey: .foundedBy)
+        }
+        
+        // Encode county name instead of UUID
+        if let county = ConfigLoader.findLocation(byID: countyID) {
+            try container.encode(county.name, forKey: .county)
+        }
+        
+        try super.encode(to: encoder)
     }
 
     func createRulerEvents(year: Int) -> Event? {

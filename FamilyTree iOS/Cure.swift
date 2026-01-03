@@ -37,6 +37,17 @@ struct Cure: Codable {
         self.locationID = locationDecoded?.id
     }
     
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(startDate, forKey: .startDate)
+        
+        // Encode location as full object if present
+        if let locationID = locationID, let location = ConfigLoader.findLocation(byID: locationID) {
+            try container.encode(location, forKey: .location)
+        }
+    }
+    
     init(id: UUID = UUID(), startDate: Date, locationID: UUID? = nil) {
         self.id = id
         self.startDate = startDate
