@@ -90,7 +90,7 @@ class County: Location {
         try super.init(from: decoder)
     }
     
-    func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         // Encode region name instead of UUID
@@ -234,7 +234,7 @@ class Town: Location {
         try super.init(from: decoder)
     }
     
-    func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(founded, forKey: .founded)
         try container.encodeIfPresent(abandoned, forKey: .abandoned)
