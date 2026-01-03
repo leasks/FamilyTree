@@ -147,8 +147,8 @@ class Person: Codable { //swiftlint:disable:this type_body_length
                     return $0.wealth > $1.wealth
                 }
                 // When wealth is equal, prefer classes with affiliation requirements
-                let has0Affil = $0.affiliations != nil && !$0.affiliations!.isEmpty
-                let has1Affil = $1.affiliations != nil && !$1.affiliations!.isEmpty
+                let has0Affil = !($0.affiliations?.isEmpty ?? true)
+                let has1Affil = !($1.affiliations?.isEmpty ?? true)
                 if has0Affil != has1Affil {
                     return has0Affil
                 }
