@@ -15,17 +15,17 @@ struct EventConfig: Codable {
 actor ConfigLoader {
     static let dateFormatter = DateFormatter()
     static let decoder = JSONDecoder()
-    static var rates: Set<Rates> = []
-    static var names: Set<Name> = []
-    static var affiliations: Set<Affiliation> = []
-    static var jobs: Set<Job> = []
-    static var locations: Set<Location> = []
-    static var events: Set<Event> = []
-    static var injuries: Set<Injury> = []
-    static var socialClasses: Set<SocialClass> = []
-    static var resources: Set<Resource> = []
-    static var gameStartYear: Int = 0
-    static var startAffiliations: Set<Affiliation> = []
+    nonisolated(unsafe) static var rates: Set<Rates> = []
+    nonisolated(unsafe) static var names: Set<Name> = []
+    nonisolated(unsafe) static var affiliations: Set<Affiliation> = []
+    nonisolated(unsafe) static var jobs: Set<Job> = []
+    nonisolated(unsafe) static var locations: Set<Location> = []
+    nonisolated(unsafe) static var events: Set<Event> = []
+    nonisolated(unsafe) static var injuries: Set<Injury> = []
+    nonisolated(unsafe) static var socialClasses: Set<SocialClass> = []
+    nonisolated(unsafe) static var resources: Set<Resource> = []
+    nonisolated(unsafe) static var gameStartYear: Int = 0
+    nonisolated(unsafe) static var startAffiliations: Set<Affiliation> = []
     
     // UUID-based lookup methods
     static func findRate(byID id: UUID) -> Rates? {

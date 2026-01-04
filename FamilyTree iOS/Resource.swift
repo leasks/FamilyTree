@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Resource: Codable {
+class Resource: Codable, @unchecked Sendable {
     private enum CodingKeys: String, CodingKey {
         case id
         case name

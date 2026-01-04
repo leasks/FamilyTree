@@ -16,7 +16,7 @@ actor GameEngine {
     var availableInjuries: Set<Injury> = []
     var availableAffiliations: Set<Affiliation> = []
     var availableJobs: Set<Job> = []
-    var availableLocations: Set<Location> = []
+    var availableLocationsIDs: Set<UUID> = []
     var availableClasses: Set<SocialClass> = []
     var running: Bool = true
     var root: Person?
@@ -24,23 +24,32 @@ actor GameEngine {
     var activeEvent: [Event] = []
     var persons: Set<Person> = []
 
+    var availableLocations: Set<Location> {
+        get {
+            let ids = availableLocationsIDs
+            return Set(ids.compactMap { ConfigLoader.findLocation(byID: $0) })
+        }
+        set {
+            availableLocationsIDs = Set(newValue.map { $0.id })
+        }
+    }
 //    static var theGame: GameEngine?
 
     init() {
         self.year = 0
         self.month = 12
     }
-    
+
     init(year: Int, month: Int) {
         self.year = year
         self.month = month
     }
-    
+
     func setActivePerson(person: Person) {
         generation += 1
         activePerson = person
     }
-    
+
     func getActivePerson() -> Person? {
         return activePerson
     }
@@ -52,7 +61,7 @@ actor GameEngine {
     func active() -> Bool {
         return running
     }
-    
+
     func endGame() {
         self.running = false
     }
@@ -107,7 +116,7 @@ actor GameEngine {
             print("Error: Failed to create birth date")
             return
         }
-        
+
         let person = await Person(name: name, dateOfBirth: birthD, gender: gender, game: self)
         person.affiliations.insert(affiliation)
 
@@ -152,7 +161,7 @@ actor GameEngine {
             }
 
             await player.job?.doJob(person: player, game: self)
-            
+
             // Consume food and check for starvation
             await player.consumeFoodAndCheckStarvation(game: self)
 
@@ -192,15 +201,9 @@ actor GameEngine {
                 await event?.expire(game: self)
 
                 // Remove dislikes as the takeover happened
-                if let newRuler = town?.rulers[self.year - 1], let oldRuler = town?.ruler {
-                    // Find and update the new ruler's disliked affiliations
-                    if let index = ConfigLoader.affiliations.firstIndex(where: { $0 == newRuler }) {
-                        ConfigLoader.affiliations[index].dislikedAffiliations?.remove(oldRuler)
-                    }
-                    // Find and update the old ruler's disliked affiliations
-                    if let index = ConfigLoader.affiliations.firstIndex(where: { $0 == oldRuler }) {
-                        ConfigLoader.affiliations[index].dislikedAffiliations?.remove(newRuler)
-                    }
+                if var newRuler = town?.rulers[self.year - 1], var oldRuler = town?.ruler {
+                        oldRuler.dislikedAffiliations?.remove(newRuler)
+                        newRuler.dislikedAffiliations?.remove(oldRuler)
                 }
             }
         }
@@ -281,7 +284,7 @@ actor GameEngine {
                     }
                 }
             }
-            
+
             // Consume food and check for starvation
             await character.consumeFoodAndCheckStarvation(game: self)
         }
@@ -299,7 +302,7 @@ actor GameEngine {
         }
 //        }
     }
-    
+
     func tradeMatching(buyer: Person, count: Int = 1) {
         // Try to match-up wanted resources with those for sale
         var possibleMatches: [Resource] = []
@@ -325,7 +328,7 @@ actor GameEngine {
             if seller != nil {
                 if character != seller { continue }  // Explicit seller was set and this isn't it
             }
-            
+
             for (resource, _) in character.resources.filter({$0.key.matchedBuyer == buyer}) {
                 if let rate = resource.getExchRate() {
                     if rate.sellResource.countIgnoringAge(resources: buyer.resources) < Int(rate.rate) {
@@ -333,15 +336,15 @@ actor GameEngine {
                         resource.matchedBuyer = nil
                         return false
                     }
-                    
+
                     for _ in (1...Int(rate.rate)) {
                         buyer.removeResource(resource: rate.sellResource)
                         var res = rate.sellResource.newInstance()
                         res.forSale = false
                         character.addResource(resource: res)
                     }
-                    
-                    
+
+
                     character.removeResource(resource: resource)
                     var res = resource.newInstance()
                     res.forSale = false
@@ -381,7 +384,7 @@ actor GameEngine {
     func generateLocationEvents() async {
         for location in ConfigLoader.locations where location.type == .town {
             guard let town = location as? Town else { continue }
-            
+
             if (town.founded ?? 0) > self.year {
                 let eventName = town.name + " founded"
                 let eventDesc = "New town " + town.name + " has been founded"
@@ -427,18 +430,18 @@ actor GameEngine {
     func getGameDate() -> Date {
         return generateDate(year: self.year, month: self.month, day: 1)
     }
-    
+
     func getMaxDate() -> Date {
         return generateDate(year: 2999, month: 12, day: 31)
     }
-    
+
     func getMinDate() -> Date {
         return generateDate(year: -4000, month: 1, day: 1)
     }
 
     func generateDate(year: Int, month: Int? = nil, day: Int? = nil) -> Date {
         let components: DateComponents
-        
+
         if month == nil && day == nil {
             components = DateComponents(year: year, month: Int.random(in: 1...12), day: Int.random(in: 1...28))
         } else if let day = day, month == nil {
@@ -450,7 +453,7 @@ actor GameEngine {
         } else {
             components = DateComponents(year: year, month: Int.random(in: 1...12), day: Int.random(in: 1...28))
         }
-        
+
         return calendar.date(from: components) ?? Date()
     }
 }

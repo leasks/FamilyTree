@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RateAgeRanges: Decodable {
+struct RateAgeRanges: Codable {
     var startAge: Int? = 0
     var endAge: Int? = 1000
     var rate: Float

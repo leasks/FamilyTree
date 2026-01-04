@@ -17,18 +17,18 @@ struct JobRelocationRule: Codable, Hashable {
     let affiliationID: UUID
     let jobTypeDistribution: [JobType: Float]
     let toLocationID: UUID
-    
+
     static func == (lhs: JobRelocationRule, rhs: JobRelocationRule) -> Bool {
         return lhs.affiliationID == rhs.affiliationID && lhs.toLocationID == rhs.toLocationID
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(affiliationID)
         hasher.combine(toLocationID)
     }
 }
 
-struct Event: Codable {
+struct Event: Codable { //swiftlint:disable:this type_body_length
     private enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -74,7 +74,7 @@ struct Event: Codable {
     var locationIDsRemoved: Set<UUID>? = []
     var convertAffiliationIDs: [UUID: UUID] = [:]
     var returnOnEnd: Bool = false
-    
+
     // Computed properties for backward compatibility
     var injuriesAdded: Set<Injury>? {
         get {
@@ -85,7 +85,7 @@ struct Event: Codable {
             injuryIDsAdded = newValue != nil ? Set(newValue!.map { $0.id }) : nil
         }
     }
-    
+
     var injuriesRemoved: Set<Injury>? {
         get {
             guard let ids = injuryIDsRemoved else { return nil }
@@ -95,7 +95,7 @@ struct Event: Codable {
             injuryIDsRemoved = newValue != nil ? Set(newValue!.map { $0.id }) : nil
         }
     }
-    
+
     var affiliationsAdded: Set<Affiliation>? {
         get {
             guard let ids = affiliationIDsAdded else { return nil }
@@ -105,7 +105,7 @@ struct Event: Codable {
             affiliationIDsAdded = newValue != nil ? Set(newValue!.map { $0.id }) : nil
         }
     }
-    
+
     var affiliationsRemoved: Set<Affiliation>? {
         get {
             guard let ids = affiliationIDsRemoved else { return nil }
@@ -115,7 +115,7 @@ struct Event: Codable {
             affiliationIDsRemoved = newValue != nil ? Set(newValue!.map { $0.id }) : nil
         }
     }
-    
+
     var jobsAdded: Set<Job>? {
         get {
             guard let ids = jobIDsAdded else { return nil }
@@ -125,7 +125,7 @@ struct Event: Codable {
             jobIDsAdded = newValue != nil ? Set(newValue!.map { $0.id }) : nil
         }
     }
-    
+
     var jobsRemoved: Set<Job>? {
         get {
             guard let ids = jobIDsRemoved else { return nil }
@@ -135,7 +135,7 @@ struct Event: Codable {
             jobIDsRemoved = newValue != nil ? Set(newValue!.map { $0.id }) : nil
         }
     }
-    
+
     var location: Set<Location>? {
         get {
             guard let ids = locationIDs else { return nil }
@@ -145,7 +145,7 @@ struct Event: Codable {
             locationIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
         }
     }
-    
+
     var locationsAdded: Set<Location>? {
         get {
             guard let ids = locationIDsAdded else { return nil }
@@ -155,7 +155,7 @@ struct Event: Codable {
             locationIDsAdded = newValue != nil ? Set(newValue!.map { $0.id }) : nil
         }
     }
-    
+
     var locationsRemoved: Set<Location>? {
         get {
             guard let ids = locationIDsRemoved else { return nil }
@@ -165,7 +165,7 @@ struct Event: Codable {
             locationIDsRemoved = newValue != nil ? Set(newValue!.map { $0.id }) : nil
         }
     }
-    
+
     var convertAffiliation: [Affiliation: Affiliation] {
         get {
             var result: [Affiliation: Affiliation] = [:]
@@ -181,7 +181,7 @@ struct Event: Codable {
             convertAffiliationIDs = Dictionary(uniqueKeysWithValues: newValue.map { ($0.key.id, $0.value.id) })
         }
     }
-    
+
     var ageRelocation: [[Location: Int]: Location]? {
         get {
             guard let rules = ageRelocationRules else { return nil }
@@ -208,7 +208,7 @@ struct Event: Codable {
             }
         }
     }
-    
+
     var jobRelocation: [[Affiliation: [JobType: Float]]: Location]? {
         get {
             guard let rules = jobRelocationRules else { return nil }
@@ -236,7 +236,8 @@ struct Event: Codable {
         }
     }
 
-    init(from decoder: Decoder) throws {
+    //swiftlint:disable cyclomatic_complexity
+    init(from decoder: Decoder) throws { //swiftlint:disable:this function_body_length
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         self.name = try container.decode(String.self, forKey: .name)
@@ -304,7 +305,7 @@ struct Event: Codable {
             self.convertAffiliationIDs[oldAfil.id] = newAfil.id
             self.convertAffiliationIDs[oldAfil.id] = newAfil.id
         }
-        
+
         // Look up the jobs through its name from the ConfigLoader
         let strJobs = try container.decodeIfPresent([String].self, forKey: .jobsAdded)
         var jobIDList: Set<UUID> = []
@@ -397,7 +398,7 @@ struct Event: Codable {
         }
         self.jobRelocationRules = jobRules.isEmpty ? nil : jobRules
     }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
@@ -409,7 +410,7 @@ struct Event: Codable {
         try container.encodeIfPresent(newNPC, forKey: .newNPC)
         try container.encodeIfPresent(removeNPC, forKey: .removeNPC)
         try container.encode(returnOnEnd, forKey: .returnOnEnd)
-        
+
         // Encode injury names instead of UUIDs
         if let injuryIDsAdded = injuryIDsAdded {
             let injuryNames = injuryIDsAdded.compactMap { ConfigLoader.findInjury(byID: $0)?.name }
@@ -417,14 +418,14 @@ struct Event: Codable {
                 try container.encode(injuryNames, forKey: .injuriesAdded)
             }
         }
-        
+
         if let injuryIDsRemoved = injuryIDsRemoved {
             let injuryNames = injuryIDsRemoved.compactMap { ConfigLoader.findInjury(byID: $0)?.name }
             if !injuryNames.isEmpty {
                 try container.encode(injuryNames, forKey: .injuriesRemoved)
             }
         }
-        
+
         // Encode affiliation names instead of UUIDs
         if let affiliationIDsAdded = affiliationIDsAdded {
             let affiliationNames = affiliationIDsAdded.compactMap { ConfigLoader.findAffiliation(byID: $0)?.name }
@@ -432,14 +433,14 @@ struct Event: Codable {
                 try container.encode(affiliationNames, forKey: .affiliationsAdded)
             }
         }
-        
+
         if let affiliationIDsRemoved = affiliationIDsRemoved {
             let affiliationNames = affiliationIDsRemoved.compactMap { ConfigLoader.findAffiliation(byID: $0)?.name }
             if !affiliationNames.isEmpty {
                 try container.encode(affiliationNames, forKey: .affiliationsRemoved)
             }
         }
-        
+
         // Encode affiliation conversions as dictionary of name -> name
         if !convertAffiliationIDs.isEmpty {
             var conversions: [String: String] = [:]
@@ -453,7 +454,7 @@ struct Event: Codable {
                 try container.encode(conversions, forKey: .convertAffiliation)
             }
         }
-        
+
         // Encode job names instead of UUIDs
         if let jobIDsAdded = jobIDsAdded {
             let jobNames = jobIDsAdded.compactMap { ConfigLoader.findJob(byID: $0)?.name }
@@ -461,14 +462,14 @@ struct Event: Codable {
                 try container.encode(jobNames, forKey: .jobsAdded)
             }
         }
-        
+
         if let jobIDsRemoved = jobIDsRemoved {
             let jobNames = jobIDsRemoved.compactMap { ConfigLoader.findJob(byID: $0)?.name }
             if !jobNames.isEmpty {
                 try container.encode(jobNames, forKey: .jobsRemoved)
             }
         }
-        
+
         // Encode location names instead of UUIDs
         if let locationIDsAdded = locationIDsAdded {
             let locationNames = locationIDsAdded.compactMap { ConfigLoader.findLocation(byID: $0)?.name }
@@ -476,21 +477,21 @@ struct Event: Codable {
                 try container.encode(locationNames, forKey: .locationsAdded)
             }
         }
-        
+
         if let locationIDsRemoved = locationIDsRemoved {
             let locationNames = locationIDsRemoved.compactMap { ConfigLoader.findLocation(byID: $0)?.name }
             if !locationNames.isEmpty {
                 try container.encode(locationNames, forKey: .locationsRemoved)
             }
         }
-        
+
         if let locationIDs = locationIDs {
             let locationNames = locationIDs.compactMap { ConfigLoader.findLocation(byID: $0)?.name }
             if !locationNames.isEmpty {
                 try container.encode(locationNames, forKey: .location)
             }
         }
-        
+
         // Encode age relocation rules as dictionary with location names
         if let ageRelocationRules = ageRelocationRules, !ageRelocationRules.isEmpty {
             var ageReloc: [[String: Int]: String] = [:]
@@ -504,7 +505,7 @@ struct Event: Codable {
                 try container.encode(ageReloc, forKey: .ageRelocation)
             }
         }
-        
+
         // Encode job relocation rules as dictionary with affiliation and location names
         if let jobRelocationRules = jobRelocationRules, !jobRelocationRules.isEmpty {
             var jobReloc: [[String: [JobType: Float]]: String] = [:]
@@ -519,6 +520,8 @@ struct Event: Codable {
             }
         }
     }
+
+    //swiftlint:enable cyclomatic_complexity
 
     init(id: UUID = UUID(), name: String, description: String, triggerYear: Int, jobsAdded: Set<Job>? = [],
          injuriesAdded: Set<Injury>? = [],
@@ -637,7 +640,7 @@ struct Event: Codable {
                     let count = founders.count
                     if count > 2 {
                         let relocate = Int.random(in: 1...(count/2))
-                        
+
                         for _ in 1...relocate {
                             founders.randomElement()?.location = town
                         }
@@ -653,7 +656,7 @@ struct Event: Codable {
             for location in locationsRemoved {
                 if let town = location as? Town {
                     for person in await game.persons.filter({$0.location?.name == town.name}) {
-                        person.location = await game.availableLocations.randomElement() as? Town
+                        person.location = await ConfigLoader.findLocation(byID: game.availableLocationsIDs.randomElement()!) as? Town
                     }
                 }
             }
@@ -735,7 +738,7 @@ struct Event: Codable {
     }
 
     func relocations(game: GameEngine) async {
-        
+
         // Relocate people by age if specificed
         for (criteria, newlocation) in self.ageRelocation ?? [:] {
             for (currlocation, agelimit) in criteria {
@@ -772,7 +775,7 @@ extension Event: Hashable {
     static func == (lhs: Event, rhs: Event) -> Bool {
         return lhs.id == rhs.id
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

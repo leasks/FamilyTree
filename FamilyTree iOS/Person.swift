@@ -7,6 +7,7 @@
 
 import Foundation
 
+//swiftlint:disable file_length
 enum Sex: String, Codable {
     case male
     case female
@@ -48,7 +49,7 @@ struct NewNPC: Codable {
         // Look up the affilliations through its name from the ConfigLoader
         let strAffil = try container.decodeIfPresent(String.self, forKey: .affiliation)
         guard let affiliation = ConfigLoader.affiliations.first(where: {$0.name == strAffil}) else {
-            throw DecodingError.dataCorruptedError(forKey: .affiliationID, in: container,
+            throw DecodingError.dataCorruptedError(forKey: .affiliation, in: container,
                                                     debugDescription: "Affiliation '\(strAffil ?? "nil")' not found in ConfigLoader")
         }
         self.affiliationID = affiliation.id
@@ -63,8 +64,10 @@ struct NewNPC: Codable {
         try container.encodeIfPresent(genderDistribution, forKey: .genderDistribution)
         
         // Encode affiliation name instead of UUID
-        if let affiliation = ConfigLoader.findAffiliation(byID: affiliationID) {
-            try container.encode(affiliation.name, forKey: .affiliation)
+        if affiliationID !=  nil {
+            if let affiliation = ConfigLoader.findAffiliation(byID: affiliationID!) {
+                try container.encode(affiliation.name, forKey: .affiliation)
+            }
         }
     }
 
@@ -182,8 +185,8 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
     
     // Direct object references (for backward compatibility and performance)
     // These should be kept in sync with the ID fields
-    var _spouse: Person?
-    var _descendants: Set<Person> = []
+    var spouseOld: Person?
+    var descendentsOld: Set<Person> = []
     
     // Computed properties for backward compatibility
     var affiliations: Set<Affiliation> {
@@ -245,20 +248,20 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
     
     var spouse: Person? {
         get {
-            return _spouse
+            return spouseOld
         }
         set {
-            _spouse = newValue
+            spouseOld = newValue
             spouseID = newValue?.id
         }
     }
     
     var descendants: Set<Person> {
         get {
-            return _descendants
+            return descendentsOld
         }
         set {
-            _descendants = newValue
+            descendentsOld = newValue
             descendantIDs = Set(newValue.map { $0.id })
         }
     }
@@ -685,7 +688,7 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
         } else {
             filter = filter.filter({$0.gender == .female})
         }
-        let rand = ConfigLoader.names.randomElement() ?? Name(name: "Unknown", gender: gender, affiliation: nil)
+        let rand = ConfigLoader.names.randomElement() ?? Name(name: "Unknown", gender: gender, affiliationIDs: nil)
         name = filter.randomElement() ?? rand
         
         // Use game date -1 to indicate child born in the last year
@@ -771,12 +774,12 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
             child.familyBusiness = job.type ?? .general
         }
 
-        _descendants.insert(child)
+        descendentsOld.insert(child)
         descendantIDs.insert(child.id)
         
         // And add child to spouse
         if let spouse = self.spouse {
-            spouse._descendants.insert(child)
+            spouse.descendentsOld.insert(child)
             spouse.descendantIDs.insert(child.id)
         }
 
@@ -929,7 +932,7 @@ final class Person: Codable, @unchecked Sendable { //swiftlint:disable:this type
             retString += " is a \(job.name)"
         }
         
-        for (resource, count) in self.resources ?? [:] {
+        for (resource, count) in self.resources {
             retString += " has \(count) \(resource.name)"
         }
 

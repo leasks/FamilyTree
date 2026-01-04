@@ -14,7 +14,7 @@ enum LocationType: String, Codable {
     case country
 }
 
-class Location: Codable, Hashable {
+class Location: Codable, Hashable, @unchecked Sendable {
     let id: UUID
     var name: String
     var type: LocationType = .town
@@ -66,7 +66,7 @@ class County: Location {
     // Computed property for backward compatibility
     var region: Region {
         get {
-            return ConfigLoader.findLocation(byID: regionID) as! Region
+            return ConfigLoader.findLocation(byID: regionID) as! Region //swiftlint:disable:this force_cast
         }
         set {
             regionID = newValue.id
@@ -149,7 +149,7 @@ class Town: Location {
     // Computed properties for backward compatibility
     var county: County {
         get {
-            return ConfigLoader.findLocation(byID: countyID) as! County
+            return ConfigLoader.findLocation(byID: countyID) as! County //swiftlint:disable:this force_cast
         }
         set {
             countyID = newValue.id

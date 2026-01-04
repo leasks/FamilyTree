@@ -43,7 +43,7 @@ extension Skill: Hashable {
     }
 }
 
-struct Job: Codable {
+struct Job: Codable { //swiftlint:disable:this type_body_length
     private enum CodingKeys: String, CodingKey {
         case id
         case name

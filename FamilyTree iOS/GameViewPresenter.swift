@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol GameViewPresenter {
+protocol GameViewPresenter: Sendable {
     func onViewLoaded() async
     func onGo() async
     func onEndTurn() async
@@ -51,7 +51,7 @@ protocol GameViewComponent: AnyObject {
     func render(_ props: GameProps)
 }
 
-class GameViewPresenterImpl: GameViewPresenter {
+class GameViewPresenterImpl: GameViewPresenter, @unchecked Sendable {
     var playerEvents: [String] = []
     var theGame: GameEngine = GameEngine(year: 0, month: 12)
     weak var viewController: GameViewController!

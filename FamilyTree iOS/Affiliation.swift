@@ -28,7 +28,7 @@ struct Affiliation: Codable {
     var capitalID: UUID?
     var conversionAffiliation: String?
     var colour: Int
-    
+
     // Computed properties for backward compatibility
     var likedAffiliations: Set<Affiliation>? {
         get {
@@ -39,7 +39,7 @@ struct Affiliation: Codable {
             likedAffiliationIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
         }
     }
-    
+
     var dislikedAffiliations: Set<Affiliation>? {
         get {
             guard let ids = dislikedAffiliationIDs else { return nil }
@@ -49,7 +49,7 @@ struct Affiliation: Codable {
             dislikedAffiliationIDs = newValue != nil ? Set(newValue!.map { $0.id }) : nil
         }
     }
-    
+
     var capital: Town? {
         get {
             guard let id = capitalID else { return nil }
@@ -69,7 +69,7 @@ struct Affiliation: Codable {
         self.name = try container.decode(String.self, forKey: .name)
         let hexColour = try container.decodeIfPresent(String.self, forKey: .colour) ?? "0xD3D3D3"
         self.colour = Int(hexColour.dropFirst(2), radix: 16) ?? 0
-        
+
         // Decode liked affiliations as strings and convert to UUIDs
         let strLikedAffils = try container.decodeIfPresent([String].self, forKey: .likedAffiliations)
         var likedIDs: Set<UUID> = []
@@ -79,7 +79,7 @@ struct Affiliation: Codable {
             }
         }
         self.likedAffiliationIDs = likedIDs.isEmpty ? nil : likedIDs
-        
+
         // Decode disliked affiliations as strings and convert to UUIDs
         let strDislikedAffils = try container.decodeIfPresent([String].self, forKey: .dislikedAffiliations)
         var dislikedIDs: Set<UUID> = []
@@ -89,7 +89,7 @@ struct Affiliation: Codable {
             }
         }
         self.dislikedAffiliationIDs = dislikedIDs.isEmpty ? nil : dislikedIDs
-        
+
         let strStartDate = try container.decodeIfPresent(String.self, forKey: .startDate)
         if strStartDate != nil {
             self.startDate = dateFormatter.date(from: strStartDate!)
@@ -106,19 +106,19 @@ struct Affiliation: Codable {
         print(ConfigLoader.locations.first(where: {$0.name == strCapital}) == nil)
         print(self.capital == nil)
     }
-    
+
     func encode(to encoder: Encoder) throws {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
-        
+
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
-        
+
         // Encode colour as hex string
         let hexColour = String(format: "0x%06X", colour)
         try container.encode(hexColour, forKey: .colour)
-        
+
         // Encode liked affiliations as array of names
         if let likedIDs = likedAffiliationIDs {
             let likedNames = likedIDs.compactMap { ConfigLoader.findAffiliation(byID: $0)?.name }
@@ -126,7 +126,7 @@ struct Affiliation: Codable {
                 try container.encode(likedNames, forKey: .likedAffiliations)
             }
         }
-        
+
         // Encode disliked affiliations as array of names
         if let dislikedIDs = dislikedAffiliationIDs {
             let dislikedNames = dislikedIDs.compactMap { ConfigLoader.findAffiliation(byID: $0)?.name }
@@ -134,7 +134,7 @@ struct Affiliation: Codable {
                 try container.encode(dislikedNames, forKey: .dislikedAffiliations)
             }
         }
-        
+
         // Encode dates as formatted strings
         if let startDate = startDate {
             try container.encode(dateFormatter.string(from: startDate), forKey: .startDate)
@@ -142,7 +142,7 @@ struct Affiliation: Codable {
         if let endDate = endDate {
             try container.encode(dateFormatter.string(from: endDate), forKey: .endDate)
         }
-        
+
         // Encode capital as name
         if let capitalID = capitalID, let capital = ConfigLoader.findLocation(byID: capitalID) {
             try container.encode(capital.name, forKey: .capital)
@@ -153,6 +153,10 @@ struct Affiliation: Codable {
         self.id = id
         self.name = name
         self.colour = 0xFF0000
+    }
+
+    mutating func removeDislikedAffiliation(affiliation: Affiliation) {
+        dislikedAffiliationIDs?.remove(affiliation.id)
     }
 }
 
