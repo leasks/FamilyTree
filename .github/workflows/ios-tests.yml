@@ -13,6 +13,12 @@ jobs:
         uses: actions/checkout@v4  # checks out your repo into the runner workspace
         # actions/checkout is the standard way to fetch your code in Actions  [oai_citation:2‡GitHub](https://github.com/actions/checkout?utm_source=chatgpt.com)
 
+      - name: List available Xcode versions
+        run: ls /Applications | grep Xcode
+
+      - name: Set up Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_26.1.app/Contents/Developer
+  
       # Optional but often helpful: show available Xcode versions / select one if needed.
       - name: Show Xcode version
         run: xcodebuild -version
