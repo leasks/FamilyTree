@@ -15,6 +15,9 @@ jobs:
 
       - name: List available Xcode versions
         run: ls /Applications | grep Xcode
+
+      - name: Set up Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_26.1.app/Contents/Developer
   
       # Optional but often helpful: show available Xcode versions / select one if needed.
       - name: Show Xcode version
