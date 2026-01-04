@@ -82,7 +82,7 @@ final class ResourceTesting: XCTestCase {
         let sword = Resource(name: "Sword")
         sword.forSale = true
         let coin = Resource(name: "Coin")
-        let exchRate = ExchangeRate(rate: 5, buyResource: sword, sellResource: coin)
+        let exchRate = ExchangeRate(rate: 5, buyResourceID: sword.id, sellResourceID: coin.id)
         let game = GameEngine(year: 2000, month: 1)
         let john = await Person(name: "John", dateOfBirth: game.generateDate(year: 1980), gender: Sex.male, game: game)
         let seller = await Person(name: "Seller", dateOfBirth: game.generateDate(year: 1975), gender: Sex.female, game: game)
@@ -321,7 +321,7 @@ final class ResourceTesting: XCTestCase {
         blacksmith.produceResource[coin] = 1
         sword.requiredResources[labour] = 1
         labourer.produceResource[labour] = 1
-        let exchrate = ExchangeRate(rate: 1, buyResource: labour, sellResource: coin)
+        let exchrate = ExchangeRate(rate: 1, buyResourceID: labour.id, sellResourceID: coin.id)
         let john = await Person(name: "John", dateOfBirth: game.generateDate(year: 80), gender: .male, game: game)
         let billy = await Person(name: "Billy", dateOfBirth: game.generateDate(year: 80), gender: .male, game: game)
         john.job = blacksmith

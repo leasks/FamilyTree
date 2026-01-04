@@ -27,7 +27,7 @@ final class InjuryTesting: XCTestCase {
         let john = await Person(name: "John", dateOfBirth: game.generateDate(year: 1980), gender: Sex.male, game: game)
         let mortality = RateAgeRanges(endAge: 21, rate: 0.1)
         let mortality2 = RateAgeRanges(startAge: 21, rate: 0.9)
-        let poorHealth = Injury(name: "Poor Health", untreatedMortality: AgeBasedRates(rates: [mortality, mortality2], type: "Mortality"))
+        let poorHealth = Injury(name: "Poor Health", untreatedMortalityID: AgeBasedRates(rates: [mortality, mortality2], type: "Mortality").id)
         john.injuries.insert(poorHealth)
         Task {
             await game.addToSets(newInjuries: [poorHealth])
@@ -59,7 +59,7 @@ final class InjuryTesting: XCTestCase {
             // And he is dead
             let dave = await Person(name: "Dave", dateOfBirth: game.generateDate(year: 2000), gender: Sex.male, game: game)
             let death = RateAgeRanges(rate: 1)
-            let killedInBattle = Injury(name: "Killed in Battle", untreatedMortality: AgeBasedRates(rates: [death], type: "Mortality"))
+            let killedInBattle = Injury(name: "Killed in Battle", untreatedMortalityID: AgeBasedRates(rates: [death], type: "Mortality").id)
             dave.injuries.insert(killedInBattle)
             await game.addToSets(newInjuries: [killedInBattle])
             await game.addPerson(person: dave)
@@ -83,7 +83,7 @@ final class InjuryTesting: XCTestCase {
         let game = GameEngine(year: 2000, month: 1)
         let fred = await Person(name: "Fred", dateOfBirth: game.generateDate(year: 1980), gender: Sex.male, game: game)
         let mortality = RateAgeRanges(rate: 0.05)
-        var warWound = Injury(name: "War Wound", untreatedMortality: AgeBasedRates(rates: [mortality], type: "Mortality"))
+        var warWound = Injury(name: "War Wound", untreatedMortalityID: AgeBasedRates(rates: [mortality], type: "Mortality").id)
         fred.injuries.insert(warWound)
         fred.health = 0.75
         await game.addPerson(person: fred)
@@ -100,7 +100,7 @@ final class InjuryTesting: XCTestCase {
         // And the treatment for war wounds is to go to hospital
         // When he looks for treatment
         // Then it will not be treated
-        let cure = await Cure(startDate: game.generateDate(year: 1900), location: Location(name: "Hospital"))
+        let cure = await Cure(startDate: game.generateDate(year: 1900), locationID: Location(name: "Hospital").id)
         warWound.cure = cure
         fred.treatedInjuries = []
         fred.injuries.insert(warWound)

@@ -75,7 +75,7 @@ final class EventsTriggers: XCTestCase {
         let random = Job(name: "Random")
         var addromans = Event(name: "Rome", description: "Rome", triggerYear: 409)
         let roman = Affiliation(name: "Roman")
-        let newNPC = NewNPC(count: 100, minAge: 20, maxAge: 40, affiliation: roman, jobDistribution: ["Legionary":0.2,"Legate":0.2,"Centurion":0.2,"Random":0.4])
+        let newNPC = NewNPC(count: 100, minAge: 20, maxAge: 40, affiliationID: roman.id, jobDistribution: ["Legionary":0.2,"Legate":0.2,"Centurion":0.2,"Random":0.4])
         addromans.jobsAdded = [legionary, centurion, legate, random]
         addromans.newNPC = [newNPC]
         romancollapse.jobsRemoved = [legionary, centurion, legate]
@@ -114,16 +114,16 @@ final class EventsTriggers: XCTestCase {
         let chariot = Job(name: "Chariot", type: .military)
         let labourer = Job(name: "Labourer", type: .general)
 
-        let dummyCounty = County(name: "Dummy", region: Region(name: "Dummy"))
-        let canterbury = Town(name: "Canterbury", founded: 0, county: dummyCounty)
-        let caistor = Town(name: "Caistor St Edmund", founded: 0, county: dummyCounty)
+        let dummyCounty = County(name: "Dummy", regionID: Region(name: "Dummy").id)
+        let canterbury = Town(name: "Canterbury", founded: 0, countyID: dummyCounty.id)
+        let caistor = Town(name: "Caistor St Edmund", founded: 0, countyID: dummyCounty.id)
         var iceni = Affiliation(name: "Iceni")
         iceni.capital = caistor
         var atrebates = Affiliation(name: "Atrebates")
         atrebates.capital = canterbury
 
-        let newIceni = NewNPC(count: 50, minAge: 20, maxAge: 40, affiliation: iceni, jobDistribution: ["Warrior": 0.3, "Chariot": 0.2, "Labourer": 0.5])
-        let newAtrebates = NewNPC(count: 50, minAge: 20, maxAge: 40, affiliation: atrebates, jobDistribution: ["Warrior": 0.3, "Chariot": 0.2, "Labourer": 0.5])
+        let newIceni = NewNPC(count: 50, minAge: 20, maxAge: 40, affiliationID: iceni.id, jobDistribution: ["Warrior": 0.3, "Chariot": 0.2, "Labourer": 0.5])
+        let newAtrebates = NewNPC(count: 50, minAge: 20, maxAge: 40, affiliationID: atrebates.id, jobDistribution: ["Warrior": 0.3, "Chariot": 0.2, "Labourer": 0.5])
 
         var initialise = Event(name: "Initialisation", description: "Initialisation", triggerYear: 100)
         initialise.jobsAdded = [warrior, chariot, labourer]
@@ -165,9 +165,9 @@ final class EventsTriggers: XCTestCase {
         let fighter = Job(name: "Fighter", type: .military)
         let tradesman = Job(name: "Tradesman", type: .trade)
 
-        let location1 = Town(name: "Location1", founded: 100, county: County(name: "County", region: Region(name: "Region")))
-        let location2 = Town(name: "Location2", founded: 100, county: County(name: "County", region: Region(name: "Region")))
-        let location3 = Town(name: "Location3", founded: 100, county: County(name: "County", region: Region(name: "Region")))
+        let location1 = Town(name: "Location1", founded: 100, countyID: County(name: "County", regionID: Region(name: "Region").id).id)
+        let location2 = Town(name: "Location2", founded: 100, countyID: County(name: "County", regionID: Region(name: "Region").id).id)
+        let location3 = Town(name: "Location3", founded: 100, countyID: County(name: "County", regionID: Region(name: "Region").id).id)
         var game = GameEngine(year: 2020, month: 1)
         for _ in 1...10 {
             var personMilitary = await Person(name: "Soldier", dateOfBirth: game.generateDate(year: 2000), gender: .male, game: game)

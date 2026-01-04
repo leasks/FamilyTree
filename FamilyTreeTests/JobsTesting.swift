@@ -32,7 +32,7 @@ final class JobsTesting: XCTestCase {
         let jobsToAdd : Set<Job> = [spearman, archer, cavalry]
         let normanAffiliation = Affiliation(name: "Norman")
         let jobDist: [String: Float] = ["Spearman":0.33,"Archer":0.33,"Cavalry":0.33]
-        let characterDetails = NewNPC(count: 1000, minAge: 21, maxAge: 45, affiliation: normanAffiliation, jobDistribution: jobDist)
+        let characterDetails = NewNPC(count: 1000, minAge: 21, maxAge: 45, affiliationID: normanAffiliation.id, jobDistribution: jobDist)
         let normanConquest = Event(name: "Norman Conquest", description: "The Norman Conquest of England ...", triggerYear: 1066, jobsAdded: jobsToAdd, newNPC: [characterDetails])
         
         await normanConquest.apply(game: game)
@@ -59,7 +59,7 @@ final class JobsTesting: XCTestCase {
         let jobsToAdd: Set<Job> = [spearman, archer, cavalry]
         let normanAffiliation = Affiliation(name: "Norman")
         let jobDist: [String: Float] = ["Spearman":0.33,"Archer":0.33,"Cavalry":0.33]
-        let characterDetails = NewNPC(count: 1000, minAge: 21, maxAge: 45, affiliation: normanAffiliation, jobDistribution: jobDist)
+        let characterDetails = NewNPC(count: 1000, minAge: 21, maxAge: 45, affiliationID: normanAffiliation.id, jobDistribution: jobDist)
         let normanConquest = Event(name: "Norman Conquest", description: "The Norman Conquest of England ...", triggerYear: 1066, jobsAdded: jobsToAdd, newNPC: [characterDetails])
         
         await normanConquest.apply(game: game)

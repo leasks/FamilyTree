@@ -204,7 +204,7 @@ final class TreeBuilding: XCTestCase {
         // Then no women should be created
         let roman = Affiliation(name: "Roman")
         let centurion = Job(name: "Centurion")
-        let npcDef = NewNPC(count: 50, minAge: 20, maxAge: 50, affiliation: roman, jobDistribution: ["Centurion":1], genderDistribution: [Sex.male: 1, Sex.female: 0])
+        let npcDef = NewNPC(count: 50, minAge: 20, maxAge: 50, affiliationID: roman.id, jobDistribution: ["Centurion":1], genderDistribution: [Sex.male: 1, Sex.female: 0])
         let invasion = Event(name: "Roman invasion", description: "An invasion of Romans", triggerYear: 100, newNPC: [npcDef])
 
         game = GameEngine(year: 99, month: 1)

@@ -80,7 +80,7 @@ final class SocialClassTests: XCTestCase {
 
         let land = Resource(name: "Land")
         let coin = Resource(name: "Coin")
-        let exchRate = ExchangeRate(rate: 2000, buyResource: land, sellResource: coin)
+        let exchRate = ExchangeRate(rate: 2000, buyResourceID: land.id, sellResourceID: coin.id)
         ConfigLoader.rates = [exchRate]
 
         barry.resources[land] = 1

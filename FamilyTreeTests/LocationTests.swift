@@ -29,9 +29,9 @@ final class LocationTests: XCTestCase {
         let components = DateComponents(year: 2000)
         let fred = await Person(name: "Fred", dateOfBirth: calendar.date(from: components)!, gender: Sex.male, game: game)
         let dummyRegion = Region(name: "Dummy")
-        let dummyCounty = County(name: "Dummy", region: dummyRegion)
-        let london = Town(name: "London", founded: 45, county: dummyCounty)
-        let manchester = Town(name: "Manchester", founded: 100, county: dummyCounty)
+        let dummyCounty = County(name: "Dummy", regionID: dummyRegion.id)
+        let london = Town(name: "London", founded: 45, countyID: dummyCounty.id)
+        let manchester = Town(name: "Manchester", founded: 100, countyID: dummyCounty.id)
         fred.location = london
         
         fred.moves(to: manchester)
@@ -92,7 +92,7 @@ final class LocationTests: XCTestCase {
         // And his wife's location will be Manchester
         // And his son will be in Manchester
         // But his daughter will remain in Liverpool
-        let liverpool = Town(name: "Liverpool", founded: 1207, county: dummyCounty)
+        let liverpool = Town(name: "Liverpool", founded: 1207, countyID: dummyCounty.id)
         fred.location = london
         fredsson.location = london
         fredswife.location = london
@@ -114,10 +114,10 @@ final class LocationTests: XCTestCase {
         // Then 1000 Normans are added and their location is set to Hastings
         var battleofhastings = Event(name: "Battle of Hastings", description: "Battle of Hastings", triggerYear: 1066)
         let normans = Affiliation(name: "Normans")
-        let newNormans = NewNPC(count: 1000, minAge: 10, maxAge: 30, affiliation: normans)
+        let newNormans = NewNPC(count: 1000, minAge: 10, maxAge: 30, affiliationID: normans.id)
         let dummyRegion = Region(name: "Dummy")
-        let dummyCounty = County(name: "Dummy", region: dummyRegion)
-        let hastings = Town(name: "Hastings", founded: 1000, county: dummyCounty)
+        let dummyCounty = County(name: "Dummy", regionID: dummyRegion.id)
+        let hastings = Town(name: "Hastings", founded: 1000, countyID: dummyCounty.id)
         battleofhastings.newNPC = [newNormans]
         battleofhastings.location = [hastings]
         var encoded = try JSONEncoder().encode(battleofhastings)
@@ -139,11 +139,11 @@ final class LocationTests: XCTestCase {
         // And no-one outside of London will have that cause of death
         var greatfire = Event(name: "Great Fire of London", description: "Great Fire of London", triggerYear: 1666)
         let londoners = Affiliation(name: "Cockney")
-        let newNPC = NewNPC(count: 100, minAge: 10, maxAge: 30, affiliation: londoners)
-        let london = Town(name: "London", founded: 45, county: dummyCounty)
+        let newNPC = NewNPC(count: 100, minAge: 10, maxAge: 30, affiliationID: londoners.id)
+        let london = Town(name: "London", founded: 45, countyID: dummyCounty.id)
         let rate1 = RateAgeRanges(rate: 1)
         let mortality = AgeBasedRates(rates: [rate1], type: "Mortality")
-        let killedinfire = Injury(name: "Killed in Great Fire", likelihood: 0.5, untreatedMortality: mortality)
+        let killedinfire = Injury(name: "Killed in Great Fire", likelihood: 0.5, untreatedMortalityID: mortality.id)
         greatfire.newNPC = [newNPC]
         greatfire.location = [london]
         greatfire.injuriesAdded = [killedinfire]
@@ -166,8 +166,8 @@ final class LocationTests: XCTestCase {
         let calendar = Calendar(identifier: .gregorian)
         var components = DateComponents(year: 1930)
         var ww2evac = Event(name: "WW2 Evacuation", description: "WW2 Evacuation", triggerYear: 1940)
-        let wales = Town(name: "Wales", founded: 0, county: dummyCounty)
-        let liverpool = Town(name: "Liverpool", founded: 1207, county: dummyCounty)
+        let wales = Town(name: "Wales", founded: 0, countyID: dummyCounty.id)
+        let liverpool = Town(name: "Liverpool", founded: 1207, countyID: dummyCounty.id)
         let evacuees: [Town: Int] = [london: 16]
         let relocation = [evacuees: wales]
         ww2evac.ageRelocation = relocation
@@ -198,9 +198,9 @@ final class LocationTests: XCTestCase {
         // When the year becomes 1941 (is this the right date?)
         // Then people whose cause of death is "killed in air raid" are only located in London, Manchester and Liverpool
         // And no-one located in Wales has this cause of death
-        let manchester = Town(name: "Manchester", founded: 40, county: dummyCounty)
+        let manchester = Town(name: "Manchester", founded: 40, countyID: dummyCounty.id)
         var blitz = Event(name: "The Blitz", description: "The Blitz", triggerYear: 1941)
-        let airraid = Injury(name: "Killed in Air Raid", likelihood: 1, untreatedMortality: mortality)
+        let airraid = Injury(name: "Killed in Air Raid", likelihood: 1, untreatedMortalityID: mortality.id)
         blitz.injuriesAdded = [airraid]
         blitz.location = [london, liverpool, manchester]
         let george = await Person(name: "George", dateOfBirth: calendar.date(from: components)!, gender: Sex.male, game: game)
@@ -226,13 +226,13 @@ final class LocationTests: XCTestCase {
 //        Then Liverpool does not exist as an available location
         let northwest = Region(name: "North West England")
         let southeast = Region(name: "South East England")
-        let lancashire = County(name: "Lancashire", region: northwest)
-        let middlesex = County(name: "Middlesex", region: southeast)
-        let manchester = Town(name: "Manchester", founded: 0, county: lancashire)
+        let lancashire = County(name: "Lancashire", regionID: northwest.id)
+        let middlesex = County(name: "Middlesex", regionID: southeast.id)
+        let manchester = Town(name: "Manchester", founded: 0, countyID: lancashire.id)
         let aff = Affiliation(name: "Mancuian")
         let cockney = Affiliation(name: "Cockney")
-        let london = Town(name: "London", founded: 50, county: middlesex)
-        let liverpool = Town(name: "Liverpool", founded: 1207, county: lancashire, foundedBy: aff)
+        let london = Town(name: "London", founded: 50, countyID: middlesex.id)
+        let liverpool = Town(name: "Liverpool", founded: 1207, countyID: lancashire.id, foundedByID: aff.id)
         game = GameEngine(year: 1205, month: 1)
 
         for _ in 1...20 {
@@ -275,7 +275,7 @@ final class LocationTests: XCTestCase {
         // Then Disasterville is no longer part of the available locations
         // And its inhabitants have relocated to other parts of the county
         game = GameEngine(year: 1514, month: 1)
-        let disaster = Town(name: "DisasterVille", founded: 1000, county: middlesex, abandoned: 1515)
+        let disaster = Town(name: "DisasterVille", founded: 1000, countyID: middlesex.id, abandoned: 1515)
         for _ in 1...20 {
             let person = await Person(name: "Unlucky", dateOfBirth: game.generateDate(year: 2020), gender: .male, game: game)
             person.location = disaster
@@ -311,7 +311,7 @@ final class LocationTests: XCTestCase {
         let killedInBattle = Injury(name: "Killed In Battle")
         roman.dislikedAffiliations = [cantiaci]
         roman.conversionAffiliation = "Romano British"
-        var canterbury = Town(name: "Canterbury", founded: 0, county: County(name: "Kent", region: Region(name: "South East")))
+        var canterbury = Town(name: "Canterbury", founded: 0, countyID: County(name: "Kent", regionID: Region(name: "South East").id).id)
         canterbury.foundedBy = cantiaci
         canterbury.ruler = cantiaci
         canterbury.rulers[43] = roman
@@ -344,7 +344,7 @@ final class LocationTests: XCTestCase {
         // And the Romans like the Atrebates
         // When the Romans start to take over
         // Then it's not hostile and killed in battle injury is not added
-        var silchester = Town(name: "silchester", founded: 0, county: County(name: "Random", region: Region(name: "Random")))
+        var silchester = Town(name: "silchester", founded: 0, countyID: County(name: "Random", regionID: Region(name: "Random").id).id)
         let atrebates = Affiliation(name: "Atrebates")
         roman.likedAffiliations = [atrebates]
         silchester.ruler = atrebates
@@ -359,7 +359,7 @@ final class LocationTests: XCTestCase {
         // Given NewTown has just been founded
         // When looking at the list of built infrastructure
         // Then there are no public buildings
-        let newTown = Town(name: "NewTown", founded: 0, county: County(name: "NewCounty", region: Region(name: "NewRegion")))
+        let newTown = Town(name: "NewTown", founded: 0, countyID: County(name: "NewCounty", regionID: Region(name: "NewRegion").id).id)
 
         XCTAssertTrue(newTown.infrastructure.count == 0, "Somehow NewTown has infrastructure")
 
